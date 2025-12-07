@@ -9,8 +9,8 @@ concept TrivialType = std::is_trivial_v<T>;
 template<TrivialType T>
 struct Vector2x
 {
-    T x;
-    T y;
+    T x{};
+    T y{};
 };
 
 using Vector2f = Vector2x<float>;
@@ -20,11 +20,13 @@ class Entity
 {
 protected:
     Vector2i size{10, 10};
+    Vector2f position{100.f, 100.f};
 
 public:
     virtual ~Entity() = default;
-    Vector2f position{100.f, 100.f};
+    Entity(const Vector2i& size_, const Vector2f& position_);
     
-    inline Vector2i GetSize() const { return this->size; } ;
-    virtual void Control();
+    Vector2f GetPosition() const;
+    Vector2i GetSize() const;
+    //virtual void Control();
 };
