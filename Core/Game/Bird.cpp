@@ -1,6 +1,6 @@
 #include "Bird.hpp"
 
-Bird::Bird(const Vector2u& size_, const Vector2f& position_)
+Bird::Bird(const Utils::Vector2u& size_, const Utils::Vector2f& position_)
     : Moveable(size_, position_)
 {};
 

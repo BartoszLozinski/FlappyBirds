@@ -13,8 +13,10 @@ set(OPTIMIZATION_LEVEL  -Og)
 add_executable(${PROJECT_NAME}  main.cpp)
 
 add_subdirectory(Core/Game)
+add_subdirectory(Core/Graphics)
 
 target_link_libraries(${PROJECT_NAME}   PRIVATE     Game
+                                                    Graphics
 )
 
 target_compile_options(${PROJECT_NAME}  PRIVATE     ${FLAGS}    ${OPTIMIZATION_LEVEL})

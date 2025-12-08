@@ -5,6 +5,6 @@ class Bird : public Moveable
 {
 protected:
 public:
-    Bird(const Vector2u& size_, const Vector2f& position_);
+    Bird(const Utils::Vector2u& size_, const Utils::Vector2f& position_);
     void Control() override;
 };
