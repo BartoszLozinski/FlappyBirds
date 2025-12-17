@@ -1,13 +1,13 @@
-#include <Game/Bird.hpp>
+#include "Game/GameConfig.hpp"
+#include "Game/Timer.hpp"
+#include "Game/Bird.hpp"
 
-#include <Graphics/Circle.hpp>
+#include "Graphics/Circle.hpp"
+#include "Graphics/KeyboardController.hpp"
 
 #include <iostream>
 #include <format>
 #include <memory>
-
-static constexpr int WINDOW_WIDTH = 800;
-static constexpr int WINDOW_HEIGHT = 600;
 
 int main()
 {
@@ -15,11 +15,11 @@ int main()
 
     Circle circle(bird);
 
-    sf::RenderWindow window{sf::VideoMode{WINDOW_WIDTH, WINDOW_HEIGHT}, "Window"};
+    sf::RenderWindow window{sf::VideoMode{GameConfig::WINDOW_WIDTH, GameConfig::WINDOW_HEIGHT}, "Window"};
 
-    std::cout << "Init program\n";
-    std::cout << std::format("Bird position: ({}, {})\n", bird->GetPosition().x, bird->GetPosition().y); 
-    std::cout << std::format("Bird size: ({}, {})\n", bird->GetSize().x, bird->GetSize().y);
+    KeyboardController keyboardController;
+
+    Timer frameTimer{1000 / 60};
 
     while (window.isOpen())
     {
@@ -30,9 +30,23 @@ int main()
                 window.close();
         }
 
-        window.clear();
-        circle.Draw(window);
-        window.display();
+        const auto currentControlOption = keyboardController.GetControlOption();
+        bird->Control(currentControlOption);
+
+        //std::cout << std::format("Time elapsed: {}\n", frameTimer.TimeElapsed());
+
+        if (frameTimer.IsExpired())
+        {
+            //std::cout << std::format("Bird position: ({}, {})\n", bird->GetPosition().x, bird->GetPosition().y);
+            window.clear();
+
+            bird->UpdateState();
+            circle.UpdatePosition();
+            circle.Draw(window);
+
+            window.display();
+            frameTimer.Reset();
+        }
 
     }
 
