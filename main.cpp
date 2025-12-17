@@ -46,6 +46,7 @@ int main()
 
             window.display();
             frameTimer.Reset();
+            keyboardController.ResetState();
         }
 
     }

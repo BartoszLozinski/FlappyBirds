@@ -1,12 +1,16 @@
 set(target_name Game)
 
-set(${target_name}_src  Entity.cpp
+set(${target_name}_src  Timer.cpp
+                        Entity.cpp
                         Moveable.cpp
-                        Bird.cpp)
+                        Bird.cpp
+                        Pipes.cpp)
 
-set(${target_name}_hpp  Entity.hpp
+set(${target_name}_hpp  Timer.hpp
+                        Entity.hpp
                         Moveable.hpp
-                        Bird.hpp)
+                        Bird.hpp
+                        Pipes.hpp)
 
 add_library(${target_name}  STATIC)
 

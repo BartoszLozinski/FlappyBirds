@@ -16,6 +16,13 @@ void Circle::Init()
     shape->setFillColor(sf::Color::Magenta);
 };
 
+/*
+void Circle::UpdatePosition()
+{
+    const auto& entityPosition = entity->GetPosition();
+    shape->setPosition(entityPosition.x, entityPosition.y);
+}
+*/
 void Circle::Draw(sf::RenderWindow& window) const
 {
     window.draw(*shape);
