@@ -11,9 +11,9 @@ protected:
 
 public:
     ShapeRenderable() = delete;
-    ShapeRenderable(std::shared_ptr<Entity> entity_);
+    ShapeRenderable(const Entity& entity_);
     virtual ~ShapeRenderable() = default;
 
-    virtual void UpdatePosition() override;
+    virtual void UpdatePosition() override final;
 
 };

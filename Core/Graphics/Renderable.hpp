@@ -8,11 +8,11 @@
 class Renderable
 {
 protected:
-    std::shared_ptr<Entity> entity = nullptr;
+    const Entity& entity;
 
 public:
     Renderable() = delete;
-    Renderable(std::shared_ptr<Entity> entity_);
+    Renderable(const Entity& entity_);
     virtual ~Renderable() = default;
 
     virtual void UpdatePosition() = 0;

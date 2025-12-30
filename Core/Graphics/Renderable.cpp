@@ -1,5 +1,5 @@
 #include "Renderable.hpp"
 
-Renderable::Renderable(std::shared_ptr<Entity> entity_)
+Renderable::Renderable(const Entity& entity_)
     : entity(entity_)
 {};

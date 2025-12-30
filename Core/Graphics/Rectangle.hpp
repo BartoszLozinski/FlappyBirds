@@ -2,16 +2,16 @@
 
 #include "ShapeRenderable.hpp"
 
-class Circle : public ShapeRenderable
+class Rectangle : public ShapeRenderable
 {
 protected:
     void Init() override final;
     
 
 public:
-    Circle() = delete;
-    ~Circle() = default;
-    Circle(const Entity& entity_);
+    Rectangle() = delete;
+    ~Rectangle() = default;
+    Rectangle(const Entity& entity_);
 
     void Draw(sf::RenderWindow& window) const override;
 };

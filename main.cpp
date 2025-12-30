@@ -1,8 +1,10 @@
 #include "Game/GameConfig.hpp"
 #include "Game/Timer.hpp"
 #include "Game/Bird.hpp"
+#include "Game/Pipes.hpp"
 
 #include "Graphics/Circle.hpp"
+#include "Graphics/Rectangle.hpp"
 #include "Graphics/KeyboardController.hpp"
 
 #include <iostream>
@@ -11,7 +13,8 @@
 
 int main()
 {
-    auto bird = std::make_shared<Bird>(Utils::Vector2u{10, 20}, Utils::Vector2f{200, 300});
+    Bird bird{ Utils::Vector2u{10, 20}, Utils::Vector2f{200, 300} };
+    [[maybe_unused]] auto pipes = std::make_shared<Game::Pipes>();
 
     Circle circle(bird);
 
@@ -31,7 +34,7 @@ int main()
         }
 
         const auto currentControlOption = keyboardController.GetControlOption();
-        bird->Control(currentControlOption);
+        bird.Control(currentControlOption);
 
         //std::cout << std::format("Time elapsed: {}\n", frameTimer.TimeElapsed());
 
@@ -40,7 +43,7 @@ int main()
             //std::cout << std::format("Bird position: ({}, {})\n", bird->GetPosition().x, bird->GetPosition().y);
             window.clear();
 
-            bird->UpdateState();
+            bird.UpdateState();
             circle.UpdatePosition();
             circle.Draw(window);
 
