@@ -5,7 +5,7 @@
 class ShapeRenderable : public Renderable
 {
 protected:
-    std::unique_ptr<sf::Shape> shape = nullptr;
+    std::shared_ptr<sf::Shape> shape = nullptr;
     
     virtual void Init() = 0;
 

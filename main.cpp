@@ -4,7 +4,7 @@
 #include "Game/Pipes.hpp"
 
 #include "Graphics/Circle.hpp"
-#include "Graphics/Rectangle.hpp"
+#include "Graphics/Pipes.hpp"
 #include "Graphics/KeyboardController.hpp"
 
 #include <iostream>
@@ -14,9 +14,10 @@
 int main()
 {
     Bird bird{ Utils::Vector2u{10, 20}, Utils::Vector2f{200, 300} };
-    [[maybe_unused]] auto pipes = std::make_shared<Game::Pipes>();
+    [[maybe_unused]] Game::Pipes pipes{};
 
     Circle circle(bird);
+    Graphics::Pipes renderablePipes{pipes};
 
     sf::RenderWindow window{sf::VideoMode{GameConfig::WINDOW_WIDTH, GameConfig::WINDOW_HEIGHT}, "Window"};
 
@@ -44,7 +45,12 @@ int main()
             window.clear();
 
             bird.UpdateState();
+            pipes.UpdateState();
+
+            renderablePipes.UpdatePosition();
             circle.UpdatePosition();
+
+            renderablePipes.Draw(window);
             circle.Draw(window);
 
             window.display();

@@ -10,10 +10,11 @@ namespace Graphics
     private:
         const Game::Pipes& pipes;
         std::array<Rectangle, 2> pipesRenderable;
-        void UpdatePosition();
 
     public:
         Pipes(const Game::Pipes& pipes_);
-
+        
+        void UpdatePosition();
+        void Draw(sf::RenderWindow& window) const;
     };
 }

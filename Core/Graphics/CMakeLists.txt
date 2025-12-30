@@ -4,13 +4,8 @@ set(${target_name}_src  Renderable.cpp
                         ShapeRenderable.cpp
                         Circle.cpp
                         Rectangle.cpp
+                        Pipes.cpp
                         KeyboardController.cpp)
-
-set(${target_name}_hpp  Renderable.hpp
-                        ShapeRenderable.hpp
-                        Circle.hpp
-                        Rectangle.hpp
-                        KeyboardController.hpp)
 
 set(SFML_LIB    sfml-graphics
                 sfml-window
