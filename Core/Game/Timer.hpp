@@ -11,7 +11,6 @@ private:
     clock::time_point startTime = clock::now();
     int64_t period = 0;
 
-
 public:
     Timer() = delete;
     Timer(const int64_t period_);

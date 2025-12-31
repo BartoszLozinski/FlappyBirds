@@ -2,10 +2,10 @@
 
 namespace Graphics
 {
-    Pipes::Pipes(const Game::Pipes& pipes_)
-        : pipes(pipes_)
-        , pipesRenderable( { Rectangle{ pipes.GetPipes()[0] }
-                           , Rectangle{ pipes.GetPipes()[1] }})
+    Pipes::Pipes(const Game::Pipes& pipesSegment_)
+        : pipesSegment(pipesSegment_)
+        , pipesRenderable( { Rectangle{ pipesSegment.GetPipesSegment()[0] }
+                           , Rectangle{ pipesSegment.GetPipesSegment()[1] }})
         {}
 
     void Pipes::UpdatePosition()

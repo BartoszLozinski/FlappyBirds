@@ -26,26 +26,37 @@ namespace Game
         this->position = position_;
     }
 
-    void Pipe::ResetPosition(const bool movedOutOfTheWindow)
+    void Pipe::ResetPosition(const bool movedOutOfTheWindow, const float xPosition)
     {
         if (movedOutOfTheWindow)
         {
-            static constexpr float distanceOverlap = 10.f;
-            position.x = GameConfig::WINDOW_WIDTH + distanceOverlap;
+            position.x = xPosition;
         }
     }
 
     /////////////////////////////////////////////////////////////////////////////
 
+    /*
     Pipes::Pipes()
-        : pipes({Pipe{{horizontalSize, verticalSize}, {GameConfig::WINDOW_WIDTH, outOfWindowOverlap}}, Pipe{{horizontalSize, verticalSize}, {GameConfig::WINDOW_WIDTH, outOfWindowOverlap + verticalSize + verticalDistanceBetweenPipes}}})
+        : pipesSegment({Pipe{{horizontalSize, verticalSize}, {GameConfig::WINDOW_WIDTH, outOfWindowOverlap}}, Pipe{{horizontalSize, verticalSize}, {GameConfig::WINDOW_WIDTH, outOfWindowOverlap + verticalSize + verticalDistanceBetweenPipes}}})
+    {
+        VerticalShift();
+    };
+    */
+
+    Pipes::Pipes(const float xPosition)
+        : pipesSegment({Pipe{{horizontalSize, verticalSize}, {xPosition, outOfWindowOverlap}}, Pipe{{horizontalSize, verticalSize}, {xPosition, outOfWindowOverlap + verticalSize + verticalDistanceBetweenPipes}}})
     {
         VerticalShift();
     };
 
+    Pipes::Pipes()
+        : Pipes(static_cast<float>(GameConfig::WINDOW_WIDTH))
+    {};
+
     void Pipes::UpdateState()
     {
-        for (auto& pipe : pipes)
+        for (auto& pipe : pipesSegment)
         {
             pipe.Move();
         }
@@ -58,12 +69,57 @@ namespace Game
     
         const float verticalShift = Utils::RandomGenerator{minVerticalShift, maxVerticalShift}.Generate();
 
-        pipes[0].SetPosition({ pipes[0].GetPosition().x, pipes[0].GetPosition().y + verticalShift });
-        pipes[1].SetPosition({ pipes[1].GetPosition().x, pipes[1].GetPosition().y + verticalShift });
+        pipesSegment[0].SetPosition({ pipesSegment[0].GetPosition().x, outOfWindowOverlap + verticalShift });
+        pipesSegment[1].SetPosition({ pipesSegment[1].GetPosition().x, outOfWindowOverlap + verticalSize + verticalDistanceBetweenPipes + verticalShift });
     }
 
-    std::span<const Pipe> Pipes::GetPipes() const
+    void Pipes::ResetPosition(const bool movedOutOfTheWindow, const float xPosition)
     {
-        return this->pipes;
+        for (auto& pipe : pipesSegment)
+        {
+            pipe.ResetPosition(movedOutOfTheWindow, xPosition);
+            VerticalShift();
+        }
     }
+
+    std::span<const Pipe> Pipes::GetPipesSegment() const
+    {
+        return this->pipesSegment;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    
+    PipesManager::PipesManager()
+    {
+        static constexpr int initialCapacity = 10;
+        pipes.reserve(initialCapacity);
+
+        pipes.push_back(std::make_unique<Pipes>());
+
+        for (int i = 1; i < initialCapacity; i++)
+            pipes.push_back(std::make_unique<Pipes>( pipes[i - 1]->GetPipesSegment()[0].GetPosition().x + horizontalDistanceBetweenPipes ));
+    }
+
+    void PipesManager::UpdateState()
+    {
+        float theFurthestPipePositionX = pipes[0]->GetPipesSegment()[0].GetPosition().x;
+        
+        for (auto& pipeSegment : pipes)
+        {
+            pipeSegment->UpdateState();
+
+            if (theFurthestPipePositionX < pipeSegment->GetPipesSegment()[0].GetPosition().x)
+                theFurthestPipePositionX = pipeSegment->GetPipesSegment()[0].GetPosition().x;
+        }
+
+        for (auto& pipeSegment : pipes)
+        {
+            const bool movedOutOfTheWindow = pipeSegment->GetPipesSegment()[0].MovedOutOfTheWindow();
+            if (movedOutOfTheWindow)
+                theFurthestPipePositionX += pipeSegment->GetPipesSegment()[0].GetSize().x + horizontalDistanceBetweenPipes;
+            
+            pipeSegment->ResetPosition(movedOutOfTheWindow, theFurthestPipePositionX);
+        }
+    }
+
 }

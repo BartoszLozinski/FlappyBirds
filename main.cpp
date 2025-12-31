@@ -37,11 +37,8 @@ int main()
         const auto currentControlOption = keyboardController.GetControlOption();
         bird.Control(currentControlOption);
 
-        //std::cout << std::format("Time elapsed: {}\n", frameTimer.TimeElapsed());
-
         if (frameTimer.IsExpired())
         {
-            //std::cout << std::format("Bird position: ({}, {})\n", bird->GetPosition().x, bird->GetPosition().y);
             window.clear();
 
             bird.UpdateState();
