@@ -21,6 +21,11 @@ namespace Game
         return false;
     }
 
+    void Pipe::SetPosition(const Utils::Vector2f& position_)
+    {
+        this->position = position_;
+    }
+
     void Pipe::ResetPosition(const bool movedOutOfTheWindow)
     {
         if (movedOutOfTheWindow)
@@ -30,12 +35,13 @@ namespace Game
         }
     }
 
-
     /////////////////////////////////////////////////////////////////////////////
 
     Pipes::Pipes()
         : pipes({Pipe{{horizontalSize, verticalSize}, {GameConfig::WINDOW_WIDTH, outOfWindowOverlap}}, Pipe{{horizontalSize, verticalSize}, {GameConfig::WINDOW_WIDTH, outOfWindowOverlap + verticalSize + verticalDistanceBetweenPipes}}})
-    {};
+    {
+        VerticalShift();
+    };
 
     void Pipes::UpdateState()
     {
@@ -43,6 +49,17 @@ namespace Game
         {
             pipe.Move();
         }
+    }
+
+    void Pipes::VerticalShift()
+    {
+        static constexpr float minVerticalShift = -150;
+        static constexpr float maxVerticalShift = 150;
+    
+        const float verticalShift = Utils::RandomGenerator{minVerticalShift, maxVerticalShift}.Generate();
+
+        pipes[0].SetPosition({ pipes[0].GetPosition().x, pipes[0].GetPosition().y + verticalShift });
+        pipes[1].SetPosition({ pipes[1].GetPosition().x, pipes[1].GetPosition().y + verticalShift });
     }
 
     std::span<const Pipe> Pipes::GetPipes() const
