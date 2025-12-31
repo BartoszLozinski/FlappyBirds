@@ -14,10 +14,12 @@
 int main()
 {
     Bird bird{ Utils::Vector2u{10, 20}, Utils::Vector2f{200, 300} };
-    [[maybe_unused]] Game::Pipes pipes{};
+    //[[maybe_unused]] Game::Pipes pipes{};
+    Game::PipesManager gamePipesManager{};
 
     Circle circle(bird);
-    Graphics::Pipes renderablePipes{pipes};
+    Graphics::PipesManager renderablePipes{gamePipesManager};
+    //Graphics::Pipes renderablePipes{pipes};
 
     sf::RenderWindow window{sf::VideoMode{GameConfig::WINDOW_WIDTH, GameConfig::WINDOW_HEIGHT}, "Window"};
 
@@ -42,7 +44,7 @@ int main()
             window.clear();
 
             bird.UpdateState();
-            pipes.UpdateState();
+            gamePipesManager.UpdateState();
 
             renderablePipes.UpdatePosition();
             circle.UpdatePosition();

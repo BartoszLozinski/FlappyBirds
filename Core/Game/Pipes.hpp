@@ -28,7 +28,7 @@ namespace Game
         static constexpr int verticalDistanceBetweenPipes = 200;
         static constexpr unsigned horizontalSize = 80;
         static constexpr unsigned verticalSize = 500;
-        static constexpr int outOfWindowOverlap = -100;
+        static constexpr int outOfWindowOverlap = -50;
 
         std::array<Pipe, 2> pipesSegment;
 
@@ -53,7 +53,7 @@ namespace Game
     class PipesManager
     {
     private:
-        static constexpr int horizontalDistanceBetweenPipes = 400;
+        static constexpr int horizontalDistanceBetweenPipes = 200;
         std::vector<std::unique_ptr<Pipes>> pipes;
 
     public: 
@@ -66,5 +66,6 @@ namespace Game
         PipesManager& operator=(PipesManager&&) = delete;
 
         void UpdateState();
+        std::span<const std::unique_ptr<Pipes>> GetPipes() const;
     };
 }

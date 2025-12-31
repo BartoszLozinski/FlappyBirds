@@ -36,14 +36,6 @@ namespace Game
 
     /////////////////////////////////////////////////////////////////////////////
 
-    /*
-    Pipes::Pipes()
-        : pipesSegment({Pipe{{horizontalSize, verticalSize}, {GameConfig::WINDOW_WIDTH, outOfWindowOverlap}}, Pipe{{horizontalSize, verticalSize}, {GameConfig::WINDOW_WIDTH, outOfWindowOverlap + verticalSize + verticalDistanceBetweenPipes}}})
-    {
-        VerticalShift();
-    };
-    */
-
     Pipes::Pipes(const float xPosition)
         : pipesSegment({Pipe{{horizontalSize, verticalSize}, {xPosition, outOfWindowOverlap}}, Pipe{{horizontalSize, verticalSize}, {xPosition, outOfWindowOverlap + verticalSize + verticalDistanceBetweenPipes}}})
     {
@@ -78,7 +70,8 @@ namespace Game
         for (auto& pipe : pipesSegment)
         {
             pipe.ResetPosition(movedOutOfTheWindow, xPosition);
-            VerticalShift();
+            if (movedOutOfTheWindow)
+                VerticalShift();
         }
     }
 
@@ -97,7 +90,9 @@ namespace Game
         pipes.push_back(std::make_unique<Pipes>());
 
         for (int i = 1; i < initialCapacity; i++)
-            pipes.push_back(std::make_unique<Pipes>( pipes[i - 1]->GetPipesSegment()[0].GetPosition().x + horizontalDistanceBetweenPipes ));
+            pipes.push_back(std::make_unique<Pipes>( pipes[i - 1]->GetPipesSegment()[0].GetPosition().x 
+                                                   + pipes[i - 1]->GetPipesSegment()[0].GetSize().x
+                                                   + horizontalDistanceBetweenPipes ));
     }
 
     void PipesManager::UpdateState()
@@ -122,4 +117,8 @@ namespace Game
         }
     }
 
+    std::span<const std::unique_ptr<Pipes>> PipesManager::GetPipes() const
+    {
+        return this->pipes;
+    }
 }

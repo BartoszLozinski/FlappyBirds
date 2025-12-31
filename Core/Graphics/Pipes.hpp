@@ -17,4 +17,17 @@ namespace Graphics
         void UpdatePosition();
         void Draw(sf::RenderWindow& window) const;
     };
+
+    class PipesManager
+    {
+    private:
+        const Game::PipesManager& pipesManager;
+        std::vector<Graphics::Pipes> pipesRenderable;
+
+    public:
+        PipesManager(const Game::PipesManager& pipesManager_);
+        void UpdatePosition();
+        void Draw(sf::RenderWindow& window) const;
+    
+    };
 }
