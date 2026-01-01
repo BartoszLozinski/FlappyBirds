@@ -4,13 +4,15 @@ set(${target_name}_src  Timer.cpp
                         Entity.cpp
                         Moveable.cpp
                         Bird.cpp
-                        Pipes.cpp)
+                        Pipes.cpp
+                        Collision.cpp)
 
 set(${target_name}_hpp  Timer.hpp
                         Entity.hpp
                         Moveable.hpp
                         Bird.hpp
-                        Pipes.hpp)
+                        Pipes.hpp
+                        Collision.hpp)
 
 add_library(${target_name}  STATIC)
 
