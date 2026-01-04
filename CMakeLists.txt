@@ -14,10 +14,12 @@ add_executable(${PROJECT_NAME}  main.cpp)
 
 add_subdirectory(Core/Game)
 add_subdirectory(Core/Graphics)
+add_subdirectory(Core/Gameplay)
 add_subdirectory(Core/Tests)
 
 target_link_libraries(${PROJECT_NAME}   PRIVATE     Game
                                                     Graphics
+                                                    Gameplay
 )
 
 target_compile_options(${PROJECT_NAME}  PRIVATE     ${FLAGS}    ${OPTIMIZATION_LEVEL})
