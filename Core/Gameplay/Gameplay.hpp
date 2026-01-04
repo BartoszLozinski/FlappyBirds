@@ -21,13 +21,14 @@ private:
     Graphics::PipesManager renderablePipes{pipesManager};
     sf::RenderWindow window{sf::VideoMode{GameConfig::WINDOW_WIDTH, GameConfig::WINDOW_HEIGHT}, "Flappy Birds"};
     KeyboardController keyboardController{};
-
-    [[maybe_unused]] unsigned points = 0;
-
+    unsigned points = 0;
 
     float CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const;
+    float CalculateXDsitance(const Game::Pipes& pipes) const;
     Game::Pipes& GetClosestPipes() const;
-    //bool BirdPassed() const;
+    void UpdateState();
+    void UpdatePoints(const Utils::Vector2f& closestPipesPositionBeforeUpdateState, const Game::Pipes& closestPipes);
+    void Display();
 
 public:
     void Run();

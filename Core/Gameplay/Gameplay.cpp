@@ -1,9 +1,17 @@
 #include "Gameplay.hpp"
 
+#include <assert.h>
+
 
 float Gameplay::CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const
 {
     const float pipesXPosition = pipes->GetPipesSegment().begin()->GetPosition().x;
+    return pipesXPosition - bird.GetPosition().x;
+}
+
+float Gameplay::CalculateXDsitance(const Game::Pipes& pipes) const
+{
+    const float pipesXPosition = pipes.GetPipesSegment().begin()->GetPosition().x;
     return pipesXPosition - bird.GetPosition().x;
 }
 
@@ -26,7 +34,31 @@ Game::Pipes& Gameplay::GetClosestPipes() const
         currentPipe++;
     }
 
+    assert(closestPipes != pipes.end());
     return *closestPipes->get();
+}
+
+void Gameplay::UpdateState()
+{
+    bird.UpdateState();
+    pipesManager.UpdateState();
+    renderablePipes.UpdatePosition();
+    renderableBird.UpdatePosition();
+}
+
+void Gameplay::UpdatePoints(const Utils::Vector2f& closestPipesPositionBeforeUpdateState, const Game::Pipes& closestPipes)
+{
+    const auto birdPosition = bird.GetPosition();
+    if (closestPipesPositionBeforeUpdateState.x >= birdPosition.x && CalculateXDsitance(closestPipes) <= 0.0f)
+        points++;
+}
+
+void Gameplay::Display()
+{
+    window.clear();
+    renderablePipes.Draw(window);
+    renderableBird.Draw(window);
+    window.display();
 }
 
 void Gameplay::Run()
@@ -45,18 +77,14 @@ void Gameplay::Run()
 
         if (frameTimer.IsExpired())
         {
-            window.clear();
+            const auto& closestPipes = GetClosestPipes();
+            const auto closestPipesPositionBeforeUpdateState = closestPipes.GetPipesSegment()[0].GetPosition();
 
-            bird.UpdateState();
-            pipesManager.UpdateState();
+            UpdateState();
+            UpdatePoints(closestPipesPositionBeforeUpdateState, closestPipes);
 
-            renderablePipes.UpdatePosition();
-            renderableBird.UpdatePosition();
+            Display();
 
-            renderablePipes.Draw(window);
-            renderableBird.Draw(window);
-
-            window.display();
             frameTimer.Reset();
             keyboardController.ResetState();
         }
