@@ -9,10 +9,13 @@ protected:
     Timer jumpTimer{200};
     void ApplyGravity();
     ControlOption currentControlOption = ControlOption::None;
+    bool isAlive = true;
+    void SetVelocity(const Utils::Vector2f& velocity_);
 
 public:
     Bird(const Utils::Vector2u& size_, const Utils::Vector2f& position_);
     void Control(const ControlOption controlOption);
     void UpdateState() override;
-    void SetVelocity(const Utils::Vector2f& velocity_);
+    [[nodiscard]] bool IsAlive() const;
+    void Kill();
 };

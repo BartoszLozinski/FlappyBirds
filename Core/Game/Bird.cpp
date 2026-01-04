@@ -16,11 +16,6 @@ void Bird::Control(const ControlOption controlOption)
         currentControlOption = controlOption;
 }
 
-void Bird::SetVelocity(const Utils::Vector2f& velocity_)
-{
-    this->velocity = velocity_;
-}
-
 void Bird::UpdateState()
 {
     if (currentControlOption == ControlOption::Jump && jumpTimer.IsExpired())
@@ -37,4 +32,14 @@ void Bird::UpdateState()
     ApplyGravity();
     Move();
     currentControlOption = ControlOption::None;        
+}
+
+bool Bird::IsAlive() const
+{
+    return this->isAlive;
+}
+
+void Bird::Kill()
+{
+    isAlive = false;
 }
