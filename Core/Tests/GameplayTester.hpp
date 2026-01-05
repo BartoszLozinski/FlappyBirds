@@ -2,9 +2,9 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "Gameplay/Gameplay.hpp"
+#include "Gameplay/CoreGameplay.hpp"
 
-class GameplayDummy : public Gameplay
+class GameplayDummy : public CoreGameplay
 {
 public:
     void UpdatePointsAPI(const Utils::Vector2f& closestPipesPositionBeforeUpdateState, const Game::Pipes& closestPipes)
