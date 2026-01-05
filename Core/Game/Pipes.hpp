@@ -29,13 +29,9 @@ namespace Game
         static constexpr unsigned horizontalSize = 80;
         static constexpr unsigned verticalSize = 500;
         static constexpr int outOfWindowOverlap = -50;
-        bool birdPassed = false;
-
         std::array<Pipe, 2> pipesSegment;
 
         void VerticalShift();
-
-
     public:
         Pipes();
         Pipes(const float xPosition);
@@ -47,10 +43,7 @@ namespace Game
 
         void UpdateState();
         std::span<const Pipe> GetPipesSegment() const;
-        [[nodiscard]] bool BirdPassed() const;
-        void SetBirdPassed();
         void ResetPosition(const bool movedOutOfTheWindow, const float xPosition);
-        void ResetBirdPassed();
     };
 
     ///////////////////////////////////////////////////////////////////////

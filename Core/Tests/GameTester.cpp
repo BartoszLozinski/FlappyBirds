@@ -1,5 +1,6 @@
 #include "BirdTester.hpp"
 #include "CollisionTester.hpp"
+#include "GameplayTester.hpp"
 
 int main(int argc, char** argv)
 {

@@ -121,20 +121,4 @@ namespace Game
     {
         return this->pipes;
     }
-
-    bool Pipes::BirdPassed() const
-    {
-        return birdPassed;
-    }
-
-    void Pipes::SetBirdPassed()
-    {
-        birdPassed = true;
-    }
-
-    void Pipes::ResetBirdPassed()
-    {
-        birdPassed = false;
-    }
-
 }

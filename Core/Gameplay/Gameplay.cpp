@@ -38,6 +38,11 @@ Game::Pipes& Gameplay::GetClosestPipes() const
     return *closestPipes->get();
 }
 
+unsigned Gameplay::GetPoints() const
+{
+    return points;
+}
+
 void Gameplay::UpdateState()
 {
     bird.UpdateState();
