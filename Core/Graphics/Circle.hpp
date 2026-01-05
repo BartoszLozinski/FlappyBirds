@@ -7,7 +7,6 @@ class Circle : public ShapeRenderable
 protected:
     void Init() override final;
     
-
 public:
     Circle() = delete;
     ~Circle() = default;
