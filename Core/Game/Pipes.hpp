@@ -55,7 +55,6 @@ namespace Game
         std::vector<std::unique_ptr<Pipes>> pipes;
 
     public: 
-
         PipesManager();
         ~PipesManager() = default;
         PipesManager(const PipesManager&) = delete;

@@ -1,6 +1,11 @@
 #include "CoreGameplay.hpp"
 
 #include <assert.h>
+#include <algorithm>
+#include <ranges>
+#include <functional>
+
+#include "Game/Collision.hpp"
 
 float CoreGameplay::CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const
 {
@@ -19,7 +24,7 @@ bool CoreGameplay::FrameTimeExpired() const
     return frameTimeExpired;
 }
 
-Game::Pipes& CoreGameplay::GetClosestPipes() const
+const Game::Pipes& CoreGameplay::GetClosestPipes() const
 {
     const auto& pipes = pipesManager.GetPipes();
     auto closestPipes = pipes.end();
@@ -40,6 +45,28 @@ Game::Pipes& CoreGameplay::GetClosestPipes() const
 
     assert(closestPipes != pipes.end());
     return *closestPipes->get();
+}
+
+std::optional<std::reference_wrapper<const Game::Pipes>> CoreGameplay::GetClosestPipesBehind() const
+{
+    const auto& pipes = pipesManager.GetPipes();
+    auto closestPipes = pipes.end();
+
+    for (auto currentPipe = pipes.begin(); currentPipe != pipes.end(); currentPipe++)
+    {
+        const float xDistance = CalculateXDsitance(*currentPipe);
+
+        if (xDistance <= 0 &&
+            (closestPipes == pipes.end() || xDistance > CalculateXDsitance(*closestPipes)))
+        {
+            closestPipes = currentPipe;
+        }
+    }
+
+    if (closestPipes == pipes.end())
+        return std::nullopt;
+    else
+        return std::make_optional(std::ref(*closestPipes->get()));
 }
 
 unsigned CoreGameplay::GetPoints() const
@@ -67,13 +94,33 @@ void CoreGameplay::RunFrame(const ControlOption controlOption)
 
     if (frameTimer.IsExpired())
     {
-        const auto& closestPipes = GetClosestPipes();
-        const auto closestPipesPositionBeforeUpdateState = closestPipes.GetPipesSegment()[0].GetPosition();
+        const auto closestPipesPositionBeforeUpdateState = GetClosestPipes().GetPipesSegment()[0].GetPosition();
 
         UpdateState();
+        const auto& closestPipes = GetClosestPipes();
+        if (CheckCollision(GetClosestPipesBehind(), closestPipes))
+            bird.Kill();
+
         UpdatePoints(closestPipesPositionBeforeUpdateState, closestPipes);
 
         frameTimer.Reset();
         frameTimeExpired = true;
     }
+}
+
+bool CoreGameplay::CheckCollisionWithPipesSegment(const Game::Pipes& pipes) const
+{
+    return std::ranges::any_of(pipes.GetPipesSegment(), [&](const auto& pipe)
+        { 
+            return Collision::AABB(bird, pipe);
+        });
+}
+
+bool CoreGameplay::CheckCollision(std::optional<std::reference_wrapper<const Game::Pipes>> pipesBehind, const Game::Pipes& pipesInFront) const
+{
+    bool result = CheckCollisionWithPipesSegment(pipesInFront);
+    if (pipesBehind)
+        result |= CheckCollisionWithPipesSegment(pipesBehind->get());
+   
+    return result;
 }
