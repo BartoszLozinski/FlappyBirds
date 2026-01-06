@@ -19,7 +19,7 @@ void Bird::Control(const ControlOption controlOption)
 
 void Bird::UpdateState()
 {
-    if (HitWindowBoundaries())
+    if (isAlive && HitWindowBoundaries())
         Kill();
 
     if (isAlive)
