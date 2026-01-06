@@ -2,7 +2,6 @@
 
 #include <assert.h>
 
-
 float CoreGameplay::CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const
 {
     const float pipesXPosition = pipes->GetPipesSegment().begin()->GetPosition().x;
@@ -45,7 +44,7 @@ Game::Pipes& CoreGameplay::GetClosestPipes() const
 
 unsigned CoreGameplay::GetPoints() const
 {
-    return points;
+    return bird.GetPoints();
 }
 
 void CoreGameplay::UpdateState()
@@ -58,7 +57,7 @@ void CoreGameplay::UpdatePoints(const Utils::Vector2f& closestPipesPositionBefor
 {
     const auto birdPosition = bird.GetPosition();
     if (closestPipesPositionBeforeUpdateState.x >= birdPosition.x && CalculateXDsitance(closestPipes) <= 0.0f)
-        points++;
+        ++bird;
 }
 
 void CoreGameplay::RunFrame(const ControlOption controlOption)
@@ -74,10 +73,7 @@ void CoreGameplay::RunFrame(const ControlOption controlOption)
         UpdateState();
         UpdatePoints(closestPipesPositionBeforeUpdateState, closestPipes);
 
-        //Display();
-
         frameTimer.Reset();
         frameTimeExpired = true;
-        //keyboardController.ResetState();
     }
 }

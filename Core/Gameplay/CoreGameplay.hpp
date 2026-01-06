@@ -14,7 +14,6 @@ protected:
     Bird bird{ Utils::Vector2u{20, 20}, Utils::Vector2f{200, 300} };
     Game::PipesManager pipesManager{};
     Timer frameTimer{1000 / 60};
-    unsigned points = 0;
 
     float CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const;
     float CalculateXDsitance(const Game::Pipes& pipes) const;

@@ -43,3 +43,14 @@ void Bird::Kill()
 {
     isAlive = false;
 }
+
+Bird& Bird::operator++()
+{
+    points++;
+    return *this;
+}
+
+unsigned Bird::GetPoints() const
+{
+    return points;
+}
