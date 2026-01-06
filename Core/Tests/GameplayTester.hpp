@@ -7,9 +7,9 @@
 class GameplayDummy : public CoreGameplay
 {
 public:
-    void UpdatePointsAPI(const Utils::Vector2f& closestPipesPositionBeforeUpdateState, const Game::Pipes& closestPipes)
+    void UpdatePointsAPI(std::optional<std::reference_wrapper<Game::Pipes>> closestPipeBehind)
     {
-        UpdatePoints(closestPipesPositionBeforeUpdateState, closestPipes);
+        UpdatePoints(closestPipeBehind);
     }
 };
 
@@ -21,26 +21,39 @@ public:
 
 TEST_F(GameplayFixutre, PointAddedTest)
 {
-    Game::Pipes gamePipes{201.f}; //bird initial position is {200, 300}
+    //bird initial position is {200, 300}
+    auto gamePipes = std::make_optional<std::reference_wrapper<Game::Pipes>>(std::ref(*std::make_unique<Game::Pipes>(199.f)));
     const float initialPoints = gameplayFixture.GetPoints();
-    const Utils::Vector2f initialPipesPosition = gamePipes.GetPipesSegment().begin()->GetPosition();
 
-    gamePipes.UpdateState();
+    gamePipes->get().UpdateState();
     
-    gameplayFixture.UpdatePointsAPI(initialPipesPosition, gamePipes);
+    gameplayFixture.UpdatePointsAPI(gamePipes);
 
     ASSERT_EQ(gameplayFixture.GetPoints(), initialPoints + 1);
 }
 
 TEST_F(GameplayFixutre, PointNotAddedTest)
 {
-    Game::Pipes gamePipes{205.f}; //bird initial position is {200, 300}
-    const float initialPoints = gameplayFixture.GetPoints();
-    const Utils::Vector2f initialPipesPosition = gamePipes.GetPipesSegment().begin()->GetPosition();
+    auto pipesBehind = std::make_optional<std::reference_wrapper<Game::Pipes>>(std::ref(*std::make_unique<Game::Pipes>(205.f)));
 
-    gamePipes.UpdateState();
+    const float initialPoints = gameplayFixture.GetPoints();
+
+    pipesBehind->get().UpdateState();
     
-    gameplayFixture.UpdatePointsAPI(initialPipesPosition, gamePipes);
+    gameplayFixture.UpdatePointsAPI(pipesBehind);
+
+    ASSERT_EQ(gameplayFixture.GetPoints(), initialPoints);
+}
+
+TEST_F(GameplayFixutre, PointNotAddedTestBecauseScored)
+{
+    auto pipesBehind = std::make_optional<std::reference_wrapper<Game::Pipes>>(std::ref(*std::make_unique<Game::Pipes>(199.f)));
+    const float initialPoints = gameplayFixture.GetPoints();
+
+    pipesBehind->get().Score();
+    pipesBehind->get().UpdateState();
+    
+    gameplayFixture.UpdatePointsAPI(pipesBehind);
 
     ASSERT_EQ(gameplayFixture.GetPoints(), initialPoints);
 }

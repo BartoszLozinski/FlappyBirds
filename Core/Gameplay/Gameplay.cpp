@@ -5,6 +5,7 @@ void Gameplay::Display()
     window.clear();
     renderablePipes.Draw(window);
     renderableBird.Draw(window);
+    pointsText.DisplayText(std::format("Points: {}", bird.GetPoints()));
     window.display();
 }
 

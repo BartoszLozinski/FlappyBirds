@@ -6,6 +6,7 @@
 #include "Graphics/Circle.hpp"
 #include "Graphics/Pipes.hpp"
 #include "Graphics/KeyboardController.hpp"
+#include "Graphics/Text.hpp"
 
 class Gameplay : public CoreGameplay
 {
@@ -14,6 +15,7 @@ private:
     Graphics::PipesManager renderablePipes{ pipesManager };
     sf::RenderWindow window{ sf::VideoMode{ GameConfig::WINDOW_WIDTH, GameConfig::WINDOW_HEIGHT }, "Flappy Birds" };
     KeyboardController keyboardController{};
+    Graphics::Text pointsText{ window };
 
     void UpdateRenderableState();
     void Display();

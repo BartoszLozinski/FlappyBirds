@@ -71,13 +71,26 @@ namespace Game
         {
             pipe.ResetPosition(movedOutOfTheWindow, xPosition);
             if (movedOutOfTheWindow)
+            {
                 VerticalShift();
+                isScored = false;
+            }
         }
     }
 
     std::span<const Pipe> Pipes::GetPipesSegment() const
     {
         return this->pipesSegment;
+    }
+
+    bool Pipes::IsScored() const
+    {
+        return isScored;
+    }
+
+    void Pipes::Score()
+    {
+        isScored = true;
     }
 
     //////////////////////////////////////////////////////////////////////////////

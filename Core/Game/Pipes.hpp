@@ -30,6 +30,7 @@ namespace Game
         static constexpr unsigned verticalSize = 500;
         static constexpr int outOfWindowOverlap = -50;
         std::array<Pipe, 2> pipesSegment;
+        bool isScored = false;
 
         void VerticalShift();
     public:
@@ -44,6 +45,8 @@ namespace Game
         void UpdateState();
         std::span<const Pipe> GetPipesSegment() const;
         void ResetPosition(const bool movedOutOfTheWindow, const float xPosition);
+        bool IsScored() const;
+        void Score();
     };
 
     ///////////////////////////////////////////////////////////////////////

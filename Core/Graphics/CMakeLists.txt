@@ -5,7 +5,8 @@ set(${target_name}_src  Renderable.cpp
                         Circle.cpp
                         Rectangle.cpp
                         Pipes.cpp
-                        KeyboardController.cpp)
+                        KeyboardController.cpp
+                        Text.cpp)
 
 set(SFML_LIB    sfml-graphics
                 sfml-window
