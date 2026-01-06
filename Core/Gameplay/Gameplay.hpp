@@ -17,7 +17,6 @@ private:
 
     void UpdateRenderableState();
     void Display();
-
 public:
     void Run();
 };
