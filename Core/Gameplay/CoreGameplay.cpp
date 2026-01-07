@@ -25,25 +25,25 @@ bool CoreGameplay::FrameTimeExpired() const
     return frameTimeExpired;
 }
 
-const Game::Pipes& CoreGameplay::GetClosestPipes() const
+std::optional<std::reference_wrapper<Game::Pipes>> CoreGameplay::GetClosestPipes() const
 {
     const auto& pipes = pipesManager.GetPipes();
-    Game::Pipes* closestPipe = nullptr;
-    float minDistance = std::numeric_limits<float>::max();
+    auto closestPipes = pipes.end();
 
-    for (auto& pipe : pipes)
+    for (auto currentPipes = pipes.begin(); currentPipes != pipes.end(); currentPipes++)
     {
-        const float xDistance = CalculateXDsitance(*pipe);
+        const float xDistance = CalculateXDsitance(*currentPipes);
 
-        if (xDistance >= 0 && xDistance < minDistance)
+        if (xDistance >= 0 && (closestPipes == pipes.end() || xDistance < CalculateXDsitance(*closestPipes)))
         {
-            minDistance = xDistance;
-            closestPipe = pipe.get();
+            closestPipes = currentPipes;
         }
     }
 
-    assert(closestPipe != nullptr);
-    return *closestPipe;
+    if (closestPipes == pipes.end())
+        return std::nullopt;
+    else
+        return std::make_optional(std::ref(*closestPipes->get()));
 }
 
 std::optional<std::reference_wrapper<Game::Pipes>> CoreGameplay::GetClosestPipesBehind() const
@@ -110,19 +110,19 @@ void CoreGameplay::RunFrame(const ControlOption controlOption)
     }
 }
 
-bool CoreGameplay::CheckCollisionWithPipesSegment(const Game::Pipes& pipes) const
+bool CoreGameplay::CheckCollisionWithPipesSegment(const std::optional<std::reference_wrapper<Game::Pipes>> pipes) const
 {
-    return std::ranges::any_of(pipes.GetPipesSegment(), [&](const auto& pipe)
+    return std::ranges::any_of(pipes->get().GetPipesSegment(), [&](const auto& pipe)
         { 
             return Collision::AABB(bird, pipe);
         });
 }
 
-bool CoreGameplay::CheckCollision(const std::optional<std::reference_wrapper<Game::Pipes>> pipesBehind, const Game::Pipes& pipesInFront) const
+bool CoreGameplay::CheckCollision(const std::optional<std::reference_wrapper<Game::Pipes>> pipesBehind, const std::optional<std::reference_wrapper<Game::Pipes>>  pipesInFront) const
 {
     bool result = CheckCollisionWithPipesSegment(pipesInFront);
     if (pipesBehind)
-        result |= CheckCollisionWithPipesSegment(pipesBehind->get());
+        result |= CheckCollisionWithPipesSegment(pipesBehind);
    
     return result;
 }

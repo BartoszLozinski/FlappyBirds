@@ -19,15 +19,15 @@ protected:
 
     float CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const;
     float CalculateXDsitance(const Game::Pipes& pipes) const;
-    const Game::Pipes& GetClosestPipes() const;
+    std::optional<std::reference_wrapper<Game::Pipes>> GetClosestPipes() const;
     std::optional<std::reference_wrapper<Game::Pipes>> GetClosestPipesBehind() const;
     void UpdateState();
     void UpdatePoints(std::optional<std::reference_wrapper<Game::Pipes>> closestPipeBehind);
     bool FrameTimeExpired() const;
-    bool CheckCollisionWithPipesSegment(const Game::Pipes& pipes) const;
+    bool CheckCollisionWithPipesSegment(const std::optional<std::reference_wrapper<Game::Pipes>> pipes) const;
 
 public:
     unsigned GetPoints() const;
     void RunFrame(const ControlOption ControlOption);
-    bool CheckCollision(const std::optional<std::reference_wrapper<Game::Pipes>> pipesBehind, const Game::Pipes& pipesInFront) const;
+    bool CheckCollision(const std::optional<std::reference_wrapper<Game::Pipes>> pipesBehind, const std::optional<std::reference_wrapper<Game::Pipes>> pipesInFront) const;
 };
