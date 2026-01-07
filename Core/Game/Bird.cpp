@@ -51,20 +51,11 @@ void Bird::UpdateState()
     currentControlOption = ControlOption::None;        
 }
 
-bool Bird::IsAlive() const
-{
-    return this->isAlive;
-}
-
-void Bird::Kill()
-{
-    if (isAlive)
-        isAlive = false;
-}
-
 Bird& Bird::operator++()
 {
-    points++;
+    if (isAlive)
+        points++;
+    
     return *this;
 }
 

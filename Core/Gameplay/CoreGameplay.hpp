@@ -13,6 +13,7 @@ private:
 
 protected:
     Bird bird{ Utils::Vector2u{20, 20}, Utils::Vector2f{200, 300} };
+    //Bird bird{};
     Game::PipesManager pipesManager{};
     Timer frameTimer{1000 / 60};
 
