@@ -25,49 +25,6 @@ bool CoreGameplay::FrameTimeExpired() const
     return frameTimeExpired;
 }
 
-std::optional<std::reference_wrapper<Game::Pipes>> CoreGameplay::GetClosestPipes() const
-{
-    const auto& pipes = pipesManager.GetPipes();
-    auto closestPipes = pipes.end();
-
-    for (auto currentPipes = pipes.begin(); currentPipes != pipes.end(); currentPipes++)
-    {
-        const float xDistance = CalculateXDsitance(*currentPipes);
-
-        if (xDistance >= 0 && (closestPipes == pipes.end() || xDistance < CalculateXDsitance(*closestPipes)))
-        {
-            closestPipes = currentPipes;
-        }
-    }
-
-    if (closestPipes == pipes.end())
-        return std::nullopt;
-    else
-        return std::make_optional(std::ref(*closestPipes->get()));
-}
-
-std::optional<std::reference_wrapper<Game::Pipes>> CoreGameplay::GetClosestPipesBehind() const
-{
-    const auto& pipes = pipesManager.GetPipes();
-    auto closestPipes = pipes.end();
-
-    for (auto currentPipe = pipes.begin(); currentPipe != pipes.end(); currentPipe++)
-    {
-        const float xDistance = CalculateXDsitance(*currentPipe);
-
-        if (xDistance <= 0 &&
-            (closestPipes == pipes.end() || xDistance > CalculateXDsitance(*closestPipes)))
-        {
-            closestPipes = currentPipe;
-        }
-    }
-
-    if (closestPipes == pipes.end())
-        return std::nullopt;
-    else
-        return std::make_optional(std::ref(*closestPipes->get()));
-}
-
 unsigned CoreGameplay::GetPoints() const
 {
     return bird.GetPoints();
@@ -98,12 +55,11 @@ void CoreGameplay::RunFrame(const ControlOption controlOption)
 
     if (frameTimer.IsExpired())
     {
-
         UpdateState();
-        if (CheckCollision(GetClosestPipesBehind(), GetClosestPipes()))
+        if (CheckCollision(GetClosestPipes<PipesDirection::Behind>(), GetClosestPipes<PipesDirection::InFront>()))
             bird.Kill();
 
-        UpdatePoints(GetClosestPipesBehind());
+        UpdatePoints(GetClosestPipes<PipesDirection::Behind>());
         frameTimer.Reset();
 
         frameTimeExpired = true;

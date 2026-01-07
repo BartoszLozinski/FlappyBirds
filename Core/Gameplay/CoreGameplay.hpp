@@ -11,16 +11,48 @@ class CoreGameplay
 private:
     bool frameTimeExpired = false;
 
+    enum class PipesDirection
+    {
+        InFront,
+        Behind,
+    };
+
 protected:
-    Bird bird{ Utils::Vector2u{20, 20}, Utils::Vector2f{200, 300} };
-    //Bird bird{};
+    Bird bird{};
     Game::PipesManager pipesManager{};
     Timer frameTimer{1000 / 60};
 
     float CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const;
     float CalculateXDsitance(const Game::Pipes& pipes) const;
-    std::optional<std::reference_wrapper<Game::Pipes>> GetClosestPipes() const;
-    std::optional<std::reference_wrapper<Game::Pipes>> GetClosestPipesBehind() const;
+
+    template <PipesDirection direction>
+    std::optional<std::reference_wrapper<Game::Pipes>> GetClosestPipes() const
+    {
+        const auto& pipes = pipesManager.GetPipes();
+        auto closestPipes = pipes.end();
+
+        for (auto currentPipes = pipes.begin(); currentPipes != pipes.end(); currentPipes++)
+        {
+            const float xDistance = CalculateXDsitance(*currentPipes);
+
+            if constexpr (direction == PipesDirection::InFront)
+            {
+                if (xDistance >= 0 && (closestPipes == pipes.end() || xDistance < CalculateXDsitance(*closestPipes)))
+                    closestPipes = currentPipes;
+            }
+            else
+            {
+                if (xDistance <= 0 && (closestPipes == pipes.end() || xDistance > CalculateXDsitance(*closestPipes)))
+                    closestPipes = currentPipes;
+            }
+        }
+
+        if (closestPipes == pipes.end())
+            return std::nullopt;
+        else
+            return std::make_optional(std::ref(*closestPipes->get()));
+    }
+
     void UpdateState();
     void UpdatePoints(std::optional<std::reference_wrapper<Game::Pipes>> closestPipeBehind);
     bool FrameTimeExpired() const;
