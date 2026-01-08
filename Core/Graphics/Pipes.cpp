@@ -26,7 +26,7 @@ namespace Graphics
 
     ///////////////////////////////////////////
 
-    PipesManager::PipesManager(const Game::PipesManager& pipesManager_)
+    PipesManager::PipesManager(const Game::Environment& pipesManager_)
         : pipesManager(pipesManager_)
     {
         pipesRenderable.reserve(pipesManager.GetPipes().size());

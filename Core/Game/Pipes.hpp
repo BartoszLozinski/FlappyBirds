@@ -51,19 +51,20 @@ namespace Game
 
     ///////////////////////////////////////////////////////////////////////
     
-    class PipesManager
+    //Manages pipes
+    class Environment
     {
     private:
         static constexpr int horizontalDistanceBetweenPipes = 200;
         std::vector<std::unique_ptr<Pipes>> pipes;
 
     public: 
-        PipesManager();
-        ~PipesManager() = default;
-        PipesManager(const PipesManager&) = delete;
-        PipesManager(PipesManager&&) = delete;
-        PipesManager& operator=(const PipesManager&) = delete;
-        PipesManager& operator=(PipesManager&&) = delete;
+        Environment();
+        ~Environment() = default;
+        Environment(const Environment&) = delete;
+        Environment(Environment&&) = delete;
+        Environment& operator=(const Environment&) = delete;
+        Environment& operator=(Environment&&) = delete;
 
         void UpdateState();
         std::span<const std::unique_ptr<Pipes>> GetPipes() const;

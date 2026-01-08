@@ -19,7 +19,7 @@ private:
 
 protected:
     Bird bird{};
-    Game::PipesManager pipesManager{};
+    std::shared_ptr<Game::Environment> pipesManager = std::make_shared<Game::Environment>();
     Timer frameTimer{1000 / 60};
 
     float CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const;
@@ -28,7 +28,7 @@ protected:
     template <PipesDirection direction>
     std::optional<std::reference_wrapper<Game::Pipes>> GetClosestPipes() const
     {
-        const auto& pipes = pipesManager.GetPipes();
+        const auto& pipes = pipesManager->GetPipes();
         auto closestPipes = pipes.end();
 
         for (auto currentPipes = pipes.begin(); currentPipes != pipes.end(); currentPipes++)
@@ -53,7 +53,6 @@ protected:
             return std::make_optional(std::ref(*closestPipes->get()));
     }
 
-    void UpdateState();
     void UpdatePoints(std::optional<std::reference_wrapper<Game::Pipes>> closestPipeBehind);
     bool FrameTimeExpired() const;
     bool CheckCollisionWithPipesSegment(const std::optional<std::reference_wrapper<Game::Pipes>> pipes) const;

@@ -30,12 +30,6 @@ unsigned CoreGameplay::GetPoints() const
     return bird.GetPoints();
 }
 
-void CoreGameplay::UpdateState()
-{
-    bird.UpdateState();
-    pipesManager.UpdateState();
-}
-
 void CoreGameplay::UpdatePoints(std::optional<std::reference_wrapper<Game::Pipes>> closestPipeBehind)
 {
     if (closestPipeBehind
@@ -55,7 +49,9 @@ void CoreGameplay::RunFrame(const ControlOption controlOption)
 
     if (frameTimer.IsExpired())
     {
-        UpdateState();
+        bird.UpdateState();
+        pipesManager->UpdateState();
+
         if (CheckCollision(GetClosestPipes<PipesDirection::Behind>(), GetClosestPipes<PipesDirection::InFront>()))
             bird.Kill();
 

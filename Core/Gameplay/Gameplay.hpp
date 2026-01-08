@@ -12,7 +12,7 @@ class Gameplay : public CoreGameplay
 {
 private:
     Circle renderableBird{ bird };
-    Graphics::PipesManager renderablePipes{ pipesManager };
+    Graphics::PipesManager renderablePipes{ *pipesManager };
     sf::RenderWindow window{ sf::VideoMode{ GameConfig::WINDOW_WIDTH, GameConfig::WINDOW_HEIGHT }, "Flappy Birds" };
     KeyboardController keyboardController{};
     Graphics::Text pointsText{ window };

@@ -95,7 +95,7 @@ namespace Game
 
     //////////////////////////////////////////////////////////////////////////////
     
-    PipesManager::PipesManager()
+    Environment::Environment()
     {
         static constexpr int initialCapacity = 10;
         pipes.reserve(initialCapacity);
@@ -108,7 +108,7 @@ namespace Game
                                                    + horizontalDistanceBetweenPipes ));
     }
 
-    void PipesManager::UpdateState()
+    void Environment::UpdateState()
     {
         float theFurthestPipePositionX = pipes[0]->GetPipesSegment()[0].GetPosition().x;
         
@@ -130,7 +130,7 @@ namespace Game
         }
     }
 
-    std::span<const std::unique_ptr<Pipes>> PipesManager::GetPipes() const
+    std::span<const std::unique_ptr<Pipes>> Environment::GetPipes() const
     {
         return this->pipes;
     }
