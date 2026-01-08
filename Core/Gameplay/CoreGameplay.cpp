@@ -50,7 +50,7 @@ void CoreGameplay::RunFrame(const ControlOption controlOption)
     if (frameTimer.IsExpired())
     {
         bird.UpdateState();
-        pipesManager->UpdateState();
+        environment->UpdateState();
 
         if (CheckCollision(GetClosestPipes<PipesDirection::Behind>(), GetClosestPipes<PipesDirection::InFront>()))
             bird.Kill();

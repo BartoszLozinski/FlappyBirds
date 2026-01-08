@@ -3,7 +3,7 @@
 #include "Game/GameConfig.hpp"
 #include "Game/Timer.hpp"
 #include "Game/Bird.hpp"
-#include "Game/Pipes.hpp"
+#include "Game/Environment.hpp"
 #include <optional>
 
 class CoreGameplay
@@ -19,7 +19,7 @@ private:
 
 protected:
     Bird bird{};
-    std::shared_ptr<Game::Environment> pipesManager = std::make_shared<Game::Environment>();
+    std::shared_ptr<Game::Environment> environment = std::make_shared<Game::Environment>();
     Timer frameTimer{1000 / 60};
 
     float CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const;
@@ -28,7 +28,7 @@ protected:
     template <PipesDirection direction>
     std::optional<std::reference_wrapper<Game::Pipes>> GetClosestPipes() const
     {
-        const auto& pipes = pipesManager->GetPipes();
+        const auto& pipes = environment->GetPipes();
         auto closestPipes = pipes.end();
 
         for (auto currentPipes = pipes.begin(); currentPipes != pipes.end(); currentPipes++)

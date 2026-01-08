@@ -23,27 +23,4 @@ namespace Graphics
             pipe.Draw(window);
         }
     }
-
-    ///////////////////////////////////////////
-
-    PipesManager::PipesManager(const Game::Environment& pipesManager_)
-        : pipesManager(pipesManager_)
-    {
-        pipesRenderable.reserve(pipesManager.GetPipes().size());
-        
-        for (auto& pipesSegment : pipesManager.GetPipes())
-            pipesRenderable.push_back(*pipesSegment);
-    }
-
-    void PipesManager::UpdatePosition()
-    {
-        for (auto& pipesSegment : pipesRenderable)
-            pipesSegment.UpdatePosition();
-    }
-
-    void PipesManager::Draw(sf::RenderWindow& window) const
-    {
-        for (auto& pipes : pipesRenderable)
-            pipes.Draw(window);
-    }
 };

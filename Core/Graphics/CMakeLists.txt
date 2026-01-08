@@ -5,6 +5,7 @@ set(${target_name}_src  Renderable.cpp
                         Circle.cpp
                         Rectangle.cpp
                         Pipes.cpp
+                        Environment.cpp
                         KeyboardController.cpp
                         Text.cpp)
 

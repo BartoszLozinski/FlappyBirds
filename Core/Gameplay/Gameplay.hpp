@@ -4,7 +4,7 @@
 #include "Gameplay/CoreGameplay.hpp"
 
 #include "Graphics/Circle.hpp"
-#include "Graphics/Pipes.hpp"
+#include "Graphics/Environment.hpp"
 #include "Graphics/KeyboardController.hpp"
 #include "Graphics/Text.hpp"
 
@@ -12,7 +12,7 @@ class Gameplay : public CoreGameplay
 {
 private:
     Circle renderableBird{ bird };
-    Graphics::PipesManager renderablePipes{ *pipesManager };
+    Graphics::Environment renderableEnvironment{ *environment };
     sf::RenderWindow window{ sf::VideoMode{ GameConfig::WINDOW_WIDTH, GameConfig::WINDOW_HEIGHT }, "Flappy Birds" };
     KeyboardController keyboardController{};
     Graphics::Text pointsText{ window };

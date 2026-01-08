@@ -3,7 +3,7 @@
 void Gameplay::Display()
 {
     window.clear();
-    renderablePipes.Draw(window);
+    renderableEnvironment.Draw(window);
     renderableBird.Draw(window);
     pointsText.DisplayText(std::format("Points: {}", bird.GetPoints()));
     window.display();
@@ -12,7 +12,7 @@ void Gameplay::Display()
 void Gameplay::UpdateRenderableState()
 {
     renderableBird.UpdatePosition();
-    renderablePipes.UpdatePosition();
+    renderableEnvironment.UpdatePosition();
 }
 
 void Gameplay::Run()

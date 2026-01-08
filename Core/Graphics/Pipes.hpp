@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Rectangle.hpp"
 #include "Game/Pipes.hpp"
+#include "Rectangle.hpp"
 
 namespace Graphics
 {
@@ -16,18 +16,5 @@ namespace Graphics
         
         void UpdatePosition();
         void Draw(sf::RenderWindow& window) const;
-    };
-
-    class PipesManager
-    {
-    private:
-        const Game::Environment& pipesManager;
-        std::vector<Graphics::Pipes> pipesRenderable;
-
-    public:
-        PipesManager(const Game::Environment& pipesManager_);
-        void UpdatePosition();
-        void Draw(sf::RenderWindow& window) const;
-    
     };
 }
