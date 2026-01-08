@@ -43,7 +43,7 @@ namespace Game
     };
 
     Pipes::Pipes()
-        : Pipes(static_cast<float>(GameConfig::WINDOW_WIDTH))
+        : Pipes(static_cast<float>(Game::Config::WINDOW_WIDTH))
     {};
 
     void Pipes::UpdateState()

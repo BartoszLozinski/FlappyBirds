@@ -1,6 +1,6 @@
 #include "Circle.hpp"
 
-Circle::Circle(const Entity& entity_)
+Circle::Circle(const Game::Entity& entity_)
     : ShapeRenderable(entity_)
 {
     Init();

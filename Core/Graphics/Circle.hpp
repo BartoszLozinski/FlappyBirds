@@ -10,7 +10,7 @@ protected:
 public:
     Circle() = delete;
     ~Circle() = default;
-    Circle(const Entity& entity_);
+    Circle(const Game::Entity& entity_);
 
     void Draw(sf::RenderWindow& window) const override;
 };

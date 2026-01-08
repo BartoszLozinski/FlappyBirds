@@ -6,10 +6,10 @@
 #include <gmock/gmock.h>
 #include "Game/Collision.hpp"
 
-class EntityDummy : public Entity
+class EntityDummy : public Game::Entity
 {
 public:
-    EntityDummy(const Utils::Vector2f& position_) : Entity({10, 10}, position_) {};
+    EntityDummy(const Utils::Vector2f& position_) : Game::Entity({10, 10}, position_) {};
 
     void UpdateState() override { return; }
     void SetPosition(const Utils::Vector2f& position_) { this->position = position_; }
@@ -26,7 +26,7 @@ TEST_P(EntityFixutre, CollisionAABBTest)
     auto [positionParam, result] = GetParam();
     EntityDummy secondEntity{positionParam};
 
-    ASSERT_EQ(Collision::AABB(entityDummy, secondEntity), result);
+    ASSERT_EQ(Game::Collision::AABB(entityDummy, secondEntity), result);
 }
 
 INSTANTIATE_TEST_SUITE_P(CollisionAABBTestParams, EntityFixutre, testing::Values(

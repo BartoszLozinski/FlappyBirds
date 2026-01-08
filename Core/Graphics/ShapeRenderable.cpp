@@ -1,6 +1,6 @@
 #include "ShapeRenderable.hpp"
 
-ShapeRenderable::ShapeRenderable(const Entity& entity_)
+ShapeRenderable::ShapeRenderable(const Game::Entity& entity_)
     : Renderable(entity_)
 {};
 

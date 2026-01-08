@@ -66,7 +66,7 @@ bool CoreGameplay::CheckCollisionWithPipesSegment(const std::optional<std::refer
 {
     return std::ranges::any_of(pipes->get().GetPipesSegment(), [&](const auto& pipe)
         { 
-            return Collision::AABB(bird, pipe);
+            return Game::Collision::AABB(bird, pipe);
         });
 }
 

@@ -1,6 +1,6 @@
 #include "Collision.hpp"
 
-namespace Collision
+namespace Game::Collision
 {
     //Axis-Aligned Bounding Box for mid-point origins
     [[nodiscard]] bool AABB(const Entity& first, const Entity& second)

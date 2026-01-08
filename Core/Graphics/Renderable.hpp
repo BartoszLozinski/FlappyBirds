@@ -8,11 +8,11 @@
 class Renderable
 {
 protected:
-    const Entity& entity;
+    const Game::Entity& entity;
 
 public:
     Renderable() = delete;
-    Renderable(const Entity& entity_);
+    Renderable(const Game::Entity& entity_);
     virtual ~Renderable() = default;
 
     virtual void UpdatePosition() = 0;

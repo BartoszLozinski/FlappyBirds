@@ -18,9 +18,9 @@ private:
     };
 
 protected:
-    Bird bird{};
+    Game::Bird bird{};
     std::shared_ptr<Game::Environment> environment = std::make_shared<Game::Environment>();
-    Timer frameTimer{1000 / 60};
+    Game::Timer frameTimer{1000 / 60};
 
     float CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const;
     float CalculateXDsitance(const Game::Pipes& pipes) const;

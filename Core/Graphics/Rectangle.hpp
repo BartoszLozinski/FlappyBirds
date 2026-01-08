@@ -11,7 +11,7 @@ protected:
 public:
     Rectangle() = delete;
     ~Rectangle() = default;
-    Rectangle(const Entity& entity_);
+    Rectangle(const Game::Entity& entity_);
 
     void Draw(sf::RenderWindow& window) const override;
 };

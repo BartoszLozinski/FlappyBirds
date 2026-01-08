@@ -1,6 +1,6 @@
 #include "Rectangle.hpp"
 
-Rectangle::Rectangle(const Entity& entity_)
+Rectangle::Rectangle(const Game::Entity& entity_)
     : ShapeRenderable(entity_)
 {
     Init();

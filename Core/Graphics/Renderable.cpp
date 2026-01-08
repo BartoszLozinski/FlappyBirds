@@ -1,5 +1,5 @@
 #include "Renderable.hpp"
 
-Renderable::Renderable(const Entity& entity_)
+Renderable::Renderable(const Game::Entity& entity_)
     : entity(entity_)
 {};

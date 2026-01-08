@@ -1,8 +1,7 @@
 #pragma once
 
-namespace GameConfig
+namespace Game::Config
 {
     static constexpr int WINDOW_WIDTH = 800;
     static constexpr int WINDOW_HEIGHT = 600;
-    
 };

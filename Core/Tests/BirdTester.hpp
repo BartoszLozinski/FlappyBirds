@@ -4,13 +4,13 @@
 #include <gmock/gmock.h>
 #include "Game/Bird.hpp"
 
-class BirdDummy : public Bird
+class BirdDummy : public Game::Bird
 {
 public:
    BirdDummy(const Utils::Vector2u& size_, const Utils::Vector2f& position_)
         : Bird(size_, position_){}; 
 
-    inline void SetZeroPeriodTimer() { this->jumpTimer = Timer{0}; }
+    inline void SetZeroPeriodTimer() { this->jumpTimer = Game::Timer{0}; }
     inline ControlOption GetControlOption() const { return this->currentControlOption; };
 };
 

@@ -2,7 +2,7 @@
 
 #include "Entity.hpp"
 
-namespace Collision
+namespace Game::Collision
 {
     //Axis-Aligned Bounding Box
     [[nodiscard]] bool AABB(const Entity& first, const Entity& second);

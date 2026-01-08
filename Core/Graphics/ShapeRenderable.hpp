@@ -11,7 +11,7 @@ protected:
 
 public:
     ShapeRenderable() = delete;
-    ShapeRenderable(const Entity& entity_);
+    ShapeRenderable(const Game::Entity& entity_);
     virtual ~ShapeRenderable() = default;
 
     virtual void UpdatePosition() override final;
