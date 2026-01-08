@@ -2,16 +2,19 @@
 
 #include "ShapeRenderable.hpp"
 
-class Rectangle : public ShapeRenderable
+namespace Graphics
 {
-protected:
-    void Init() override final;
-    
+    class Rectangle : public ShapeRenderable
+    {
+    protected:
+        void Init() override final;
+        
 
-public:
-    Rectangle() = delete;
-    ~Rectangle() = default;
-    Rectangle(const Game::Entity& entity_);
+    public:
+        Rectangle() = delete;
+        ~Rectangle() = default;
+        Rectangle(const Game::Entity& entity_);
 
-    void Draw(sf::RenderWindow& window) const override;
-};
+        void Draw(sf::RenderWindow& window) const override;
+    };
+}

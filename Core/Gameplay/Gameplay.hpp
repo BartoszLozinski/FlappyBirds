@@ -11,10 +11,10 @@
 class Gameplay : public CoreGameplay
 {
 private:
-    Circle renderableBird{ bird };
+    Graphics::Circle renderableBird{ bird };
     Graphics::Environment renderableEnvironment{ *environment };
     sf::RenderWindow window{ sf::VideoMode{ Game::Config::WINDOW_WIDTH, Game::Config::WINDOW_HEIGHT }, "Flappy Birds" };
-    KeyboardController keyboardController{};
+    Graphics::KeyboardController keyboardController{};
     Graphics::Text pointsText{ window };
 
     void UpdateRenderableState();

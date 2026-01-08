@@ -1,5 +1,8 @@
 #include "Renderable.hpp"
 
-Renderable::Renderable(const Game::Entity& entity_)
-    : entity(entity_)
-{};
+namespace Graphics
+{
+    Renderable::Renderable(const Game::Entity& entity_)
+        : entity(entity_)
+    {};
+}

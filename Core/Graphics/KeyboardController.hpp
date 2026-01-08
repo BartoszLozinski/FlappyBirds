@@ -2,14 +2,17 @@
 
 #include "Utils/ControlOption.hpp"
 
-class KeyboardController
+namespace Graphics
 {
-private:
-    bool jumpPressed = false;
-    void JumpPressed();
-    
-public:
+    class KeyboardController
+    {
+    private:
+        bool jumpPressed = false;
+        void JumpPressed();
+        
+    public:
 
-    ControlOption GetControlOption();
-    inline void ResetState() {jumpPressed = false; };
-};
+        ControlOption GetControlOption();
+        inline void ResetState() {jumpPressed = false; };
+    };
+}

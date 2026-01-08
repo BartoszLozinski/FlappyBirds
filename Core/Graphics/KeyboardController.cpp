@@ -2,18 +2,21 @@
 
 #include <SFML/Graphics.hpp>
 
-void KeyboardController::JumpPressed()
+namespace Graphics
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-        jumpPressed = true;
-}
+    void KeyboardController::JumpPressed()
+    {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            jumpPressed = true;
+    }
 
-ControlOption KeyboardController::GetControlOption()
-{
-    JumpPressed();
-    
-    if (jumpPressed)
-        return ControlOption::Jump;
-    
-    return ControlOption::None;
+    ControlOption KeyboardController::GetControlOption()
+    {
+        JumpPressed();
+        
+        if (jumpPressed)
+            return ControlOption::Jump;
+        
+        return ControlOption::None;
+    }
 }

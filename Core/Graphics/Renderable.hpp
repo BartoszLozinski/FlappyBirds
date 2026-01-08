@@ -5,16 +5,19 @@
 
 #include <memory>
 
-class Renderable
+namespace Graphics
 {
-protected:
-    const Game::Entity& entity;
+    class Renderable
+    {
+    protected:
+        const Game::Entity& entity;
 
-public:
-    Renderable() = delete;
-    Renderable(const Game::Entity& entity_);
-    virtual ~Renderable() = default;
+    public:
+        Renderable() = delete;
+        Renderable(const Game::Entity& entity_);
+        virtual ~Renderable() = default;
 
-    virtual void UpdatePosition() = 0;
-    virtual void Draw(sf::RenderWindow& window) const = 0;
-};
+        virtual void UpdatePosition() = 0;
+        virtual void Draw(sf::RenderWindow& window) const = 0;
+    };
+}
