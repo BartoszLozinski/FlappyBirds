@@ -10,7 +10,8 @@ public:
    BirdDummy(const Utils::Vector2u& size_, const Utils::Vector2f& position_)
         : Bird(size_, position_){}; 
 
-    inline void SetZeroPeriodTimer() { this->jumpTimer = Game::Timer{0}; }
+    inline void SetAbleToJump() { this->framesSinceLastJump = this->FRAMES_TO_RESET_JUMP_ABILITY; }
+    inline void SetUnableToJump() { this->framesSinceLastJump = 0; };
     inline ControlOption GetControlOption() const { return this->currentControlOption; };
 };
 
@@ -43,5 +44,5 @@ TEST_F(BirdFixture, JumpTest)
 
 void BirdFixture::SetUp()
 {
-    birdFixture.SetZeroPeriodTimer();
+    birdFixture.SetAbleToJump();
 }

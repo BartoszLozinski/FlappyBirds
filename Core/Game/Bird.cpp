@@ -19,6 +19,14 @@ namespace Game
             currentControlOption = controlOption;
     }
 
+    bool Bird::IsAbleToJump() const
+    {
+        if (framesSinceLastJump < FRAMES_TO_RESET_JUMP_ABILITY)
+            return false;
+        
+        return true;
+    }
+
     void Bird::UpdateState()
     {
         if (isAlive && HitWindowBoundaries())
@@ -26,10 +34,11 @@ namespace Game
 
         if (isAlive)
         {
-            if (currentControlOption == ControlOption::Jump && jumpTimer.IsExpired())
+            framesSinceLastJump++;
+            if (currentControlOption == ControlOption::Jump && IsAbleToJump())
             {
-                jumpTimer.Reset();
-                static constexpr float JUMP_SPEED = 6.f;
+                framesSinceLastJump = 0;
+                static constexpr float JUMP_SPEED = 5.f;
                 static constexpr float MAX_VERTICAL_SPEED = 12.f;
                 velocity.y -= JUMP_SPEED;
 
