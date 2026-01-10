@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Game/GameUtils.hpp"
 #include "Game/GameConfig.hpp"
 #include "Game/Timer.hpp"
 #include "Game/Bird.hpp"
@@ -22,9 +23,6 @@ protected:
     std::shared_ptr<Game::Environment> environment = std::make_shared<Game::Environment>();
     Game::Timer frameTimer{1000 / 60};
 
-    float CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const;
-    float CalculateXDsitance(const Game::Pipes& pipes) const;
-
     template <PipesDirection direction>
     std::optional<std::reference_wrapper<Game::Pipes>> GetClosestPipes() const
     {
@@ -33,16 +31,16 @@ protected:
 
         for (auto currentPipes = pipes.begin(); currentPipes != pipes.end(); currentPipes++)
         {
-            const float xDistance = CalculateXDsitance(*currentPipes);
+            const float xDistance = Game::CalculateXDsitance(bird, *currentPipes);
 
             if constexpr (direction == PipesDirection::InFront)
             {
-                if (xDistance >= 0 && (closestPipes == pipes.end() || xDistance < CalculateXDsitance(*closestPipes)))
+                if (xDistance >= 0 && (closestPipes == pipes.end() || xDistance < Game::CalculateXDsitance(bird, *closestPipes)))
                     closestPipes = currentPipes;
             }
             else
             {
-                if (xDistance <= 0 && (closestPipes == pipes.end() || xDistance > CalculateXDsitance(*closestPipes)))
+                if (xDistance <= 0 && (closestPipes == pipes.end() || xDistance > Game::CalculateXDsitance(bird, *closestPipes)))
                     closestPipes = currentPipes;
             }
         }

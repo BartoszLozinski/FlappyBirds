@@ -8,18 +8,6 @@
 #include "Game/Collision.hpp"
 #include <iostream>
 
-float CoreGameplay::CalculateXDsitance(const std::unique_ptr<Game::Pipes>& pipes) const
-{
-    const float pipesXPosition = pipes->GetPipesSegment().begin()->GetPosition().x;
-    return pipesXPosition - bird.GetPosition().x;
-}
-
-float CoreGameplay::CalculateXDsitance(const Game::Pipes& pipes) const
-{
-    const float pipesXPosition = pipes.GetPipesSegment().begin()->GetPosition().x;
-    return pipesXPosition - bird.GetPosition().x;
-}
-
 bool CoreGameplay::FrameTimeExpired() const
 {
     return frameTimeExpired;
