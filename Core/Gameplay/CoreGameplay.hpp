@@ -31,16 +31,16 @@ protected:
 
         for (auto currentPipes = pipes.begin(); currentPipes != pipes.end(); currentPipes++)
         {
-            const float xDistance = Game::CalculateXDsitance(bird, *currentPipes);
+            const float xDistance = Game::CalculateXDistance(bird, *currentPipes);
 
             if constexpr (direction == PipesDirection::InFront)
             {
-                if (xDistance >= 0 && (closestPipes == pipes.end() || xDistance < Game::CalculateXDsitance(bird, *closestPipes)))
+                if (xDistance >= 0 && (closestPipes == pipes.end() || xDistance < Game::CalculateXDistance(bird, *closestPipes)))
                     closestPipes = currentPipes;
             }
             else
             {
-                if (xDistance <= 0 && (closestPipes == pipes.end() || xDistance > Game::CalculateXDsitance(bird, *closestPipes)))
+                if (xDistance <= 0 && (closestPipes == pipes.end() || xDistance > Game::CalculateXDistance(bird, *closestPipes)))
                     closestPipes = currentPipes;
             }
         }

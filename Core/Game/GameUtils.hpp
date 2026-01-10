@@ -1,10 +1,12 @@
 #pragma once
 
-#include "Bird.hpp"
-#include "Pipes.hpp"
+#include <memory>
 
 namespace Game
 {
-    [[nodiscard]] float CalculateXDsitance(const Bird& bird, const std::unique_ptr<Game::Pipes>& pipes);
-    [[nodiscard]] float CalculateXDsitance(const Bird& bird, const Game::Pipes& pipes);
+    class Bird;
+    class Pipes;
+
+    [[nodiscard]] float CalculateXDistance(const Bird& bird, const std::unique_ptr<Game::Pipes>& pipes);
+    [[nodiscard]] float CalculateXDistance(const Bird& bird, const Game::Pipes& pipes);
 }

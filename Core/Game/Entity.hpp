@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Utils/Utils.hpp"
-#include "Utils/ControlOption.hpp"
 
 namespace Game
 {

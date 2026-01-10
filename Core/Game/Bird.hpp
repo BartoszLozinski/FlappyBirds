@@ -2,6 +2,7 @@
 
 #include "Moveable.hpp"
 #include "Timer.hpp"
+#include "Utils/ControlOption.hpp"
 
 namespace Game
 {

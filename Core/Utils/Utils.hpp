@@ -55,7 +55,4 @@ namespace Utils
 
     using Vector2f = Vector2t<float>;
     using Vector2u = Vector2t<unsigned>;
-
-}
-
-
+};
