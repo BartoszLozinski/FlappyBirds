@@ -2,7 +2,7 @@
 
 #include "Game/GameUtils.hpp"
 #include "Game/GameConfig.hpp"
-#include "Game/Timer.hpp"
+#include "Gameplay/Timer.hpp"
 #include "Game/Bird.hpp"
 #include "Game/Environment.hpp"
 #include <optional>
@@ -21,7 +21,7 @@ private:
 protected:
     Game::Bird bird{};
     std::shared_ptr<Game::Environment> environment = std::make_shared<Game::Environment>();
-    Game::Timer frameTimer{1000 / 60};
+    Timer frameTimer{1000 / 60};
 
     template <PipesDirection direction>
     std::optional<std::reference_wrapper<Game::Pipes>> GetClosestPipes() const

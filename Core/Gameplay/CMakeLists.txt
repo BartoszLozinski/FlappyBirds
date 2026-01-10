@@ -1,6 +1,7 @@
 set(target_name Gameplay)
 
-set(${target_name}_src      CoreGameplay.cpp
+set(${target_name}_src      Timer.cpp
+                            CoreGameplay.cpp
                             Gameplay.cpp)
 
 add_library(${target_name}  STATIC  ${${target_name}_src})

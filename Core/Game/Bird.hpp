@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Moveable.hpp"
-#include "Timer.hpp"
 #include "Utils/ControlOption.hpp"
 
 namespace Game
@@ -16,6 +15,7 @@ namespace Game
         unsigned points = 0;
         void ApplyGravity();
         [[nodiscard]] bool HitWindowBoundaries() const;
+        void Jump();
         bool IsAbleToJump() const;
 
     public:

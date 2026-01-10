@@ -1,7 +1,6 @@
 set(target_name Game)
 
-set(${target_name}_src  Timer.cpp
-                        Entity.cpp
+set(${target_name}_src  Entity.cpp
                         Moveable.cpp
                         Bird.cpp
                         Pipes.cpp
@@ -9,8 +8,7 @@ set(${target_name}_src  Timer.cpp
                         Environment.cpp
                         Collision.cpp)
 
-set(${target_name}_hpp  Timer.hpp
-                        Entity.hpp
+set(${target_name}_hpp  Entity.hpp
                         Moveable.hpp
                         Bird.hpp
                         Pipes.hpp

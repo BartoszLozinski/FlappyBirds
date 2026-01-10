@@ -27,6 +27,20 @@ namespace Game
         return true;
     }
 
+    void Bird::Jump()
+    {
+        if (IsAbleToJump())
+        {
+            framesSinceLastJump = 0;
+            static constexpr float JUMP_SPEED = 5.f;
+            static constexpr float MAX_VERTICAL_SPEED = 12.f;
+            velocity.y -= JUMP_SPEED;
+
+            if (velocity.y > MAX_VERTICAL_SPEED)
+                velocity.y = MAX_VERTICAL_SPEED;
+        }
+    };
+
     void Bird::UpdateState()
     {
         if (isAlive && HitWindowBoundaries())
@@ -35,16 +49,9 @@ namespace Game
         if (isAlive)
         {
             framesSinceLastJump++;
-            if (currentControlOption == ControlOption::Jump && IsAbleToJump())
-            {
-                framesSinceLastJump = 0;
-                static constexpr float JUMP_SPEED = 5.f;
-                static constexpr float MAX_VERTICAL_SPEED = 12.f;
-                velocity.y -= JUMP_SPEED;
-
-                if (velocity.y > MAX_VERTICAL_SPEED)
-                    velocity.y = MAX_VERTICAL_SPEED;
-            }
+            
+            if (currentControlOption == ControlOption::Jump)
+                Jump();
 
             ApplyGravity();
             Move();
