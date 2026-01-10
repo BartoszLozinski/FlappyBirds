@@ -43,6 +43,9 @@ void CoreGameplay::RunFrame(const ControlOption controlOption)
         if (CheckCollision(GetClosestPipes<PipesDirection::Behind>(), GetClosestPipes<PipesDirection::InFront>()))
             bird.Kill();
 
+        if (!bird.IsAlive())
+            environment->Stop();
+
         UpdatePoints(GetClosestPipes<PipesDirection::Behind>());
         frameTimer.Reset();
 

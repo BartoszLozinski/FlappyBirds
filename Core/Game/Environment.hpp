@@ -9,6 +9,7 @@ namespace Game
     private:
         static constexpr int horizontalDistanceBetweenPipes = 200;
         std::vector<std::unique_ptr<Pipes>> pipes;
+        bool isStopped = false;
 
     public: 
         Environment();
@@ -20,5 +21,6 @@ namespace Game
 
         void UpdateState();
         std::span<const std::unique_ptr<Pipes>> GetPipes() const;
+        void Stop();
     };
 }

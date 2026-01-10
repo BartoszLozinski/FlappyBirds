@@ -17,6 +17,9 @@ namespace Game
 
     void Environment::UpdateState()
     {
+        if (isStopped)
+            return;
+
         float theFurthestPipePositionX = pipes[0]->GetPipesSegment()[0].GetPosition().x;
         
         for (auto& pipeSegment : pipes)
@@ -40,5 +43,10 @@ namespace Game
     std::span<const std::unique_ptr<Pipes>> Environment::GetPipes() const
     {
         return this->pipes;
+    }
+
+    void Environment::Stop()
+    {
+        isStopped = true;
     }
 }
