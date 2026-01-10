@@ -16,7 +16,7 @@ namespace Game
         void ApplyGravity();
         [[nodiscard]] bool HitWindowBoundaries() const;
         void Jump();
-        bool IsAbleToJump() const;
+        [[nodiscard]] bool IsAbleToJump() const;
 
     public:
         Bird(const Utils::Vector2u& size_ = Utils::Vector2u{20, 20}, const Utils::Vector2f& position_ = Utils::Vector2f{200, 300});
