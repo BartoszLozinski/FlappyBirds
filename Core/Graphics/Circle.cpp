@@ -11,7 +11,7 @@ namespace Graphics
     void Circle::Init()
     {
         const auto& entitySize = entity.GetSize();
-        shape = std::make_unique<sf::CircleShape>(entitySize.x);
+        shape = std::make_unique<sf::CircleShape>(entitySize.x / 2); //sfml requires radius, not diameter
         shape->setOrigin(entitySize.x / 2, entitySize.y / 2);
         
         const auto& entityPosition = entity.GetPosition();

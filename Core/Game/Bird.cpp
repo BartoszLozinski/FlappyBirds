@@ -56,14 +56,14 @@ namespace Game
             ApplyGravity();
             Move();
         }
-        else if (position.y < (Game::Config::WINDOW_HEIGHT - size.y))
+        else if (position.y < (Game::Config::WINDOW_HEIGHT - size.y / 2))
         {
             ApplyGravity();
             Move();
         }
         else 
         {
-            position.y = (Game::Config::WINDOW_HEIGHT - size.y);
+            position.y = (Game::Config::WINDOW_HEIGHT - size.y / 2);
         }
 
         currentControlOption = ControlOption::None;        
