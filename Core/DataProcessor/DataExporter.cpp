@@ -1,19 +1,19 @@
 
-#include "CSVDataExporter.hpp"
+#include "DataExporter.hpp"
 
 #include <format>
 
 DataExporter::DataExporter(const std::string& fileName_, const std::string& filePath_)
     : fileName(fileName_)
     , filePath(filePath_)
-{
-    file.open(filePath + fileName);
-
-    if (!file.is_open())
-        throw std::runtime_error(std::format("Failed to open file: {}{}", filePath, fileName));
-};
+{};
 
 DataExporter::~DataExporter()
+{
+    CloseFile();
+}
+
+void DataExporter::CloseFile()
 {
     if (file.is_open())
     {

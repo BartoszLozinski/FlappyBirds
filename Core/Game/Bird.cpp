@@ -89,4 +89,9 @@ namespace Game
         
         return false;
     }
+
+    unsigned Bird::GetFramesSinceLastJump() const
+    {
+        return framesSinceLastJump;
+    }
 }

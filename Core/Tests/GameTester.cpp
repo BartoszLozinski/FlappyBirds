@@ -2,6 +2,7 @@
 #include "CollisionTester.hpp"
 #include "GameUtilsTester.hpp"
 #include "GameplayTester.hpp"
+#include "DataProviderTests.hpp"
 
 int main(int argc, char** argv)
 {

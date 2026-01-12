@@ -8,8 +8,8 @@
 template<typename DataStruct>
 concept CSVExportable = requires(DataStruct data)
 {
-    { data.ToCSVRow() } -> std::convertible_to<std::string>;
-    { data.WriteCSVHeader() } -> std::convertible_to<std::string>;
+    { data.GetRow() } -> std::convertible_to<std::string>;
+    { data.GetHeader() } -> std::convertible_to<std::string>;
 };
 
 class DataExporter
@@ -28,30 +28,32 @@ public:
     DataExporter(DataExporter&&) = delete;
     DataExporter& operator=(DataExporter&&) = delete;
     
-    template<CSVExportable DataStruct>
-    void ExportRow(const DataStruct& dataStruct)
+    template<CSVExportable DataProvider>
+    void ExportRow(const DataProvider& dataProvider)
     {
         if (!file.is_open())
             file.open(filePath + fileName);
 
         if (file.is_open())
         {
-            file << dataStruct.ToCSVRow() << "\n";
+            file << dataProvider.GetRow() << "\n";
             file.flush();
         }
     };
 
-    template<CSVExportable DataStruct>
-    void WriteHeader(const DataStruct& dataStruct)
+    template<CSVExportable DataProvider>
+    void WriteHeader(const DataProvider& dataProvider)
     {
         if (!file.is_open())
             file.open(filePath + fileName);
 
         if (file.is_open() && std::filesystem::exists(filePath + fileName) && std::filesystem::file_size(filePath + fileName) == 0)
         {
-            file << dataStruct.WriteCSVHeader() << "\n";
+            file << dataProvider.GetHeader() << "\n";
             file.flush();
             file.close();
         }
     }
+
+    void CloseFile();
 };
