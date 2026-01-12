@@ -8,7 +8,6 @@
 class DataProvider
 {
 private:
-    uint64_t frameIdx{};
     float birdX{}; //center position
     float birdY{};
     unsigned birdSize{};
@@ -26,7 +25,7 @@ private:
 public:
 
     DataProvider() = default;
-    void SetState(uint64_t frameIdx_, const Game::Bird& bird, const Game::Pipes& pipes, const ControlOption controlOption);
+    void SetState(const Game::Bird& bird, const Game::Pipes& pipes, const ControlOption controlOption);
     std::string GetRow() const;
     std::string GetHeader() const;
 };

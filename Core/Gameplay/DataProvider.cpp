@@ -2,9 +2,8 @@
 
 #include <format>
 
-void DataProvider::SetState(uint64_t frameIdx_, const Game::Bird& bird, const Game::Pipes& pipes, const ControlOption controlOption)
+void DataProvider::SetState(const Game::Bird& bird, const Game::Pipes& pipes, const ControlOption controlOption)
 {
-    frameIdx = frameIdx_;
     birdX = bird.GetPosition().x;
     birdY = bird.GetPosition().y;
     birdSize = bird.GetSize().x;
@@ -29,8 +28,7 @@ std::string DataProvider::GetRow() const
     static constexpr unsigned  TRUE = 1;
     static constexpr unsigned FALSE = 0;
 
-    return std::format("{},{:.0f},{:.0f},{},{:.0f},{:.0f},{:.0f},{},{},{},{},{},{},{}",
-        frameIdx,
+    return std::format("{:.0f},{:.0f},{},{:.0f},{:.0f},{:.0f},{},{},{},{},{},{},{}",
         birdX,
         birdY,
         birdSize,
