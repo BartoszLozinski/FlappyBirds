@@ -47,5 +47,5 @@ std::string DataProvider::GetRow() const
 
 std::string DataProvider::GetHeader() const
 {
-    return "FrameIdx,BirdX,BirdY,BirdSize,BirdVy,NextPipeX,TopPipeY,BottomPipeY,PipeSizeX,PipesSizeY,BirdAbleToJump,FramesSinceLastJump,BirdAlive,Points,Action";
+    return "BirdX,BirdY,BirdSize,BirdVy,NextPipeX,TopPipeY,BottomPipeY,PipeSizeX,PipesSizeY,BirdAbleToJump,FramesSinceLastJump,BirdAlive,Points,Action";
 }
