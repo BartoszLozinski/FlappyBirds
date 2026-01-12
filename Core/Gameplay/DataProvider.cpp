@@ -28,7 +28,7 @@ std::string DataProvider::GetRow() const
     static constexpr unsigned  TRUE = 1;
     static constexpr unsigned FALSE = 0;
 
-    return std::format("{:.0f},{:.0f},{},{:.0f},{:.0f},{:.0f},{},{},{},{},{},{},{}",
+    return std::format("{:.0f},{:.0f},{},{:.0f},{:.0f},{:.0f},{:.0f},{},{},{},{},{},{}",
         birdX,
         birdY,
         birdSize,

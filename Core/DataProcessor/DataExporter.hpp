@@ -17,7 +17,7 @@ class DataExporter
 private:
     std::string fileName{"data.csv"};
     std::string filePath{"./"};
-    std::ofstream file{filePath + fileName};
+    std::ofstream file{};
     
 public:
 
@@ -32,12 +32,13 @@ public:
     void ExportRow(const DataProvider& dataProvider)
     {
         if (!file.is_open())
-            file.open(filePath + fileName);
+            file.open(filePath + fileName, std::ios::app);
 
         if (file.is_open())
         {
             file << dataProvider.GetRow() << "\n";
             file.flush();
+            file.close();
         }
     };
 
@@ -45,7 +46,7 @@ public:
     void WriteHeader(const DataProvider& dataProvider)
     {
         if (!file.is_open())
-            file.open(filePath + fileName);
+            file.open(filePath + fileName, std::ios::app);
 
         if (file.is_open() && std::filesystem::exists(filePath + fileName) && std::filesystem::file_size(filePath + fileName) == 0)
         {
@@ -54,6 +55,4 @@ public:
             file.close();
         }
     }
-
-    void CloseFile();
 };

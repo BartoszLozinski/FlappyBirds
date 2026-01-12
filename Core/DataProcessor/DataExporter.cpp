@@ -10,14 +10,6 @@ DataExporter::DataExporter(const std::string& fileName_, const std::string& file
 
 DataExporter::~DataExporter()
 {
-    CloseFile();
-}
-
-void DataExporter::CloseFile()
-{
-    if (file.is_open())
-    {
-        file.flush();
-        file.close();
-    }
+    file.flush();
+    file.close();
 }
