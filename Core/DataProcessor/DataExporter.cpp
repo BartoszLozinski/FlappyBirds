@@ -13,3 +13,12 @@ DataExporter::~DataExporter()
     file.flush();
     file.close();
 }
+
+void DataExporter::CloseFile()
+{
+    if (file.is_open())
+    {
+        file.flush();
+        file.close();
+    }
+}
