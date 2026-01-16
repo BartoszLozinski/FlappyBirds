@@ -19,4 +19,17 @@ namespace Graphics
         
         return ControlOption::None;
     }
+
+    GameWindowAction KeyboardController::GetGameWindowAction() const
+    {
+        return gameWindowAction;
+    }
+
+    void KeyboardController::PullGameWindowAction()
+    {
+        using enum GameWindowAction;
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+            gameWindowAction = Quit;
+    }
 }
