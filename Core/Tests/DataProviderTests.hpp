@@ -30,9 +30,8 @@ TEST_F(DataProviderFixture, ExportRowTest)
 {
     Game::Bird bird;
     Game::Pipes pipes;
-    ControlOption controlOption = ControlOption::Jump;
 
-    dataProvider.SetState(bird, pipes, controlOption);
+    dataProvider.SetState(bird, pipes);
     dataExporter.ExportRow(dataProvider);
 
     std::ifstream file{"Core/Tests/test_data.csv"};
@@ -48,9 +47,8 @@ TEST_F(DataProviderFixture, ExportRowWithHeaderTest)
 
     Game::Bird bird;
     Game::Pipes pipes;
-    ControlOption controlOption = ControlOption::Jump;
 
-    dataProvider.SetState(bird, pipes, controlOption);
+    dataProvider.SetState(bird, pipes);
     dataExporter.ExportRow(dataProvider);
 
     std::ifstream file{"Core/Tests/test_data.csv"};
@@ -70,11 +68,10 @@ TEST_F(DataProviderFixture, Export3RowsWithHeaderTest)
 
     Game::Bird bird;
     Game::Pipes pipes;
-    ControlOption controlOption = ControlOption::Jump;
 
     for (unsigned i = 0; i < (expectedLines - 1); ++i)
     {
-        dataProvider.SetState(bird, pipes, controlOption);
+        dataProvider.SetState(bird, pipes);
         dataExporter.ExportRow(dataProvider);
         bird.UpdateState();
         pipes.UpdateState();
