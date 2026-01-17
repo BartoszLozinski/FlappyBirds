@@ -26,22 +26,6 @@ class DataProvider
 {
 private:
     GameplayState gameplayState{};
-    /*
-    float birdX{}; //center position
-    float birdY{};
-    unsigned birdSize{};
-    float birdVy{};
-    float nextPipeX{};
-    float topPipeY{};   //center position
-    float bottomPipeY{}; 
-    unsigned pipeSizeX{};
-    unsigned pipesSizeY{};
-    bool birdAbleToJump{};
-    unsigned framesSinceLastJump{};
-    bool birdAlive{};
-    unsigned points{};
-    int action{}; // 0 = None, 1 = Jump
-    */
 
 public:
 
