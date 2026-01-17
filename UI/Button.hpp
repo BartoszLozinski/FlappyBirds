@@ -5,20 +5,17 @@
 #include <memory>
 #include <string>
 
-#include "../Core/Gameplay/Gameplay.hpp"
-
-class Button : public QObject
+class IButton : public QObject
 {
-private:
-    Q_OBJECT
-
 protected:
+    Q_OBJECT
     std::unique_ptr<QPushButton> button = nullptr;
 
-    void onClicked();
+    virtual void OnClicked() = 0;
 
 public:
-    Button(const std::string& text);
-    std::unique_ptr<QPushButton>& getButton();
+    IButton(const std::string& text);
+    virtual ~IButton() = default;
+    std::unique_ptr<QPushButton>& GetButton();
 
 };

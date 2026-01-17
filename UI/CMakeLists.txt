@@ -6,6 +6,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(${target_name}_src      Button.cpp
+                            StartButton.cpp
                             UI.cpp)
 
 add_library(${target_name}  STATIC  ${${target_name}_src})

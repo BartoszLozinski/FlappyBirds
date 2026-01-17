@@ -7,8 +7,7 @@ UI::UI(int& argc, char** argv)
     mainWindow->setWindowTitle("Flappy Birds");
     mainWindow->resize(800, 600);
 
-    layout->addWidget(startButton.getButton().get());
-    layout->addWidget(restartButton.getButton().get());
+    layout->addWidget(startButton.GetButton().get());
 };
 
 void UI::showMainWindow()

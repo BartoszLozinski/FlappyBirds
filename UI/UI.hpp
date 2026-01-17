@@ -5,13 +5,10 @@
 #include <QPointer>
 #include <QString>
 #include <QWidget>
-#include <QHBoxLayout>
-
+#include <QVBoxLayout>
 
 #include <memory>
-#include "Button.hpp"
-
-//#include "Core/Gameplay/Gameplay.hpp"
+#include "StartButton.hpp"
 
 class UI
 {
@@ -19,11 +16,8 @@ private:
     std::unique_ptr<QApplication> app = nullptr;
     std::unique_ptr<QWidget> mainWindow = nullptr;
 
-    std::unique_ptr<QHBoxLayout> layout = std::make_unique<QHBoxLayout>(mainWindow.get());
-    Button startButton{ "Start" };
-    Button restartButton{ "Restart" };
-
-    //Gameplay gameplay{};
+    std::unique_ptr<QVBoxLayout> layout = std::make_unique<QVBoxLayout>(mainWindow.get());
+    StartButton startButton{ "Start" };
 
 public:
     UI(int& argc, char** argv);
