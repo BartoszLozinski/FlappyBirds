@@ -15,8 +15,29 @@ void Gameplay::UpdateRenderableState()
     renderableEnvironment.UpdatePosition();
 }
 
+void Gameplay::DisplayHelpInstructions()
+{
+    auto helpInstruction = Graphics::Text{ window, { Game::Config::WINDOW_WIDTH * 0.1, Game::Config::WINDOW_HEIGHT * 0.25 }, 40 };
+
+    window.clear();
+    renderableEnvironment.Draw(window);
+    renderableBird.Draw(window);
+    pointsText.DisplayText(std::format("Points: {}", bird.GetPoints()));
+    helpInstruction.DisplayText(std::format("Press {} to start/jump\nPress {} to Quit\n", "SPACE", "Q"));
+    window.display();
+}
+
 void Gameplay::Run()
 {
+    while (!gameStarted)
+    {
+        DisplayHelpInstructions();
+        keyboardController.PullGameWindowAction();
+
+        if (keyboardController.GetGameWindowAction() == GameWindowAction::Start)
+            gameStarted = true;
+    }
+
     while (window.isOpen())
     {
         sf::Event event;

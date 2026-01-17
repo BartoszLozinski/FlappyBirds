@@ -31,5 +31,7 @@ namespace Graphics
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
             gameWindowAction = Quit;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            gameWindowAction = Start;
     }
 }

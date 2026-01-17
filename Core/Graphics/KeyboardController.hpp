@@ -5,8 +5,7 @@
 enum class GameWindowAction
 {
     None,
-    Stop,
-    Restart,
+    Start,
     Quit,
 };
 
