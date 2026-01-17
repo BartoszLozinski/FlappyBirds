@@ -5,7 +5,7 @@ UI::UI(int& argc, char** argv)
     , mainWindow(std::make_unique<QWidget>())
 {
     mainWindow->setWindowTitle("Flappy Birds");
-    mainWindow->resize(800, 600);
+    mainWindow->resize(200, 50);
 
     layout->addWidget(startButton.GetButton().get());
 };
