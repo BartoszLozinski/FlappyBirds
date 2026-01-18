@@ -19,8 +19,6 @@ void DataProvider::SetState(const Game::Bird& bird, const Game::Pipes& pipes)
     gameplayState.birdAbleToJump = bird.IsAbleToJump();
     gameplayState.framesSinceLastJump = bird.GetFramesSinceLastJump();
     gameplayState.birdAlive = bird.IsAlive();
-    //gameplayState.points = bird.GetPoints();
-    //gameplayState.action = static_cast<unsigned>(controlOption);
 }
 
 std::string DataProvider::GetRow() const
@@ -41,8 +39,6 @@ std::string DataProvider::GetRow() const
         gameplayState.birdAbleToJump ? TRUE : FALSE,
         gameplayState.framesSinceLastJump,
         gameplayState.birdAlive ? TRUE : FALSE
-        //gameplayState.points,
-        //gameplayState.action
         );
 }
 

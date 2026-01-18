@@ -47,10 +47,14 @@ void Gameplay::Run()
                 window.close();
         }
 
-        RunFrame(keyboardController.GetControlOption());
+        frameTimeExpired = frameTimer.IsExpired();
+        if (frameTimeExpired)
+            frameTimer.Reset();
+
+        RunFrame(keyboardController.GetControlOption(), frameTimeExpired);
         keyboardController.PullGameWindowAction();
 
-        if (FrameTimeExpired())
+        if (frameTimeExpired)
         {
             UpdateRenderableState();
             Display();

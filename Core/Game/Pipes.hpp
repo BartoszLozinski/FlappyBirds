@@ -9,6 +9,12 @@
 
 namespace Game
 {
+    enum class PipesSegmentIndex
+    {
+        Top = 0,
+        Bottom = 1,
+    };
+
     class Pipe : public Moveable
     {
     protected:
@@ -25,7 +31,6 @@ namespace Game
     class Pipes
     {
     private:
-        static constexpr int verticalDistanceBetweenPipes = 200;
         static constexpr unsigned horizontalSize = 80;
         static constexpr unsigned verticalSize = 500;
         static constexpr int outOfWindowOverlap = -50;
@@ -34,6 +39,8 @@ namespace Game
 
         void VerticalShift();
     public:
+        static constexpr int verticalDistanceBetweenPipes = 200;
+        
         Pipes();
         Pipes(const float xPosition);
         ~Pipes() = default;

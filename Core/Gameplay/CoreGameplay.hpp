@@ -5,12 +5,13 @@
 #include "Gameplay/Timer.hpp"
 #include "Game/Bird.hpp"
 #include "Game/Environment.hpp"
+#include "Gameplay/GameplayState.hpp"
 #include <optional>
 
 class CoreGameplay
 {
 private:
-    bool frameTimeExpired = false;
+    //bool frameTimeExpired = false;
 
     enum class PipesDirection
     {
@@ -21,7 +22,7 @@ private:
 protected:
     Game::Bird bird{};
     std::shared_ptr<Game::Environment> environment = std::make_shared<Game::Environment>();
-    Timer frameTimer{1000 / 60};
+//    Timer frameTimer{1000 / 60};
 
     template <PipesDirection direction>
     std::optional<std::reference_wrapper<Game::Pipes>> GetClosestPipes() const
@@ -52,11 +53,12 @@ protected:
     }
 
     void UpdatePoints(std::optional<std::reference_wrapper<Game::Pipes>> closestPipeBehind);
-    bool FrameTimeExpired() const;
+    //bool FrameTimeExpired() const;
     bool CheckCollisionWithPipesSegment(const std::optional<std::reference_wrapper<Game::Pipes>> pipes) const;
 
 public:
     unsigned GetPoints() const;
-    void RunFrame(const ControlOption ControlOption);
+    void RunFrame(const ControlOption ControlOption, const bool frameTimeExpired);
     bool CheckCollision(const std::optional<std::reference_wrapper<Game::Pipes>> pipesBehind, const std::optional<std::reference_wrapper<Game::Pipes>> pipesInFront) const;
+    GameplayState GetState() const;
 };

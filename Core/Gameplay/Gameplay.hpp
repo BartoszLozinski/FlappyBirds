@@ -11,6 +11,9 @@
 class Gameplay : public CoreGameplay
 {
 private:
+    Timer frameTimer{1000 / 60};
+    bool frameTimeExpired = false;
+
     bool gameStarted = false;
     Graphics::Circle renderableBird{ bird };
     Graphics::Environment renderableEnvironment{ *environment };
