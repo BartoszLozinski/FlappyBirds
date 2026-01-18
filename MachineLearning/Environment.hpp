@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Gameplay/DataProvider.hpp"
-#include "Gameplay/CoreGameplay.hpp"
+#include "../Core/Gameplay/DataProvider.hpp"
+#include "../Core/Gameplay/CoreGameplay.hpp"
 
 namespace ReinforcementLearning
 {
@@ -27,6 +27,6 @@ namespace ReinforcementLearning
 
         Gameplay::State Reset();
         DataTransition RunStep(ControlOption controlOption);
-        [[nodiscard]] float ComputeReward(const Gameplay::State& stateBeforeAction, const Gameplay::State& stateAfterAction, const Gameplay::Event& event) const;
+        [[nodiscard]] float ComputeReward(const Gameplay::Event& event) const;
     };
 };

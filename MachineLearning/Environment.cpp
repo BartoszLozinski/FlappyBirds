@@ -2,9 +2,7 @@
 
 namespace ReinforcementLearning
 {
-    float Environment::ComputeReward(const Gameplay::State& stateBeforeAction,
-                                     const Gameplay::State& stateAfterAction,
-                                     const Gameplay::Event& event) const
+    float Environment::ComputeReward(const Gameplay::Event& event) const
     {
         float reward = 0.0;
 
@@ -29,11 +27,10 @@ namespace ReinforcementLearning
 
     DataTransition Environment::RunStep(ControlOption controlOption)
     {
-        Gameplay::State stateBeforeAction = gameplay.GetState();
         Gameplay::Event event = gameplay.RunFrame(controlOption, true);
         Gameplay::State stateAfterAction = gameplay.GetState();
         const bool done = event.birdDied;
-        const float reward = ComputeReward(stateBeforeAction, stateAfterAction, event);
+        const float reward = ComputeReward(event);
 
         return { stateAfterAction, reward, done};
     }

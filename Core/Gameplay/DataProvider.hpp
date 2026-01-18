@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include "Gameplay/State.hpp"
+#include "State.hpp"
 #include "Game/Bird.hpp"
 #include "Game/Pipes.hpp"
 

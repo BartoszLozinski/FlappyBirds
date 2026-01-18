@@ -18,6 +18,7 @@ add_subdirectory(Core/DataProcessor)
 add_subdirectory(Core/Gameplay)
 add_subdirectory(Core/Tests)
 add_subdirectory(UI)
+add_subdirectory(MachineLearning)
 
 target_link_libraries(${PROJECT_NAME}   PRIVATE     Game
                                                     Graphics
