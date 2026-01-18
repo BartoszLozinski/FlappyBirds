@@ -4,7 +4,7 @@
 #include <gmock/gmock.h>
 #include "Gameplay/CoreGameplay.hpp"
 
-class GameplayDummy : public CoreGameplay
+class GameplayDummy : public Gameplay::CoreLogic
 {
 public:
     void UpdatePointsAPI(std::optional<std::reference_wrapper<Game::Pipes>> closestPipeBehind)

@@ -1,6 +1,6 @@
 #include "StartButton.hpp"
 
-#include "../Core/Gameplay/Gameplay.hpp"
+#include "../Core/Gameplay/Session.hpp"
 
 StartButton::StartButton(const std::string& text)
     : IButton(text)
@@ -8,5 +8,5 @@ StartButton::StartButton(const std::string& text)
 
 void StartButton::OnClicked()
 {
-    Gameplay{}.Run();
+    Gameplay::Session{}.Run();
 }

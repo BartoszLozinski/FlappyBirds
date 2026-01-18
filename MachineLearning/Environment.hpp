@@ -17,10 +17,10 @@ namespace ReinforcementLearning
     class Environment
     {
     private:
-        CoreGameplay& gameplay;
+        Gameplay::CoreLogic& gameplay;
 
     public:
-        Environment(CoreGameplay& gameplay_);
+        Environment(Gameplay::CoreLogic& gameplay_);
         Environment(const Environment& other) = delete;
         Environment(Environment&& other) = delete;
         Environment& operator=(const Environment& other) = delete;
