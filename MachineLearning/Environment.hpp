@@ -7,8 +7,6 @@ namespace ReinforcementLearning
 {
     struct DataTransition
     {
-        Gameplay::State stateBeforeAction;
-        Gameplay::Event event;
         Gameplay::State stateAfterAction;
         float reward{};
         bool done;
@@ -27,6 +25,7 @@ namespace ReinforcementLearning
         Environment& operator=(Environment&& other) = delete;
         ~Environment() = default;
 
+        Gameplay::State Reset();
         DataTransition RunStep(ControlOption controlOption);
         [[nodiscard]] float ComputeReward(const Gameplay::State& stateBeforeAction, const Gameplay::State& stateAfterAction, const Gameplay::Event& event) const;
     };

@@ -56,9 +56,11 @@ namespace Gameplay
         bool CheckCollisionWithPipesSegment(const std::optional<std::reference_wrapper<Game::Pipes>> pipes) const;
 
     public:
-        unsigned GetPoints() const;
-        Event RunFrame(const ControlOption ControlOption, const bool frameTimeExpired);
         bool CheckCollision(const std::optional<std::reference_wrapper<Game::Pipes>> pipesBehind, const std::optional<std::reference_wrapper<Game::Pipes>> pipesInFront) const;
         State GetState() const;
+        unsigned GetPoints() const;
+        void Reset();
+        Event RunFrame(const ControlOption ControlOption, const bool frameTimeExpired);
+
     };
 }

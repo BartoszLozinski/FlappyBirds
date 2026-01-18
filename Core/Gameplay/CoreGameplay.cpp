@@ -61,6 +61,12 @@ namespace Gameplay
         return state;
     }
 
+    void CoreLogic::Reset()
+    {
+        bird = Game::Bird{};
+        environment =std::make_shared<Game::Environment>();
+    }
+
     Event CoreLogic::RunFrame(const ControlOption controlOption, const bool frameTimeExpired)
     {
         Event event{};
