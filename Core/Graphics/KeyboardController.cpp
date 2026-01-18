@@ -4,20 +4,25 @@
 
 namespace Graphics
 {
-    void KeyboardController::JumpPressed()
+    bool KeyboardController::JumpPressed()
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             jumpPressed = true;
+
+        return jumpPressed;
     }
 
-    ControlOption KeyboardController::GetControlOption()
+    void KeyboardController::PullControlOption()
     {
-        JumpPressed();
-        
-        if (jumpPressed)
-            return ControlOption::Jump;
-        
-        return ControlOption::None;
+        if (JumpPressed())
+            controlOption = ControlOption::Jump;
+        else
+            controlOption = ControlOption::None;
+    }
+
+    ControlOption KeyboardController::GetControlOption() const
+    {
+        return controlOption;
     }
 
     GameWindowAction KeyboardController::GetGameWindowAction() const

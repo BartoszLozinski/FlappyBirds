@@ -16,13 +16,14 @@ namespace Graphics
     private:
         bool jumpPressed = false;
         GameWindowAction gameWindowAction = GameWindowAction::None;
-        void JumpPressed();
+        ControlOption controlOption = ControlOption::None;
+        [[nodiscard]] bool JumpPressed();
         
     public:
-
-        ControlOption GetControlOption();
-        void PullGameWindowAction();
+        ControlOption GetControlOption() const;
         GameWindowAction GetGameWindowAction() const;
+        void PullGameWindowAction();
+        void PullControlOption();
         inline void ResetState() {jumpPressed = false; gameWindowAction = GameWindowAction::None; };
     };
 }

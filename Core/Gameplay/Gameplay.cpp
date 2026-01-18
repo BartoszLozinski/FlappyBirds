@@ -51,8 +51,10 @@ void Gameplay::Run()
         if (frameTimeExpired)
             frameTimer.Reset();
 
-        RunFrame(keyboardController.GetControlOption(), frameTimeExpired);
         keyboardController.PullGameWindowAction();
+        keyboardController.PullControlOption();
+
+        RunFrame(keyboardController.GetControlOption(), frameTimeExpired);
 
         if (frameTimeExpired)
         {
