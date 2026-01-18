@@ -25,38 +25,10 @@ bool CoreGameplay::CheckCollision(const std::optional<std::reference_wrapper<Gam
     return result;
 }
 
-/*
-bool CoreGameplay::FrameTimeExpired() const
-{
-    return frameTimeExpired;
-}
-*/
-
 unsigned CoreGameplay::GetPoints() const
 {
     return bird.GetPoints();
 }
-
-/*
-
-struct GameplayState
-{
-    float birdX{}; //center position
-    float birdY{};
-    unsigned birdSize{};
-    float birdVy{};
-    float nextPipeX{};
-    float topPipeY{};   //center position
-    float bottomPipeY{}; 
-    unsigned pipeSizeX{};
-    unsigned pipesSizeY{};
-    unsigned pipesGapY{};
-    bool birdAbleToJump{};
-    unsigned framesSinceLastJump{};
-    bool birdAlive{};
-};
-
-*/
 
 GameplayState CoreGameplay::GetState() const
 {
@@ -88,11 +60,8 @@ GameplayState CoreGameplay::GetState() const
 
 void CoreGameplay::RunFrame(const ControlOption controlOption, const bool frameTimeExpired)
 {
-    //frameTimeExpired = false;
-
     bird.Control(controlOption);
 
-    //if (frameTimer.IsExpired())
     if (frameTimeExpired)
     {
         bird.UpdateState();
@@ -105,9 +74,6 @@ void CoreGameplay::RunFrame(const ControlOption controlOption, const bool frameT
             environment->Stop();
 
         UpdatePoints(GetClosestPipes<PipesDirection::Behind>());
-        //frameTimer.Reset();
-
-        //frameTimeExpired = true;
     }
 }
 
