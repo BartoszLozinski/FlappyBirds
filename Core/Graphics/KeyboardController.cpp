@@ -4,6 +4,16 @@
 
 namespace Graphics
 {
+    ControlOption KeyboardController::GetControlOption() const
+    {
+        return controlOption;
+    }
+
+    GameWindowAction KeyboardController::GetGameWindowAction() const
+    {
+        return gameWindowAction;
+    }
+
     bool KeyboardController::JumpPressed()
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
@@ -18,16 +28,6 @@ namespace Graphics
             controlOption = ControlOption::Jump;
         else
             controlOption = ControlOption::None;
-    }
-
-    ControlOption KeyboardController::GetControlOption() const
-    {
-        return controlOption;
-    }
-
-    GameWindowAction KeyboardController::GetGameWindowAction() const
-    {
-        return gameWindowAction;
     }
 
     void KeyboardController::PullGameWindowAction()

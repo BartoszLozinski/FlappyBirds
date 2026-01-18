@@ -20,8 +20,8 @@ namespace Graphics
         [[nodiscard]] bool JumpPressed();
         
     public:
-        ControlOption GetControlOption() const;
-        GameWindowAction GetGameWindowAction() const;
+        [[nodiscard]] ControlOption GetControlOption() const;
+        [[nodiscard]] GameWindowAction GetGameWindowAction() const;
         void PullGameWindowAction();
         void PullControlOption();
         inline void ResetState() {jumpPressed = false; gameWindowAction = GameWindowAction::None; };
