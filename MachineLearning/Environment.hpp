@@ -2,6 +2,7 @@
 
 #include "../Core/Gameplay/DataProvider.hpp"
 #include "../Core/Gameplay/CoreGameplay.hpp"
+#include "../Core/Gameplay/State.hpp"
 
 namespace ReinforcementLearning
 {
@@ -15,14 +16,17 @@ namespace ReinforcementLearning
     class Environment
     {
     private:
-        Gameplay::CoreLogic& gameplay;
+        Gameplay::CoreLogic gameplay;
 
     public:
         Environment(Gameplay::CoreLogic& gameplay_);
+        Environment();
+        /*
         Environment(const Environment& other) = delete;
         Environment(Environment&& other) = delete;
         Environment& operator=(const Environment& other) = delete;
         Environment& operator=(Environment&& other) = delete;
+        */
         ~Environment() = default;
 
         Gameplay::State Reset();

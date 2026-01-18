@@ -17,7 +17,7 @@ namespace Gameplay
         gameplayState.topPipeY = pipesSegment[0].GetPosition().y;
         gameplayState.bottomPipeY = pipesSegment[1].GetPosition().y;
         gameplayState.pipeSizeX = pipesSegment[0].GetSize().x;
-        gameplayState.pipesSizeY = pipesSegment[0].GetSize().y;
+        gameplayState.pipeSizeY = pipesSegment[0].GetSize().y;
         gameplayState.birdAbleToJump = bird.IsAbleToJump();
         gameplayState.framesSinceLastJump = bird.GetFramesSinceLastJump();
         gameplayState.birdAlive = bird.IsAlive();
@@ -37,7 +37,7 @@ namespace Gameplay
             gameplayState.topPipeY,
             gameplayState.bottomPipeY,
             gameplayState.pipeSizeX,
-            gameplayState.pipesSizeY,
+            gameplayState.pipeSizeY,
             gameplayState.birdAbleToJump ? TRUE : FALSE,
             gameplayState.framesSinceLastJump,
             gameplayState.birdAlive ? TRUE : FALSE
