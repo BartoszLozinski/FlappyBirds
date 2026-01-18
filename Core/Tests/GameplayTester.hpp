@@ -7,9 +7,9 @@
 class GameplayDummy : public Gameplay::CoreLogic
 {
 public:
-    void UpdatePointsAPI(std::optional<std::reference_wrapper<Game::Pipes>> closestPipeBehind)
+    bool UpdatePointsAPI(std::optional<std::reference_wrapper<Game::Pipes>> closestPipeBehind)
     {
-        UpdatePoints(closestPipeBehind);
+        return UpdatePoints(closestPipeBehind);
     }
 };
 

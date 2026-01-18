@@ -2,7 +2,9 @@
 
 #include <cstdint>
 
-#include "Gameplay/GameplayState.hpp"
+#include "Gameplay/State.hpp"
+#include "Game/Bird.hpp"
+#include "Game/Pipes.hpp"
 
 namespace Gameplay
 {

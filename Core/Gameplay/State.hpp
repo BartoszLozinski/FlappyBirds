@@ -1,8 +1,5 @@
 #pragma once
 
-#include "Game/Bird.hpp"
-#include "Game/Pipes.hpp"
-
 namespace Gameplay
 {
     struct State

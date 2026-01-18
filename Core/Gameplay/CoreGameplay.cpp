@@ -61,26 +61,36 @@ namespace Gameplay
         return state;
     }
 
-    void CoreLogic::RunFrame(const ControlOption controlOption, const bool frameTimeExpired)
+    Event CoreLogic::RunFrame(const ControlOption controlOption, const bool frameTimeExpired)
     {
+        Event event{};
+
         bird.Control(controlOption);
 
-        if (frameTimeExpired)
+        if (!frameTimeExpired)
+            return event;
+
+        event.frameAdvanced = true;
+
+        bird.UpdateState();
+        environment->UpdateState();
+
+        if (CheckCollision(GetClosestPipes<PipesDirection::Behind>(), GetClosestPipes<PipesDirection::InFront>()))
         {
-            bird.UpdateState();
-            environment->UpdateState();
-
-            if (CheckCollision(GetClosestPipes<PipesDirection::Behind>(), GetClosestPipes<PipesDirection::InFront>()))
-                bird.Kill();
-
-            if (!bird.IsAlive())
-                environment->Stop();
-
-            UpdatePoints(GetClosestPipes<PipesDirection::Behind>());
+            bird.Kill();
+            event.birdDied = true;
         }
+        
+        if (!bird.IsAlive())
+            environment->Stop();
+
+        if (UpdatePoints(GetClosestPipes<PipesDirection::Behind>()))
+            event.pipePassed = true;
+
+        return event;        
     }
 
-    void CoreLogic::UpdatePoints(std::optional<std::reference_wrapper<Game::Pipes>> closestPipeBehind)
+    bool CoreLogic::UpdatePoints(std::optional<std::reference_wrapper<Game::Pipes>> closestPipeBehind)
     {
         if (closestPipeBehind
             && !closestPipeBehind->get().IsScored()
@@ -88,6 +98,9 @@ namespace Gameplay
         {
             ++bird;
             closestPipeBehind->get().Score();
+            return true;
         }
+
+        return false;
     }
 }
