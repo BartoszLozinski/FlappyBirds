@@ -33,9 +33,9 @@ namespace Gameplay
         return bird.GetPoints();
     }
 
-    GameplayState CoreLogic::GetState() const
+    State CoreLogic::GetState() const
     {
-        GameplayState state{};
+        State state{};
 
         const auto& birdPosition = bird.GetPosition();
         state.birdX = birdPosition.x;

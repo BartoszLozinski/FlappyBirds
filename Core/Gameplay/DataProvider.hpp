@@ -4,16 +4,19 @@
 
 #include "Gameplay/GameplayState.hpp"
 
-class DataProvider
+namespace Gameplay
 {
-private:
-    GameplayState gameplayState{};
+    class DataProvider
+    {
+    private:
+        State gameplayState{};
 
-public:
+    public:
 
-    DataProvider() = default;
-    void SetState(const Game::Bird& bird, const Game::Pipes& pipes);
-    std::string GetRow() const;
-    GameplayState GetGameplayState() const;
-    std::string GetHeader() const;
-};
+        DataProvider() = default;
+        void SetState(const Game::Bird& bird, const Game::Pipes& pipes);
+        std::string GetRow() const;
+        State GetGameplayState() const;
+        std::string GetHeader() const;
+    };
+}

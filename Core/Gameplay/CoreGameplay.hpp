@@ -58,6 +58,6 @@ namespace Gameplay
         unsigned GetPoints() const;
         void RunFrame(const ControlOption ControlOption, const bool frameTimeExpired);
         bool CheckCollision(const std::optional<std::reference_wrapper<Game::Pipes>> pipesBehind, const std::optional<std::reference_wrapper<Game::Pipes>> pipesInFront) const;
-        GameplayState GetState() const;
+        State GetState() const;
     };
 }

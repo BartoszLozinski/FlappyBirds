@@ -7,10 +7,10 @@ namespace ReinforcementLearning
 {
     struct DataTransition
     {
-        GameplayState frameState;
+        Gameplay::State frameState;
         ControlOption controlOption;
         float reward{};
-        GameplayState nextFrameState;
+        Gameplay::State nextFrameState;
         bool actionDone;
     };
 

@@ -9,7 +9,7 @@
 class DataProviderFixture : public testing::Test
 {
 public:
-    DataProvider dataProvider;
+    Gameplay::DataProvider dataProvider;
     DataExporter dataExporter{"test_data.csv", "Core/Tests/"};
 
     void TearDown() override;
