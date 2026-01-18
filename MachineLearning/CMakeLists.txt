@@ -1,6 +1,6 @@
-set(target_name MachineLearning)
+set(target_name MachineLearningTrainer)
 
-set(${target_name}_src      Environment.hpp)
+set(${target_name}_src      Environment.cpp)
 
 add_library(${target_name}  STATIC  ${${target_name}_src})
 
