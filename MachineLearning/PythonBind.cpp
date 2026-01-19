@@ -3,8 +3,21 @@
 
 namespace py = pybind11;
 
+/*
+
+"Exports" C++ API to python, whereas LHS is python structure/architecture, and RHS is the C++ side
+from build/MachineLearning dir simply run: PYTHONPATH=. python3 ../../MachineLearning/Python/test_env.py
+to run your script with bindings
+
+*/
+
 PYBIND11_MODULE(flappy_env, m)
 {
+    py::enum_<ControlOption>(m, "ControlOption")
+        .value("None", ControlOption::None)
+        .value("Jump", ControlOption::Jump)
+        .export_values();
+
     py::class_<Gameplay::State>(m, "State")
         .def_readonly("bird_x", &Gameplay::State::birdX)
         .def_readonly("bird_y", &Gameplay::State::birdY)
@@ -28,4 +41,4 @@ PYBIND11_MODULE(flappy_env, m)
         .def(py::init<>())
         .def("reset", &ReinforcementLearning::Environment::Reset)
         .def("step", &ReinforcementLearning::Environment::RunStep);
-}
+};

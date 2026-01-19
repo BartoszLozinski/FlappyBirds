@@ -10,6 +10,8 @@ set(FLAGS   -Wall
 
 set(OPTIMIZATION_LEVEL  -Og)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 add_executable(${PROJECT_NAME}  main.cpp)
 
 add_subdirectory(Core/Game)
