@@ -78,17 +78,14 @@ namespace Gameplay
 
         event.frameAdvanced = true;
 
-        bird.UpdateState();
-        environment->UpdateState();
-
         if (CheckCollision(GetClosestPipes<PipesDirection::Behind>(), GetClosestPipes<PipesDirection::InFront>()))
         {
             bird.Kill();
             event.birdDied = true;
         }
-        
-        if (!bird.IsAlive())
-            environment->Stop();
+
+        bird.UpdateState();
+        environment->UpdateState();
 
         if (UpdatePoints(GetClosestPipes<PipesDirection::Behind>()))
             event.pipePassed = true;

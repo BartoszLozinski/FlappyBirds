@@ -6,7 +6,7 @@ namespace py = pybind11;
 /*
 
 "Exports" C++ API to python, whereas LHS is python structure/architecture, and RHS is the C++ side
-from build/MachineLearning dir simply run: PYTHONPATH=. python3 ../../MachineLearning/Python/test_env.py
+from build/MachineLearning dir simply run: PYTHONPATH=. python3 ../../MachineLearning/Python/script_name.py
 to run your script with bindings
 
 */
@@ -14,7 +14,7 @@ to run your script with bindings
 PYBIND11_MODULE(flappy_env, m)
 {
     py::enum_<ControlOption>(m, "ControlOption")
-        .value("None", ControlOption::None)
+        .value("NoOp", ControlOption::None)//pythons None collides with pythons keyword
         .value("Jump", ControlOption::Jump)
         .export_values();
 

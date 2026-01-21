@@ -2,11 +2,6 @@
 
 namespace ReinforcementLearning
 {
-    /*
-    Environment::Environment(Gameplay::CoreLogic{})
-        : gameplay(Gameplay::CoreLogic{})
-    {};
-*/
     float Environment::ComputeReward(const Gameplay::Event& event) const
     {
         float reward = 0.0;
