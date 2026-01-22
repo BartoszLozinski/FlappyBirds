@@ -29,6 +29,7 @@ namespace ReinforcementLearning
         */
         ~Environment() = default;
 
+        Gameplay::State GetState() const;
         Gameplay::State Reset();
         DataTransition RunStep(ControlOption controlOption);
         [[nodiscard]] float ComputeReward(const Gameplay::Event& event) const;

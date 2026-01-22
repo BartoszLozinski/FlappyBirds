@@ -25,6 +25,12 @@ namespace ReinforcementLearning
         return gameplay.GetState();
     }
 
+    Gameplay::State Environment::GetState() const
+    {
+        return gameplay.GetState();
+    }
+
+
     DataTransition Environment::RunStep(ControlOption controlOption)
     {
         Gameplay::Event event = gameplay.RunFrame(controlOption, true);

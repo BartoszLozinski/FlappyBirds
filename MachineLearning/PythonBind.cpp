@@ -40,5 +40,6 @@ PYBIND11_MODULE(flappy_env, m)
     py::class_<ReinforcementLearning::Environment>(m, "Environment")
         .def(py::init<>())
         .def("reset", &ReinforcementLearning::Environment::Reset)
+        .def("get_state", &ReinforcementLearning::Environment::GetState)
         .def("step", &ReinforcementLearning::Environment::RunStep);
 };
