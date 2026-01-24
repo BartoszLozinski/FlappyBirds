@@ -10,7 +10,6 @@
 
 namespace Gameplay
 {
-
     bool CoreLogic::CheckCollisionWithPipesSegment(const std::optional<std::reference_wrapper<Game::Pipes>> pipes) const
     {
         return std::ranges::any_of(pipes->get().GetPipesSegment(), [&](const auto& pipe)

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../Core/Gameplay/DataProvider.hpp"
-#include "../Core/Gameplay/CoreGameplay.hpp"
 #include "../Core/Gameplay/State.hpp"
+#include "CoreLogicAdapter.hpp"
 
 namespace ReinforcementLearning
 {
@@ -16,7 +16,7 @@ namespace ReinforcementLearning
     class Environment
     {
     private:
-        Gameplay::CoreLogic gameplay;
+        CoreLogicAdapter gameplay;
 
     public:
         Environment() = default;
