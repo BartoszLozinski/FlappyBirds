@@ -22,7 +22,8 @@ public:
 TEST_F(GameplayFixutre, PointAddedTest)
 {
     //bird initial position is {200, 300}
-    auto gamePipes = std::make_optional<std::reference_wrapper<Game::Pipes>>(std::ref(*std::make_unique<Game::Pipes>(199.f)));
+    static constexpr float initialXPosition = 199.f;
+    auto gamePipes = std::make_optional<std::reference_wrapper<Game::Pipes>>(std::ref(*std::make_unique<Game::Pipes>(80, 500, initialXPosition, -50, 650)));
     const float initialPoints = gameplayFixture.GetPoints();
 
     gamePipes->get().UpdateState();
@@ -34,7 +35,8 @@ TEST_F(GameplayFixutre, PointAddedTest)
 
 TEST_F(GameplayFixutre, PointNotAddedTest)
 {
-    auto pipesBehind = std::make_optional<std::reference_wrapper<Game::Pipes>>(std::ref(*std::make_unique<Game::Pipes>(205.f)));
+    static constexpr float initialXPosition = 205.f;
+    auto pipesBehind = std::make_optional<std::reference_wrapper<Game::Pipes>>(std::ref(*std::make_unique<Game::Pipes>(80, 500, initialXPosition, -50, 650)));
 
     const float initialPoints = gameplayFixture.GetPoints();
 
@@ -47,7 +49,8 @@ TEST_F(GameplayFixutre, PointNotAddedTest)
 
 TEST_F(GameplayFixutre, PointNotAddedTestBecauseScored)
 {
-    auto pipesBehind = std::make_optional<std::reference_wrapper<Game::Pipes>>(std::ref(*std::make_unique<Game::Pipes>(199.f)));
+    static constexpr float initialXPosition = 199.f;
+    auto pipesBehind = std::make_optional<std::reference_wrapper<Game::Pipes>>(std::ref(*std::make_unique<Game::Pipes>(80, 500, initialXPosition, -50, 650)));
     const float initialPoints = gameplayFixture.GetPoints();
 
     pipesBehind->get().Score();

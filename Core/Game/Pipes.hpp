@@ -31,27 +31,24 @@ namespace Game
     class Pipes
     {
     private:
-        static constexpr unsigned horizontalSize = 80;
-        static constexpr unsigned verticalSize = 500;
-        static constexpr int outOfWindowOverlap = -50;
         std::array<Pipe, 2> pipesSegment;
         bool isScored = false;
+        void VerticalShift(const float yPositionTop, const float yPositionBottom);
 
-        void VerticalShift();
     public:
-        static constexpr int verticalDistanceBetweenPipes = 200;
-        
+
         Pipes();
-        Pipes(const float xPosition);
+        Pipes(const unsigned horizontalSize, const unsigned verticalSize, const float xPosition, const float yPositionTop, const float yPositionBottom);
         ~Pipes() = default;
+        /*
         Pipes(const Pipes&) = delete;
         Pipes(Pipes&&) = delete;
         Pipes& operator=(const Pipes&) = delete;
-        Pipes& operator=(Pipes&&) = delete;
+        Pipes& operator=(Pipes&&) = delete;*/
 
         void UpdateState();
         std::span<const Pipe> GetPipesSegment() const;
-        void ResetPosition(const bool movedOutOfTheWindow, const float xPosition);
+        void ResetPosition(const bool movedOutOfTheWindow, const float xPosition, const float yPostionTop, const float yPositionBottom);
         bool IsScored() const;
         void Score();
     };   

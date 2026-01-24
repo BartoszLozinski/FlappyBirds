@@ -19,14 +19,7 @@ namespace ReinforcementLearning
         Gameplay::CoreLogic gameplay;
 
     public:
-        //Environment(Gameplay::CoreLogic& gameplay_);
         Environment() = default;
-        /*
-        Environment(const Environment& other) = delete;
-        Environment(Environment&& other) = delete;
-        Environment& operator=(const Environment& other) = delete;
-        Environment& operator=(Environment&& other) = delete;
-        */
         ~Environment() = default;
 
         Gameplay::State GetState() const;

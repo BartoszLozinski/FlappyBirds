@@ -10,9 +10,17 @@ namespace Game
         pipes.push_back(std::make_unique<Pipes>());
 
         for (int i = 1; i < initialCapacity; i++)
-            pipes.push_back(std::make_unique<Pipes>( pipes[i - 1]->GetPipesSegment()[0].GetPosition().x 
-                                                   + pipes[i - 1]->GetPipesSegment()[0].GetSize().x
-                                                   + horizontalDistanceBetweenPipes ));
+        {
+            const float shiftValue = randomGenerator.Generate();
+
+            pipes.push_back(std::make_unique<Pipes>(horizontalSize,
+                                                    verticalSize, 
+                                                    pipes[i - 1]->GetPipesSegment()[0].GetPosition().x 
+                                                        + pipes[i - 1]->GetPipesSegment()[0].GetSize().x
+                                                        + horizontalDistanceBetweenPipes,
+                                                    outOfWindowOverlap + shiftValue,
+                                                    outOfWindowOverlap + shiftValue + verticalSize + verticalDistanceBetweenPipes));
+        }
     }
 
     void Environment::UpdateState()
@@ -36,7 +44,12 @@ namespace Game
             if (movedOutOfTheWindow)
                 theFurthestPipePositionX += pipeSegment->GetPipesSegment()[0].GetSize().x + horizontalDistanceBetweenPipes;
             
-            pipeSegment->ResetPosition(movedOutOfTheWindow, theFurthestPipePositionX);
+            const float shiftValue = randomGenerator.Generate();
+
+            pipeSegment->ResetPosition(movedOutOfTheWindow,
+                                       theFurthestPipePositionX,
+                                       shiftValue + outOfWindowOverlap,
+                                       shiftValue + outOfWindowOverlap + verticalSize + verticalDistanceBetweenPipes);
         }
     }
 

@@ -35,15 +35,20 @@ namespace Game
     }
 
     /////////////////////////////////////////////////////////////////////////////
-
+    /*
     Pipes::Pipes(const float xPosition)
         : pipesSegment({Pipe{{horizontalSize, verticalSize}, {xPosition, outOfWindowOverlap}}, Pipe{{horizontalSize, verticalSize}, {xPosition, outOfWindowOverlap + verticalSize + verticalDistanceBetweenPipes}}})
     {
         VerticalShift();
     };
+    */
+
+    Pipes::Pipes(const unsigned horizontalSize, const unsigned verticalSize, const float xPosition, const float yPositionTop, const float yPositionBottom)
+        : pipesSegment({Pipe{{horizontalSize, verticalSize}, {xPosition, yPositionTop}}, Pipe{{horizontalSize, verticalSize}, {xPosition, yPositionBottom}}})
+    {};
 
     Pipes::Pipes()
-        : Pipes(static_cast<float>(Game::Config::WINDOW_WIDTH))
+        : Pipes(80, 500, static_cast<float>(Game::Config::WINDOW_WIDTH), -50, 650)
     {};
 
     void Pipes::UpdateState()
@@ -54,25 +59,20 @@ namespace Game
         }
     }
 
-    void Pipes::VerticalShift()
+    void Pipes::VerticalShift(const float yPositionTop, const float yPositionBotton)
     {
-        static constexpr float minVerticalShift = -150;
-        static constexpr float maxVerticalShift = 150;
-    
-        const float verticalShift = Utils::RandomGenerator{minVerticalShift, maxVerticalShift}.Generate();
-
-        pipesSegment[0].SetPosition({ pipesSegment[0].GetPosition().x, outOfWindowOverlap + verticalShift });
-        pipesSegment[1].SetPosition({ pipesSegment[1].GetPosition().x, outOfWindowOverlap + verticalSize + verticalDistanceBetweenPipes + verticalShift });
+        pipesSegment[static_cast<size_t>(PipesSegmentIndex::Top)].SetPosition({ pipesSegment[0].GetPosition().x, yPositionTop });
+        pipesSegment[static_cast<size_t>(PipesSegmentIndex::Bottom)].SetPosition({ pipesSegment[1].GetPosition().x, yPositionBotton });
     }
 
-    void Pipes::ResetPosition(const bool movedOutOfTheWindow, const float xPosition)
+    void Pipes::ResetPosition(const bool movedOutOfTheWindow, const float xPosition, const float yPositionTop, const float yPositionBottom)
     {
         for (auto& pipe : pipesSegment)
         {
             pipe.ResetPosition(movedOutOfTheWindow, xPosition);
             if (movedOutOfTheWindow)
             {
-                VerticalShift();
+                VerticalShift(yPositionTop, yPositionBottom);
                 isScored = false;
             }
         }

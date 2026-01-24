@@ -24,7 +24,11 @@ namespace Utils
             , max(max_)
             {};
 
-        
+        void Seed(const uint32_t seed)
+        {
+            engine.seed(seed);
+        }
+
         T Generate()
         {
             std::uniform_real_distribution<T> distribution{min, max};

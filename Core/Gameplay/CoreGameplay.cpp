@@ -52,7 +52,7 @@ namespace Gameplay
             state.bottomPipeY = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Bottom)].GetPosition().x;
             state.pipeSizeX = state.nextPipeX = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetSize().x;
             state.pipeSizeY = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetSize().x;
-            state.pipesGapY = Game::Pipes::verticalDistanceBetweenPipes;
+            state.pipesGapY = Game::Environment::verticalDistanceBetweenPipes;
             state.birdAbleToJump = bird.IsAbleToJump();
             state.framesSinceLastJump = bird.GetFramesSinceLastJump();
             state.birdAlive = bird.IsAlive();
