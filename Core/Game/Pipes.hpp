@@ -40,12 +40,7 @@ namespace Game
         Pipes();
         Pipes(const unsigned horizontalSize, const unsigned verticalSize, const float xPosition, const float yPositionTop, const float yPositionBottom);
         ~Pipes() = default;
-        /*
-        Pipes(const Pipes&) = delete;
-        Pipes(Pipes&&) = delete;
-        Pipes& operator=(const Pipes&) = delete;
-        Pipes& operator=(Pipes&&) = delete;*/
-
+        
         void UpdateState();
         std::span<const Pipe> GetPipesSegment() const;
         void ResetPosition(const bool movedOutOfTheWindow, const float xPosition, const float yPostionTop, const float yPositionBottom);

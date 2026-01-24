@@ -52,7 +52,7 @@ namespace Gameplay
             state.bottomPipeY = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Bottom)].GetPosition().x;
             state.pipeSizeX = state.nextPipeX = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetSize().x;
             state.pipeSizeY = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetSize().x;
-            state.pipesGapY = Game::Environment::verticalDistanceBetweenPipes;
+            state.pipesGapY = Game::Environment::GetVerticalDistanceBetweenPipes();
             state.birdAbleToJump = bird.IsAbleToJump();
             state.framesSinceLastJump = bird.GetFramesSinceLastJump();
             state.birdAlive = bird.IsAlive();
@@ -97,7 +97,7 @@ namespace Gameplay
     {
         if (closestPipeBehind
             && !closestPipeBehind->get().IsScored()
-            && closestPipeBehind->get().GetPipesSegment()[0].GetPosition().x < bird.GetPosition().x)
+            && closestPipeBehind->get().GetPipesSegment()[static_cast<size_t>(Game::PipesSegmentIndex::Top)].GetPosition().x < bird.GetPosition().x)
         {
             ++bird;
             closestPipeBehind->get().Score();

@@ -34,17 +34,13 @@ namespace Game
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////
-    /*
-    Pipes::Pipes(const float xPosition)
-        : pipesSegment({Pipe{{horizontalSize, verticalSize}, {xPosition, outOfWindowOverlap}}, Pipe{{horizontalSize, verticalSize}, {xPosition, outOfWindowOverlap + verticalSize + verticalDistanceBetweenPipes}}})
-    {
-        VerticalShift();
-    };
-    */
-
-    Pipes::Pipes(const unsigned horizontalSize, const unsigned verticalSize, const float xPosition, const float yPositionTop, const float yPositionBottom)
-        : pipesSegment({Pipe{{horizontalSize, verticalSize}, {xPosition, yPositionTop}}, Pipe{{horizontalSize, verticalSize}, {xPosition, yPositionBottom}}})
+    Pipes::Pipes(const unsigned horizontalSize,
+                 const unsigned verticalSize, 
+                 const float xPosition,
+                 const float yPositionTop,
+                 const float yPositionBottom)
+        : pipesSegment({Pipe{{horizontalSize, verticalSize}, {xPosition, yPositionTop}},
+                        Pipe{{horizontalSize, verticalSize}, {xPosition, yPositionBottom}}})
     {};
 
     Pipes::Pipes()
