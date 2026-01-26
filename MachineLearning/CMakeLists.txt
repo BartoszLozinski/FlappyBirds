@@ -1,6 +1,7 @@
 set(target_name flappy_env)
 
-set(${target_name}_src      Environment.cpp
+set(${target_name}_src      CoreLogicAdapter.cpp
+                            Environment.cpp
                             PythonBind.cpp)
 
 find_package(pybind11 REQUIRED)

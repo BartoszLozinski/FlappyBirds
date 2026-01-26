@@ -19,12 +19,13 @@ namespace ReinforcementLearning
         CoreLogicAdapter gameplay;
 
     public:
-        Environment() = default;
+        Environment();
         ~Environment() = default;
 
         Gameplay::State GetState() const;
         Gameplay::State Reset();
         DataTransition RunStep(ControlOption controlOption);
+        void Seed(unsigned seed);
         [[nodiscard]] float ComputeReward(const Gameplay::Event& event) const;
     };
 };

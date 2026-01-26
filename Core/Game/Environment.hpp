@@ -6,7 +6,7 @@ namespace Game
 {
     class Environment
     {
-    private:
+    protected:
         static constexpr unsigned horizontalSize = 80;
         static constexpr unsigned verticalSize = 500;
         static constexpr int outOfWindowOverlap = -50;

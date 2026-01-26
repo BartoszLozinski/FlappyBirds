@@ -30,6 +30,14 @@ namespace ReinforcementLearning
         return gameplay.GetState();
     }
 
+    Environment::Environment()
+        : gameplay(CoreLogicAdapter(std::make_shared<EnvironmentAdapter>(42)))
+    {}
+
+    void Environment::Seed(unsigned seed)
+    {
+        gameplay.GetEnvAdapter()->Seed(seed);
+    };
 
     DataTransition Environment::RunStep(ControlOption controlOption)
     {
