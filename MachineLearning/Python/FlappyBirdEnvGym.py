@@ -12,6 +12,8 @@ import random
 # run this from the main directory (FlappyBirds)
 # PYTHONPATH=build/MachineLearning python3 MachineLearning/Python/FlappyBirdEnvGym.py
 
+# Lets import model and check it visually
+
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 
@@ -126,7 +128,7 @@ def crossover(w1, w2):
 
 # Genetic algorithm
 
-def run_genetic_algorithm(env, population_size=50, generations=50, elite_frac=0.2):
+def run_genetic_algorithm(env, population_size=100, generations=50, elite_frac=0.2):
     #Initialize
     model = BirdNet()
     weight_shape = get_weights(model).shape[0]
@@ -137,7 +139,7 @@ def run_genetic_algorithm(env, population_size=50, generations=50, elite_frac=0.
         
         for individual in population:
             set_weights(model, individual)
-            score = evaluate(model, env)
+            score = evaluate(model, env, 3000)
             fitness.append(score)
 
         fitness = np.array(fitness)
@@ -152,7 +154,7 @@ def run_genetic_algorithm(env, population_size=50, generations=50, elite_frac=0.
         while len(new_population) < population_size:
             parent1, parent2 = random.sample(elites, 2)
             child = crossover(parent1, parent2)
-            child = mutate(child)
+            child = mutate(child, 0.05)
             new_population.append(child)
 
         population = new_population
