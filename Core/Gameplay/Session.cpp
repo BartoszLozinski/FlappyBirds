@@ -11,12 +11,6 @@ namespace Gameplay
         window.display();
     }
 
-    void Session::UpdateRenderableState()
-    {
-        renderableBird.UpdatePosition();
-        renderableEnvironment.UpdatePosition();
-    }
-
     void Session::DisplayHelpInstructions()
     {
         auto helpInstruction = Graphics::Text{ window, { Game::Config::WINDOW_WIDTH * 0.1, Game::Config::WINDOW_HEIGHT * 0.25 }, 40 };
@@ -29,7 +23,7 @@ namespace Gameplay
         window.display();
     }
 
-    void Session::Run()
+    void Session::HelpInstructions()
     {
         while (!gameStarted)
         {
@@ -39,7 +33,10 @@ namespace Gameplay
             if (keyboardController.GetGameWindowAction() == GameWindowAction::Start)
                 gameStarted = true;
         }
+    }
 
+    void Session::GameplayLoop()
+    {
         while (window.isOpen())
         {
             sf::Event event;
@@ -68,5 +65,17 @@ namespace Gameplay
                 keyboardController.ResetState();
             }
         }
+    }
+
+    void Session::Run()
+    {
+        HelpInstructions();
+        GameplayLoop();
+    }
+
+    void Session::UpdateRenderableState()
+    {
+        renderableBird.UpdatePosition();
+        renderableEnvironment.UpdatePosition();
     }
 }

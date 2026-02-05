@@ -23,9 +23,13 @@ namespace Gameplay
         Graphics::KeyboardController keyboardController{};
         Graphics::Text pointsText{ window  };
 
+        void Display();
         void DisplayHelpInstructions();
         void UpdateRenderableState();
-        void Display();
+        void HelpInstructions();
+    
+    protected:
+        void GameplayLoop();
 
     public:
         void Run();
