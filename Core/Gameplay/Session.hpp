@@ -20,7 +20,7 @@ namespace Gameplay
         Graphics::Circle renderableBird{ bird };
         Graphics::Environment renderableEnvironment{ *environment };
         sf::RenderWindow window{ sf::VideoMode{ Game::Config::WINDOW_WIDTH, Game::Config::WINDOW_HEIGHT }, "Flappy Birds" };
-        Graphics::KeyboardController keyboardController{};
+        std::shared_ptr<IController> controller = std::make_shared<Graphics::KeyboardController>();
         Graphics::Text pointsText{ window  };
 
         void Display();

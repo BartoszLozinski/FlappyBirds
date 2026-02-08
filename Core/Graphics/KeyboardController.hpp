@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Utils/ControlOption.hpp"
+#include "Game/IController.hpp"
 
 enum class GameWindowAction
 {
@@ -11,16 +11,15 @@ enum class GameWindowAction
 
 namespace Graphics
 {
-    class KeyboardController
+    class KeyboardController : public IController
     {
     private:
         bool jumpPressed = false;
         GameWindowAction gameWindowAction = GameWindowAction::None;
-        ControlOption controlOption = ControlOption::None;
         [[nodiscard]] bool JumpPressed();
         
     public:
-        [[nodiscard]] ControlOption GetControlOption() const;
+        [[nodiscard]] ControlOption Decide() const override;
         [[nodiscard]] GameWindowAction GetGameWindowAction() const;
         void PullGameWindowAction();
         void PullControlOption();

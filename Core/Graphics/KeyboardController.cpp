@@ -4,7 +4,7 @@
 
 namespace Graphics
 {
-    ControlOption KeyboardController::GetControlOption() const
+    ControlOption KeyboardController::Decide() const
     {
         return controlOption;
     }

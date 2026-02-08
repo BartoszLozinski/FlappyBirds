@@ -28,9 +28,10 @@ namespace Gameplay
         while (!gameStarted)
         {
             DisplayHelpInstructions();
-            keyboardController.PullGameWindowAction();
+            auto keyboardController = std::static_pointer_cast<Graphics::KeyboardController>(controller);
+            keyboardController->PullGameWindowAction();
 
-            if (keyboardController.GetGameWindowAction() == GameWindowAction::Start)
+            if (keyboardController->GetGameWindowAction() == GameWindowAction::Start)
                 gameStarted = true;
         }
     }
@@ -50,19 +51,20 @@ namespace Gameplay
             if (frameTimeExpired)
                 frameTimer.Reset();
 
-            keyboardController.PullGameWindowAction();
-            keyboardController.PullControlOption();
+            auto keyboardController = std::static_pointer_cast<Graphics::KeyboardController>(controller);
+            keyboardController->PullGameWindowAction();
+            keyboardController->PullControlOption();
 
-            RunFrame(keyboardController.GetControlOption(), frameTimeExpired);
+            RunFrame(controller->Decide(), frameTimeExpired);
 
             if (frameTimeExpired)
             {
                 UpdateRenderableState();
                 Display();
-                if (keyboardController.GetGameWindowAction() == GameWindowAction::Quit)
+                if (keyboardController->GetGameWindowAction() == GameWindowAction::Quit)
                     window.close();
 
-                keyboardController.ResetState();
+                keyboardController->ResetState();
             }
         }
     }
