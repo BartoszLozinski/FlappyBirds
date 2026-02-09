@@ -138,7 +138,7 @@ def crossover(w1, w2):
 
 # Genetic algorithm
 
-def run_genetic_algorithm(env, population_size=200, generations=30, elite_frac=0.2):
+def run_genetic_algorithm(env, population_size=150, generations=50, elite_frac=0.2):
     #Initialize
     model = BirdNet()
     weight_shape = get_weights(model).shape[0]
