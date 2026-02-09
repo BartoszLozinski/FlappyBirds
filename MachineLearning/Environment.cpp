@@ -5,16 +5,15 @@ namespace ReinforcementLearning
     float Environment::ComputeReward(const Gameplay::Event& event) const
     {
         float reward = 0.0;
+        const auto& currentState = gameplay.GetState();
 
-        //Survival reward
         if (!event.birdDied)
-            reward += 0.1f;
+            reward += 0.02f + 0.1f * (1.0 - std::abs(currentState.birdY - currentState.pipesGapY) / Game::Config::WINDOW_HEIGHT);
         else //Death reward
-            reward -= 5.0f;
-
-        //Pipe passing reward
-        if (event.pipePassed)
-            reward += 1.0f;
+            reward -= 1.0f;
+        
+        if (event.pipePassed) //Pipe passing reward
+            reward += 4.0f;
 
         return reward;
     }

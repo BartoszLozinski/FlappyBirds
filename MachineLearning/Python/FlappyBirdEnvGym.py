@@ -59,7 +59,7 @@ class FlappyBirdEnvGym(gym.Env):
 # -------------- Neural Network --------------
 
 class BirdNet(nn.Module):
-    def __init__(self, input_dim=4, hidden_dim=8):
+    def __init__(self, input_dim=4, hidden_dim=16):
         super().__init__()
         self.fc1 = nn.Linear(input_dim, hidden_dim)  # input layer and hidden layer
         self.fc2 = nn.Linear(hidden_dim, 1)  # hidden layer and jump probability (output layer)
@@ -67,8 +67,7 @@ class BirdNet(nn.Module):
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
-        x = self.sigmoid(self.fc2(x))
-        return x
+        return self.fc2(x)
     
 # Genetic algorithm helper functions
 
@@ -89,16 +88,17 @@ def set_weights(model, weights):
         pointer += size
 
 
-def evaluate(model, env, max_steps=1500):
+def evaluate(model, env, max_steps=3000):
     """Run single episode and return total reward"""
-    state, _ = env.reset()
+    state, _ = env.reset(seed=1234)
     total_reward = 0
     steps = 0
 
     while steps < max_steps:
         state_tensor = torch.tensor(state, dtype=torch.float32).unsqueeze(0)
-        jump_probability = model(state_tensor).item()
-        action = 1 if jump_probability > 0.5 else 0
+        # jump_probability = model(state_tensor).item()
+        # action = 1 if jump_probability > 0.5 else 0
+        action = 1 if model(state_tensor).item() > 0.0 else 0
         next_state, reward, done, _, _ = env.step(action)
         total_reward += reward
         state = next_state
@@ -109,13 +109,23 @@ def evaluate(model, env, max_steps=1500):
     return total_reward
 
 
-def mutate(weights, mutation_rate=0.1):
+def mutate(weights, mutation_rate=0.05):
     """Random Gaussian mutation"""
-    new_weights = weights.copy()
+    """DA = weights.copy()
     
     for i in range(len(weights)):
         if np.random.rand() < mutation_rate:
             new_weights[i] += np.random.normal(0, 0.2)
+
+    return new_weights"""
+    new_weights = weights.copy()
+
+    for i in range(len(new_weights)):
+        if np.random.rand() < mutation_rate:
+            if np.random.rand() < 0.9:
+                new_weights[i] += np.random.normal(0, 0.1)  # small tweak
+            else:
+                new_weights[i] += np.random.normal(0, 1.0)  # big jump
 
     return new_weights
 
@@ -128,11 +138,13 @@ def crossover(w1, w2):
 
 # Genetic algorithm
 
-def run_genetic_algorithm(env, population_size=100, generations=50, elite_frac=0.2):
+def run_genetic_algorithm(env, population_size=200, generations=30, elite_frac=0.2):
     #Initialize
     model = BirdNet()
     weight_shape = get_weights(model).shape[0]
     population = [np.random.randn(weight_shape) for _ in range(population_size)]
+    best_ever = None
+    best_score = -np.inf
 
     for generation in range(generations):
         fitness = []
@@ -143,6 +155,14 @@ def run_genetic_algorithm(env, population_size=100, generations=50, elite_frac=0
             fitness.append(score)
 
         fitness = np.array(fitness)
+
+        gen_best_idx = fitness.argmax()
+        gen_best_score = fitness[gen_best_idx]
+
+        if gen_best_score > best_score:
+            best_score = gen_best_score
+            best_ever = population[gen_best_idx].copy()
+
         elite_count = int(population_size * elite_frac)
         elite_idx = fitness.argsort()[-elite_count:]
         elites = [population[i] for i in elite_idx]
@@ -150,7 +170,12 @@ def run_genetic_algorithm(env, population_size=100, generations=50, elite_frac=0
         print(f"Generation {generation} | max reward: {fitness.max():.2f} | mean reward: {fitness.mean():.2f}")
 
         # Create next generation
-        new_population = elites.copy()
+        new_population = []
+        if best_ever is not None:
+            new_population.append(best_ever.copy())
+
+        new_population.extend(elites)
+
         while len(new_population) < population_size:
             parent1, parent2 = random.sample(elites, 2)
             child = crossover(parent1, parent2)
@@ -160,8 +185,7 @@ def run_genetic_algorithm(env, population_size=100, generations=50, elite_frac=0
         population = new_population
 
     # Return best model
-    best_idx = fitness.argmax()
-    set_weights(model, population[best_idx])
+    set_weights(model, best_ever)
     return model
 
 # ---------- Run ----------
