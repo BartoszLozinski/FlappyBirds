@@ -2,3 +2,5 @@ build/
 .vscode/
 venv
 genetic_algorithm_flappy.pt
+MachineLearning/Python/__pycache__/
+

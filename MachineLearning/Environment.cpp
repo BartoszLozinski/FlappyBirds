@@ -8,7 +8,7 @@ namespace ReinforcementLearning
         const auto& currentState = gameplay.GetState();
 
         if (!event.birdDied)
-            reward += 0.02f + 0.1f * (1.0 - std::abs(currentState.birdY - currentState.pipesGapY) / Game::Config::WINDOW_HEIGHT);
+            reward += 0.001f + 0.05f * (1.0 - std::abs(currentState.birdY - currentState.pipesGapY) / Game::Config::WINDOW_HEIGHT);
         else //Death reward
             reward -= 1.0f;
         

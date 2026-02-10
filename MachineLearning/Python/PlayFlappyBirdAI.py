@@ -3,40 +3,24 @@ import numpy as np
 import gymnasium as gym
 import flappy_env
 import FlappyBirdEnvGym
+from GeneticAlgorithm import PolicyNet
 
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 
-MODEL_FILEPATH = "../../genetic_algorithm_flappy.pt"
+MODEL_FILEPATH = "genetic_algorithm_flappy.pt"
 
-# PYTHONPATH=./build/MachineLearning python MachineLearning/Python/play_flappy_ga.py
-
-class PolicyNet(torch.nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.net = torch.nn.Sequential(
-            torch.nn.Linear(4, 128),
-            torch.nn.ReLU(),
-            torch.nn.Linear(128, 128),
-            torch.nn.ReLU(),
-            torch.nn.Linear(128, 1),
-            torch.nn.Sigmoid()
-        )
-
-    def forward(self, x):
-        return self.net(x)
-    
-
+# PYTHONPATH=build/MachineLearning python3 MachineLearning/Python/PlayFlappyBirdAI.py
 # Load trained model
+
 
 model = PolicyNet()
 model.load_state_dict(torch.load(MODEL_FILEPATH))
 model.eval()
 
-
 # Create environment
 
-env = FlappyBirdEnvGym()
+env = FlappyBirdEnvGym.FlappyBirdEnvGym()
 state, _ = env.reset()
 # add render flag to C++ engine or extend Session class
 
@@ -58,6 +42,4 @@ while not done:
     state, reward, done, _, _ = env.step(action)
     total_reward += reward
 
-print("Total reward: {total_reward}")
-
-
+print(f"Total reward: {total_reward}")
