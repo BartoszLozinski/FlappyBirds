@@ -24,8 +24,8 @@ MODEL_FILEPATH = "../../genetic_algorithm_flappy.pt"
 class PolicyNet(torch.nn.Module):
     def __init__(self):
         super().__init__()
-        self.fc1 = torch.nn.Linear(4, 12)
-        self.fc2 = torch.nn.Linear(12, 1)
+        self.fc1 = torch.nn.Linear(4, 32)
+        self.fc2 = torch.nn.Linear(32, 1)
 
     def forward(self, x):
         x = torch.relu(self.fc1(x))
@@ -33,7 +33,7 @@ class PolicyNet(torch.nn.Module):
     
 
 class BirdNet(nn.Module):
-    def __init__(self, input_dim=4, hidden_dim=12):
+    def __init__(self, input_dim=4, hidden_dim=32):
         super().__init__()
         self.fc1 = nn.Linear(input_dim, hidden_dim)  # input layer and hidden layer
         self.fc2 = nn.Linear(hidden_dim, 1)  # hidden layer and jump probability (output layer)
@@ -116,7 +116,7 @@ def run_genetic_algorithm(env, population_size=150, generations=50, elite_frac=0
         
         for individual in population:
             set_weights(model, individual)
-            score = evaluate(model, env, 5000)
+            score = evaluate(model, env, 10000)
             fitness.append(score)
 
         fitness = np.array(fitness)
