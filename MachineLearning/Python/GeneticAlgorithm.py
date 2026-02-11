@@ -21,19 +21,9 @@ MODEL_FILEPATH = "../../genetic_algorithm_flappy.pt"
 
 # -------------- Neural Network --------------
 
-class PolicyNet(torch.nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.fc1 = torch.nn.Linear(4, 32)
-        self.fc2 = torch.nn.Linear(32, 1)
-
-    def forward(self, x):
-        x = torch.relu(self.fc1(x))
-        return self.fc2(x)
-    
 
 class BirdNet(nn.Module):
-    def __init__(self, input_dim=4, hidden_dim=32):
+    def __init__(self, input_dim=5, hidden_dim=32):
         super().__init__()
         self.fc1 = nn.Linear(input_dim, hidden_dim)  # input layer and hidden layer
         self.fc2 = nn.Linear(hidden_dim, 1)  # hidden layer and jump probability (output layer)
@@ -116,7 +106,7 @@ def run_genetic_algorithm(env, population_size=150, generations=50, elite_frac=0
         
         for individual in population:
             set_weights(model, individual)
-            score = evaluate(model, env, 10000)
+            score = evaluate(model, env, 50000)
             fitness.append(score)
 
         fitness = np.array(fitness)
@@ -148,6 +138,11 @@ def run_genetic_algorithm(env, population_size=150, generations=50, elite_frac=0
             new_population.append(child)
 
         population = new_population
+        
+        if (best_score > 500) and (generation > 10):
+            print("Early stopping - good enough solution found")
+            set_weights(model, best_ever)
+            return model
 
     # Return best model
     set_weights(model, best_ever)

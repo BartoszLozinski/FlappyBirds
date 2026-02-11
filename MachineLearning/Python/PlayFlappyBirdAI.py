@@ -3,7 +3,7 @@ import numpy as np
 import gymnasium as gym
 import flappy_env
 import FlappyBirdEnvGym
-from GeneticAlgorithm import PolicyNet
+from GeneticAlgorithm import BirdNet
 
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
@@ -14,7 +14,7 @@ MODEL_FILEPATH = "genetic_algorithm_flappy.pt"
 # Load trained model
 
 
-model = PolicyNet()
+model = BirdNet()
 model.load_state_dict(torch.load(MODEL_FILEPATH))
 model.eval()
 
@@ -28,9 +28,9 @@ state, _ = env.reset()
 def select_action(model, state):
     state_t = torch.tensor(state, dtype=torch.float32).unsqueeze(0)
     with torch.no_grad():
-        p_jump = model(state_t).item()
+        logit = model(state_t).item()
 
-    return 1 if p_jump > 0.5 else 0
+    return 1 if logit > 0 else 0
 
 # Run game
 
