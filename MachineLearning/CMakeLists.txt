@@ -2,14 +2,17 @@ set(target_name flappy_env)
 
 set(${target_name}_src      CoreLogicAdapter.cpp
                             Environment.cpp
-                            PythonBind.cpp)
+                            PythonBind.cpp
+                            BirdNeuralNetwork.cpp)
 
 find_package(pybind11 REQUIRED)
+find_package(nlohmann_json REQUIRED)
 
 pybind11_add_module(${target_name}  ${${target_name}_src})
 target_link_libraries(${target_name}    PRIVATE     #pybind11::embed 
                                                     Game
-                                                    Gameplay)
+                                                    Gameplay
+                                                    nlohmann_json::nlohmann_json)
 
 
 #add_executable(${target_name} main.cpp ${${target_name}_src})
