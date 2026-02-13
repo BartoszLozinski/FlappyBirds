@@ -3,9 +3,8 @@
 namespace Gameplay
 {
     AIDrivenSession::AIDrivenSession()
-    {
-        controller = mlController;
-    }
+        : Session(std::make_shared<ReinforcementLearning::MLController>("../TrainedModel/genetic_algorithm_flappy.json"))
+    {}
 
     void AIDrivenSession::GameplayLoop()
     {
@@ -22,9 +21,10 @@ namespace Gameplay
             if (frameTimeExpired)
                 frameTimer.Reset();
 
+            auto mlController = static_pointer_cast<ReinforcementLearning::MLController>(controller);
             mlController->UpdateStatus(GetState());
             
-            RunFrame(mlController->Decide(), frameTimeExpired);
+            RunFrame(controller->Decide(), frameTimeExpired);
 
             if (frameTimeExpired)
             {
@@ -36,6 +36,7 @@ namespace Gameplay
 
     void AIDrivenSession::Run()
     {
+        window.setTitle("AI Driven FlappyBirds");
         HelpInstructions();
         GameplayLoop();
     }

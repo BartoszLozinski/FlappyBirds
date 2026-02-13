@@ -29,7 +29,10 @@ namespace Gameplay
         void HelpInstructions();
         virtual void GameplayLoop();
 
+        Session(std::shared_ptr<IController> controller_);
+
     public:
+        Session() = default;
         virtual void Run();
     };
 }

@@ -2,6 +2,10 @@
 
 namespace Gameplay
 {
+    Session::Session(std::shared_ptr<IController> controller_)
+        : controller(controller_)
+    {}
+
     void Session::Display()
     {
         window.clear();
