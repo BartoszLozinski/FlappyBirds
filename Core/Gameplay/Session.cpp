@@ -25,13 +25,13 @@ namespace Gameplay
 
     void Session::HelpInstructions()
     {
+        auto instructionKeyboardController = std::make_unique<Graphics::KeyboardController>();
         while (!gameStarted)
         {
             DisplayHelpInstructions();
-            auto keyboardController = std::static_pointer_cast<Graphics::KeyboardController>(controller);
-            keyboardController->PullGameWindowAction();
+            instructionKeyboardController->PullGameWindowAction();
 
-            if (keyboardController->GetGameWindowAction() == GameWindowAction::Start)
+            if (instructionKeyboardController->GetGameWindowAction() == GameWindowAction::Start)
                 gameStarted = true;
         }
     }

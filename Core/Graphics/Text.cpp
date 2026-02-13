@@ -1,11 +1,17 @@
 #include "Text.hpp"
 
+#include <filesystem>
+#include <iostream>
+#include <format>
+
 namespace Graphics
 {
     Text::Text(sf::RenderWindow& window_, const Utils::Vector2f& position, const unsigned size)
         : window(window_)
     {
-        font.loadFromFile("../Core/Graphics/Arial.ttf");
+        std::filesystem::path fontPath = std::filesystem::current_path();
+        fontPath /= "../Core/Graphics/Arial.ttf";
+        font.loadFromFile(fontPath);
         text.setFont(font);
         text.setFillColor(sf::Color::Red);
         text.setCharacterSize(size);

@@ -12,7 +12,7 @@ namespace Gameplay
 {
     class Session : public CoreLogic
     {
-    private:
+    protected:
         Timer frameTimer{1000 / 60};
         bool frameTimeExpired = false;
 
@@ -27,11 +27,9 @@ namespace Gameplay
         void DisplayHelpInstructions();
         void UpdateRenderableState();
         void HelpInstructions();
-    
-    protected:
-        void GameplayLoop();
+        virtual void GameplayLoop();
 
     public:
-        void Run();
+        virtual void Run();
     };
 }

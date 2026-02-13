@@ -2,6 +2,7 @@
 #include <nlohmann/json.hpp>
 
 #include <fstream>
+#include <iostream>
 
 using json = nlohmann::json;
 
@@ -9,7 +10,10 @@ namespace ReinforcementLearning
 {
     void BirdNeuralNetwork::Load(const std::string& filePath)
     {
-        std::ifstream file(filePath);
+        std::cout << "Current path: " << std::filesystem::current_path() << '\n';
+        std::filesystem::path modelPath = std::filesystem::current_path();
+        modelPath /= filePath;
+        std::ifstream file(modelPath.string());
         json j;
         file >> j;
 

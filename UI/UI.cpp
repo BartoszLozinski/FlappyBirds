@@ -8,6 +8,7 @@ UI::UI(int& argc, char** argv)
     mainWindow->resize(200, 50);
 
     layout->addWidget(startButton.GetButton().get());
+    layout->addWidget(startAIGameButton.GetButton().get());
 };
 
 void UI::showMainWindow()
