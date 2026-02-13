@@ -16,7 +16,6 @@ add_executable(${PROJECT_NAME}  main.cpp)
 
 add_subdirectory(Core/Game)
 add_subdirectory(Core/Graphics)
-add_subdirectory(Core/DataProcessor)
 add_subdirectory(Core/Gameplay)
 add_subdirectory(Core/Tests)
 add_subdirectory(UI)
