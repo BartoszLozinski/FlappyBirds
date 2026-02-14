@@ -7,9 +7,14 @@ using json = nlohmann::json;
 
 namespace ReinforcementLearning
 {
-    std::vector<float> DenseLayer::Forward(const std::vector<float>& input) const
+    DenseLayer::DenseLayer(const Weights& weights_, const Bias& bias_)
+        : weights(weights_)
+        , bias(bias_)
+    {};
+
+    NNOutput DenseLayer::Forward(const NNInput& input) const
     {
-        std::vector<float> output(weights.size(), 0.0f);
+        NNOutput output(weights.size(), 0.0f);
 
         for (std::size_t i = 0; i < weights.size(); i++)
         {
@@ -30,10 +35,10 @@ namespace ReinforcementLearning
         json j;
         file >> j;
 
-        denseLayer1.weights = j["fc1.weight"].get<std::vector<std::vector<float>>>();
-        denseLayer1.bias = j["fc1.bias"].get<std::vector<float>>();
-        denseLayer2.weights = j["fc2.weight"].get<std::vector<std::vector<float>>>();
-        denseLayer2.bias = j["fc2.bias"].get<std::vector<float>>();
+        denseLayer1.weights = j["fc1.weight"].get<Weights>();
+        denseLayer1.bias = j["fc1.bias"].get<Bias>();
+        denseLayer2.weights = j["fc2.weight"].get<Weights>();
+        denseLayer2.bias = j["fc2.bias"].get<Bias>();
     }
 
     BirdNeuralNetwork::BirdNeuralNetwork(const std::string& filePath)

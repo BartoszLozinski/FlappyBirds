@@ -1,5 +1,6 @@
 #include "BirdTester.hpp"
 #include "CollisionTester.hpp"
+#include "DenseLayerTester.hpp"
 #include "GameUtilsTester.hpp"
 #include "GameplayTester.hpp"
 
