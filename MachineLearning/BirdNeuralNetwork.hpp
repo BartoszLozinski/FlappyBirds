@@ -8,10 +8,10 @@ namespace ReinforcementLearning
     class BirdNeuralNetwork
     {
     private:
-        std::vector<std::vector<float>> fc1_weights; // from input to hidden layer
-        std::vector<float> fc1_bias;
-        std::vector<float> fc2_weights; // from hidden layer to output
-        float fc2_bias;
+        std::vector<std::vector<float>> fullyConnecterLayer1_weights; // from input to hidden layer
+        std::vector<float> fullyConnecterLayer1_bias;
+        std::vector<float> fullyConnecterLayer2_weights; // from hidden layer to output
+        float fullyConnecterLayer2_bias;
         void Load(const std::string& filePath);
 
     public:
@@ -20,3 +20,4 @@ namespace ReinforcementLearning
         float Forward(const std::vector<float>& input) const;
     };    
 }
+
