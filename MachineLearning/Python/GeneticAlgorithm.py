@@ -25,12 +25,12 @@ MODEL_FILEPATH = "../../genetic_algorithm_flappy.pt"
 class BirdNet(nn.Module):
     def __init__(self, input_dim=5, hidden_dim=32):
         super().__init__()
-        self.fc1 = nn.Linear(input_dim, hidden_dim)  # input layer and hidden layer
-        self.fc2 = nn.Linear(hidden_dim, 1)  # hidden layer and jump probability (output layer)
+        self.fc1 = nn.Linear(input_dim, hidden_dim)
+        self.fc2 = nn.Linear(hidden_dim, 1)
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, x):
-        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc1(x)) # Rectified Linear Unit (ReLU)
         return self.fc2(x)
     
 # Genetic algorithm helper functions
@@ -59,8 +59,6 @@ def evaluate(model, env, max_steps=3000):
 
     while steps < max_steps:
         state_tensor = torch.tensor(state, dtype=torch.float32).unsqueeze(0)
-        # jump_probability = model(state_tensor).item()
-        # action = 1 if jump_probability > 0.5 else 0
         action = 1 if model(state_tensor).item() > 0.0 else 0
         next_state, reward, done, _, _ = env.step(action)
         total_reward += reward
@@ -94,7 +92,7 @@ def crossover(w1, w2):
 # Genetic algorithm
 
 def run_genetic_algorithm(env, population_size=150, generations=50, elite_frac=0.2):
-    #Initialize
+    # Initialize
     model = BirdNet()
     weight_shape = get_weights(model).shape[0]
     population = [np.random.randn(weight_shape) for _ in range(population_size)]

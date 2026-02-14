@@ -5,13 +5,18 @@
 
 namespace ReinforcementLearning
 {
+    struct DenseLayer
+    {
+        std::vector<std::vector<float>> weights; //[outId][inId]
+        std::vector<float> bias; //[outId]
+        std::vector<float> Forward(const std::vector<float>& input) const;
+    };
+
     class BirdNeuralNetwork
     {
     private:
-        std::vector<std::vector<float>> fullyConnecterLayer1_weights; // from input to hidden layer
-        std::vector<float> fullyConnecterLayer1_bias;
-        std::vector<float> fullyConnecterLayer2_weights; // from hidden layer to output
-        float fullyConnecterLayer2_bias;
+        DenseLayer denseLayer1;
+        DenseLayer denseLayer2;
         void Load(const std::string& filePath);
 
     public:
