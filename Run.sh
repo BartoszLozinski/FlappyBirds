@@ -1,5 +1,11 @@
-#/bin/bash
+#!/bin/bash
 
-cd build
+if [-d build]; then
+    cd build
+else
+    ./BuildScript.sh
+    cd build
+fi
+
 ./FlappyBirds
 
