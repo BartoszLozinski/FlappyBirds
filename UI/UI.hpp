@@ -10,7 +10,7 @@
 #include <memory>
 #include "StartButton.hpp"
 #include "StartAIGameButton.hpp"
-
+#include "StartCVSessionButton.hpp"
 class UI
 {
 private:
@@ -20,6 +20,7 @@ private:
     std::unique_ptr<QVBoxLayout> layout = std::make_unique<QVBoxLayout>(mainWindow.get());
     StartButton startButton{ "Start" };
     StartAIGameButton startAIGameButton{ "StartAIDrivenSession" };
+    StartCVSessionButton startCVSessionButton{ "StartCVSession" };
 
 public:
     UI(int& argc, char** argv);

@@ -9,6 +9,7 @@ UI::UI(int& argc, char** argv)
 
     layout->addWidget(startButton.GetButton().get());
     layout->addWidget(startAIGameButton.GetButton().get());
+    layout->addWidget(startCVSessionButton.GetButton().get());
 };
 
 void UI::showMainWindow()
