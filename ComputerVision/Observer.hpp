@@ -14,7 +14,8 @@ namespace ComputerVision
         void UpdateBinaryFrame();
         void UpdateGrayFrame();
         void DisplayBirdBoundaries(const cv::Vec3f& circle);
-        
+        void DisplayPipesBoundaries(const std::vector<cv::Rect>& rectangles);
+
     public:
         cv::Vec3f DetectCircle();
         std::vector<cv::Rect> DetectRectangles();

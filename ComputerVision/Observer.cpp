@@ -8,6 +8,7 @@ namespace ComputerVision
     void Observer::UpdateBinaryFrame()
     {
         cv::threshold(grayFrame, binaryFrame, 100, 255, cv::THRESH_BINARY_INV);
+        cv::bitwise_not(binaryFrame, binaryFrame);
     }
 
     void Observer::UpdateGrayFrame()
@@ -61,19 +62,9 @@ namespace ComputerVision
 
         for (const auto& contour : contours)
         {
-            std::vector<cv::Point> approxRectangle;
-            cv::approxPolyDP( contour
-                            , approxRectangle
-                            , 0.02 * cv::arcLength(contour, true)
-                            , true);
-
-            if (approxRectangle.size() == 4 && cv::isContourConvex(approxRectangle))
-            {
-                cv::Rect rectangle = cv::boundingRect(approxRectangle);
-
-                if (rectangle.area() > 100)
-                    rectangles.push_back(rectangle);
-            }
+            cv::Rect rectangle = cv::boundingRect(contour);
+            if (rectangle.area() > 2000)
+                rectangles.push_back(rectangle);
         }
 
         return rectangles;
@@ -89,6 +80,17 @@ namespace ComputerVision
         cv::circle(frame, center, 3, cv::Scalar{255, 0, 0}, -1);
     }
 
+    void Observer::DisplayPipesBoundaries(const std::vector<cv::Rect>& rectangles)
+    {
+        static constexpr int lineThickness = 3;
+
+        for (const auto& rectangle : rectangles)
+        {
+            cv::rectangle(frame, rectangle, cv::Scalar{0, 0, 255}, lineThickness);
+            cv::circle(frame, cv::Point{rectangle.x, rectangle.y}, 2, cv::Scalar{0, 0, 255}, -1);//center
+        }
+    }
+
     void Observer::SetFrame(cv::Mat frame_)
     {
         frame = frame_;
@@ -99,8 +101,10 @@ namespace ComputerVision
         UpdateGrayFrame();
         UpdateBinaryFrame();
         DisplayBirdBoundaries(DetectCircle());
+        DisplayPipesBoundaries(DetectRectangles());
 
         cv::imshow("CV-FlappyBirds Session", frame);
+        cv::imshow("binary", binaryFrame);
         cv::waitKey(1);
     }
 };
