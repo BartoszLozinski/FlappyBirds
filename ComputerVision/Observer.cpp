@@ -5,7 +5,12 @@
 
 namespace ComputerVision
 {
-    void Observer::UpdateGrayImage()
+    void Observer::UpdateBinaryFrame()
+    {
+        cv::threshold(grayFrame, binaryFrame, 100, 255, cv::THRESH_BINARY_INV);
+    }
+
+    void Observer::UpdateGrayFrame()
     {
         if (frame.empty())
             return;
@@ -19,14 +24,14 @@ namespace ComputerVision
         if (grayFrame.empty())
             return {};
 
-        cv::Vec3f circle;
+        std::vector<cv::Vec3f> circle;
 
         static constexpr double inverseRatio = 1;
         static constexpr double minDist = 50;
         static constexpr double edgeDetectionThreshold = 100;
         static constexpr double centerDetectionThreshold = 30;
-        static constexpr double minRadius = 5;
-        static constexpr double maxRadius = 30;
+        static constexpr int minRadius = 5;
+        static constexpr int maxRadius = 30;
 
         cv::HoughCircles( grayFrame
                         , circle
@@ -38,13 +43,15 @@ namespace ComputerVision
                         , minRadius
                         , maxRadius);
                         
-        return circle;
+        if (!circle.empty())
+            return circle[0];
+        
+        return {};
     };
 
     std::vector<cv::Rect> Observer::DetectRectangles()
     {
         std::vector<cv::Rect> rectangles;
-        cv::threshold(grayFrame, binaryFrame, 100, 255, cv::THRESH_BINARY_INV);
 
         if (binaryFrame.empty())
             return rectangles;
@@ -72,6 +79,16 @@ namespace ComputerVision
         return rectangles;
     }
 
+    void Observer::DisplayBirdBoundaries(const cv::Vec3f& circle)
+    {
+        cv::Point center{ cvRound(circle[0]), cvRound(circle[1]) };
+        const int radius{ cvRound(circle[2]) };
+
+        //circle outline (blue)
+        cv::circle(frame, center, radius, cv::Scalar{255, 0, 0}, 3);
+        cv::circle(frame, center, 3, cv::Scalar{255, 0, 0}, -1);
+    }
+
     void Observer::SetFrame(cv::Mat frame_)
     {
         frame = frame_;
@@ -79,6 +96,10 @@ namespace ComputerVision
 
     void Observer::ShowFrame()
     {
+        UpdateGrayFrame();
+        UpdateBinaryFrame();
+        DisplayBirdBoundaries(DetectCircle());
+
         cv::imshow("CV-FlappyBirds Session", frame);
         cv::waitKey(1);
     }

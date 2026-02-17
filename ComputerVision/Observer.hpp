@@ -11,7 +11,9 @@ namespace ComputerVision
         cv::Mat grayFrame;
         cv::Mat binaryFrame;
 
-        void UpdateGrayImage();
+        void UpdateBinaryFrame();
+        void UpdateGrayFrame();
+        void DisplayBirdBoundaries(const cv::Vec3f& circle);
         
     public:
         cv::Vec3f DetectCircle();
