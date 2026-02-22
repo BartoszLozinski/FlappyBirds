@@ -3,6 +3,9 @@
 
 #include <opencv2/imgproc.hpp>
 
+//to be removed after testing
+#include "Gameplay/CoreGameplay.hpp"
+
 namespace Gameplay
 {
     CVSession::CVSession(): AIDrivenSession(){}
@@ -41,19 +44,72 @@ namespace Gameplay
             if (frameTimeExpired)
                 frameTimer.Reset();
 
-            auto mlController = static_pointer_cast<ReinforcementLearning::MLController>(controller);
-            mlController->UpdateStatus(GetState());
-            
-            RunFrame(controller->Decide(), frameTimeExpired);
-
             if (frameTimeExpired)
             {
                 UpdateRenderableState();
                 Display();
                 observer.SetFrame(CaptureFrame());
                 observer.ShowFrame();
+                auto mlController = std::make_shared<ReinforcementLearning::MLController>("../TrainedModel/genetic_algorithm_flappy.json");
+                mlController->UpdateStatus(GetState());
+            
+                RunFrame(controller->Decide(), frameTimeExpired);
             }
         }
+    }
+
+    std::pair<std::size_t, std::size_t> CVSession::GetClosestPipesIndexes(const std::vector<cv::Rect>& pipes) const
+    {
+        std::size_t first = 0;
+        std::size_t second = 1;
+
+        if (pipes[second].x < pipes[first].x)
+            std::swap(first, second);
+
+        for (std::size_t i = 2; i < pipes.size(); i++)
+        {
+            if (pipes[i].x < pipes[first].x)
+            {   second = first;
+                first = i;
+            }
+            else if (pipes[i].x < pipes[second].x)
+            {
+                second = i;
+            }
+        }
+
+        return { first, second };
+    }
+
+    State CVSession::GetState() const
+    {
+        State state{};
+
+        const auto birdCVData = observer.DetectCircle();
+        state.birdX = birdCVData[0];
+        state.birdY = birdCVData[1];
+        state.birdSize = birdCVData[2] * 2; // OpenCV provides radius, while game uses diameter (bounding box)
+        state.birdVy = bird.GetVelocity().y; //Can update to calculate position derivative in future (pixels)
+
+        const auto pipes = observer.DetectRectangles();
+        const auto closestPipesIndexes = GetClosestPipesIndexes(pipes);
+
+        const auto topPipeIndex = pipes[closestPipesIndexes.first].y < pipes[closestPipesIndexes.second].y ? closestPipesIndexes.first : closestPipesIndexes.second;
+        const auto bottomPipeIndex = topPipeIndex == closestPipesIndexes.first ? closestPipesIndexes.second : closestPipesIndexes.first;
+        
+        state.nextPipeX = pipes[closestPipesIndexes.first].x;
+        state.topPipeY = pipes[topPipeIndex].y + pipes[topPipeIndex].height;
+        state.bottomPipeY = pipes[bottomPipeIndex].y;
+        //testing
+        //model needs to be changed to detect pipes vertexes nearest to the gap
+        //instead of finidng center of the rectangle (even if its out of the window)
+
+        state.pipesGapY = (Game::Config::WINDOW_HEIGHT - pipes[bottomPipeIndex].y + pipes[topPipeIndex].y + pipes[topPipeIndex].height) / 2;
+        state.birdAbleToJump = bird.IsAbleToJump();
+        state.framesSinceLastJump = bird.GetFramesSinceLastJump();
+        state.birdAlive = bird.IsAlive();
+
+        return state;
     }
 
     void CVSession::Run()

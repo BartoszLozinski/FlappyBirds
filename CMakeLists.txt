@@ -8,7 +8,7 @@ set(FLAGS   -Wall
             -Wpedantic
             -Wextra)
 
-set(OPTIMIZATION_LEVEL  -Og)
+set(OPTIMIZATION_LEVEL  -O0)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 

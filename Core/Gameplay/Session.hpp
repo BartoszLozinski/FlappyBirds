@@ -34,5 +34,6 @@ namespace Gameplay
     public:
         Session() = default;
         virtual void Run();
+        virtual ~Session() = default;
     };
 }

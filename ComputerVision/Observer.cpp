@@ -20,7 +20,7 @@ namespace ComputerVision
         cv::GaussianBlur(grayFrame, grayFrame, cv::Size(9, 9), 2);
     }
 
-    cv::Vec3f Observer::DetectCircle()
+    cv::Vec3f Observer::DetectCircle() const
     {
         if (grayFrame.empty())
             return {};
@@ -50,7 +50,7 @@ namespace ComputerVision
         return {};
     };
 
-    std::vector<cv::Rect> Observer::DetectRectangles()
+    std::vector<cv::Rect> Observer::DetectRectangles() const
     {
         std::vector<cv::Rect> rectangles;
 
@@ -89,6 +89,21 @@ namespace ComputerVision
             cv::rectangle(frame, rectangle, cv::Scalar{0, 0, 255}, lineThickness);
             cv::circle(frame, cv::Point{rectangle.x, rectangle.y}, 2, cv::Scalar{0, 0, 255}, -1);//center
         }
+    }
+
+    Utils::Vector2f Observer::GetObjectPosition(const cv::Vec3f& object) const
+    {
+        return { object[0], object[1] };
+    }
+    
+    Utils::Vector2f Observer::GetObjectPosition(const cv::Rect& object) const
+    {
+        return { static_cast<float>(object.x), static_cast<float>(object.y) };
+    }
+
+    Utils::Vector2f Observer::GetRectangleSize(const cv::Rect& object) const
+    {
+        return { static_cast<float>(object.width), static_cast<float>(object.height) };
     }
 
     void Observer::SetFrame(cv::Mat frame_)

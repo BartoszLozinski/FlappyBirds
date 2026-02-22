@@ -13,7 +13,7 @@ namespace Gameplay
 {
     class CoreLogic
     {
-    private:
+    protected:
         enum class PipesDirection
         {
             InFront,
@@ -57,10 +57,11 @@ namespace Gameplay
 
     public:
         bool CheckCollision(const std::optional<std::reference_wrapper<Game::Pipes>> pipesBehind, const std::optional<std::reference_wrapper<Game::Pipes>> pipesInFront) const;
-        State GetState() const;
+        virtual State GetState() const;
         unsigned GetPoints() const;
         void Reset();
         Event RunFrame(const ControlOption ControlOption, const bool frameTimeExpired);
+        virtual ~CoreLogic() = default;
 
     };
 }
