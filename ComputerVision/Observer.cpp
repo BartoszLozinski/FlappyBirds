@@ -119,7 +119,6 @@ namespace ComputerVision
         DisplayPipesBoundaries(DetectRectangles());
 
         cv::imshow("CV-FlappyBirds Session", frame);
-        cv::imshow("binary", binaryFrame);
         cv::waitKey(1);
     }
 };

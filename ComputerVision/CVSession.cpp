@@ -3,11 +3,6 @@
 
 #include <opencv2/imgproc.hpp>
 
-//to be removed after testing
-#include "Gameplay/CoreGameplay.hpp"
-#include <iostream>
-#include <format>
-
 namespace Gameplay
 {
     CVSession::CVSession(): AIDrivenSession(){}
@@ -131,24 +126,9 @@ namespace Gameplay
         state.nextPipeX = pipes[closestPipesIndexes.first].x + pipes[closestPipesIndexes.first].width / 2.f; // center of the pipe column
         state.gapTopVertexY = pipes[topPipeIndex].y + pipes[topPipeIndex].height;
         state.gapBottomVertexY = pipes[bottomPipeIndex].y;
-        //testing
-        //model needs to be changed to detect pipes vertexes nearest to the gap
-        //instead of finidng center of the rectangle (even if its out of the window)
-
-        //state.pipesGapY = (Game::Config::WINDOW_HEIGHT - pipes[bottomPipeIndex].y + pipes[topPipeIndex].y + pipes[topPipeIndex].height) / 2;
         state.birdAbleToJump = bird.IsAbleToJump();
         state.framesSinceLastJump = bird.GetFramesSinceLastJump();
         state.birdAlive = bird.IsAlive();
-
-        std::cout << "State passed to observer:\n";
-        std::cout << std::format("BirdY: {}, BirdVy: {}, NextPipeX: {}, GapTopY: {}, GapBottomY: {}, AbleToJump: {}, FramesSinceLastJump: {}, BirdAlive: {}\n",
-            state.birdY, state.birdVy, state.nextPipeX, state.gapTopVertexY, state.gapBottomVertexY, state.birdAbleToJump, state.framesSinceLastJump, state.birdAlive);
-
-        std::cout << "Gameplay state (old way):\n";
-        auto gameplayState = Session::GetState();
-        std::cout << std::format("GameBirdY: {}, GameBirdVy: {}, GameNextPipeX: {}, GameGapTopY: {}, GameGapBottomY: {}, GameAbleToJump: {}, FameFramesSinceLastJump: {}, BirdAlive: {}\n",
-            gameplayState.birdY, gameplayState.birdVy, gameplayState.nextPipeX, gameplayState.gapTopVertexY, gameplayState.gapBottomVertexY, gameplayState.birdAbleToJump, gameplayState.framesSinceLastJump, gameplayState.birdAlive);
-
 
         return state;
     }
