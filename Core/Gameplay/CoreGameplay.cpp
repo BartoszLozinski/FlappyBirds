@@ -48,9 +48,9 @@ namespace Gameplay
             const auto& pipesSegment = closestPipes->get().GetPipesSegment();
             state.nextPipeX = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetPosition().x;
             state.gapTopVertexY = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetPosition().y
-                               + pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetSize().y;
+                               + (pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetSize().y / 2);
             state.gapBottomVertexY = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Bottom)].GetPosition().y
-                                  - pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Bottom)].GetSize().y;
+                                  - (pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Bottom)].GetSize().y / 2);
             state.birdAbleToJump = bird.IsAbleToJump();
             state.framesSinceLastJump = bird.GetFramesSinceLastJump();
             state.birdAlive = bird.IsAlive();

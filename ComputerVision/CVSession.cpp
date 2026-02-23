@@ -60,23 +60,50 @@ namespace Gameplay
         }
     }
 
-    std::pair<std::size_t, std::size_t> CVSession::GetClosestPipesIndexes(const std::vector<cv::Rect>& pipes) const
+    std::pair<std::size_t, std::size_t> CVSession::GetClosestPipesIndexes(const float birdX, const std::vector<cv::Rect>& pipes) const
     {
-        std::size_t first = 0;
-        std::size_t second = 1;
+        const float tolerance = 5.f; // pixels
+        float minDistance = std::numeric_limits<float>::max();
+        float targetX = -1.f;
 
-        if (pipes[second].x < pipes[first].x)
-            std::swap(first, second);
-
-        for (std::size_t i = 2; i < pipes.size(); i++)
+        // STEP 1: Find closest pipe column in front of bird
+        for (const auto& rect : pipes)
         {
-            if (pipes[i].x < pipes[first].x)
-            {   second = first;
-                first = i;
-            }
-            else if (pipes[i].x < pipes[second].x)
+            float centerX = rect.x + rect.width / 2.f;
+
+            if (centerX > birdX) // only in front
             {
-                second = i;
+                float distance = centerX - birdX;
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    targetX = centerX;
+                }
+            }
+        }
+
+        // STEP 2: Collect two rectangles with similar X
+        std::size_t first = 0;
+        std::size_t second = 0;
+        bool foundFirst = false;
+
+        for (std::size_t i = 0; i < pipes.size(); ++i)
+        {
+            float centerX = pipes[i].x + pipes[i].width / 2.f;
+
+            if (std::abs(centerX - targetX) < tolerance)
+            {
+                if (!foundFirst)
+                {
+                    first = i;
+                    foundFirst = true;
+                }
+                else
+                {
+                    second = i;
+                    break;
+                }
             }
         }
 
@@ -94,12 +121,12 @@ namespace Gameplay
         state.birdVy = bird.GetVelocity().y; //Can update to calculate position derivative in future (pixels)
 
         const auto pipes = observer.DetectRectangles();
-        const auto closestPipesIndexes = GetClosestPipesIndexes(pipes);
+        const auto closestPipesIndexes = GetClosestPipesIndexes(state.birdX, pipes);
 
         const auto topPipeIndex = pipes[closestPipesIndexes.first].y < pipes[closestPipesIndexes.second].y ? closestPipesIndexes.first : closestPipesIndexes.second;
         const auto bottomPipeIndex = topPipeIndex == closestPipesIndexes.first ? closestPipesIndexes.second : closestPipesIndexes.first;
         
-        state.nextPipeX = pipes[closestPipesIndexes.first].x;
+        state.nextPipeX = pipes[closestPipesIndexes.first].x + pipes[closestPipesIndexes.first].width / 2.f; // center of the pipe column
         state.gapTopVertexY = pipes[topPipeIndex].y + pipes[topPipeIndex].height;
         state.gapBottomVertexY = pipes[bottomPipeIndex].y;
         //testing
@@ -114,6 +141,12 @@ namespace Gameplay
         std::cout << "State passed to observer:\n";
         std::cout << std::format("BirdY: {}, BirdVy: {}, NextPipeX: {}, GapTopY: {}, GapBottomY: {}, AbleToJump: {}, FramesSinceLastJump: {}, BirdAlive: {}\n",
             state.birdY, state.birdVy, state.nextPipeX, state.gapTopVertexY, state.gapBottomVertexY, state.birdAbleToJump, state.framesSinceLastJump, state.birdAlive);
+
+        std::cout << "Gameplay state (old way):\n";
+        auto gameplayState = Session::GetState();
+        std::cout << std::format("GameBirdY: {}, GameBirdVy: {}, GameNextPipeX: {}, GameGapTopY: {}, GameGapBottomY: {}, GameAbleToJump: {}, FameFramesSinceLastJump: {}, BirdAlive: {}\n",
+            gameplayState.birdY, gameplayState.birdVy, gameplayState.nextPipeX, gameplayState.gapTopVertexY, gameplayState.gapBottomVertexY, gameplayState.birdAbleToJump, gameplayState.framesSinceLastJump, gameplayState.birdAlive);
+
 
         return state;
     }

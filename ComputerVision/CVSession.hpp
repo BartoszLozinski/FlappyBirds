@@ -15,7 +15,7 @@ namespace Gameplay
         void GameplayLoop() override;
         cv::Mat CaptureFrame() const;
         ComputerVision::Observer observer;
-        std::pair<std::size_t, std::size_t> GetClosestPipesIndexes(const std::vector<cv::Rect>& pipes) const;
+        std::pair<std::size_t, std::size_t> GetClosestPipesIndexes(const float birdX, const std::vector<cv::Rect>& pipes) const;
 
     public:
         CVSession();
