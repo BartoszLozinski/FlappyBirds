@@ -25,7 +25,7 @@ namespace ReinforcementLearning
         observer[0] = state.birdY / Game::Config::WINDOW_HEIGHT;
         observer[1] = std::clamp(state.birdVy / 40.0f, -1.0f, 1.0f);
         observer[2] = (state.nextPipeX - state.birdX) / Game::Config::WINDOW_WIDTH;
-        observer[3] = ((state.topPipeY + state.bottomPipeY) * 0.5f - state.birdY) / Game::Config::WINDOW_HEIGHT;
+        observer[3] = ((state.gapTopVertexY + state.gapBottomVertexY) * 0.5f - state.birdY) / Game::Config::WINDOW_HEIGHT;
         observer[4] = std::clamp(state.framesSinceLastJump / 500.0f, 0.0f, 1.0f);
 
         return observer;

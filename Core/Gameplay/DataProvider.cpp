@@ -14,10 +14,8 @@ namespace Gameplay
         const auto& pipesSegment = pipes.GetPipesSegment();
 
         gameplayState.nextPipeX = pipesSegment.front().GetPosition().x;
-        gameplayState.topPipeY = pipesSegment[0].GetPosition().y;
-        gameplayState.bottomPipeY = pipesSegment[1].GetPosition().y;
-        gameplayState.pipeSizeX = pipesSegment[0].GetSize().x;
-        gameplayState.pipeSizeY = pipesSegment[0].GetSize().y;
+        gameplayState.gapTopVertexY = pipesSegment[0].GetPosition().y;
+        gameplayState.gapBottomVertexY = pipesSegment[1].GetPosition().y;
         gameplayState.birdAbleToJump = bird.IsAbleToJump();
         gameplayState.framesSinceLastJump = bird.GetFramesSinceLastJump();
         gameplayState.birdAlive = bird.IsAlive();
@@ -28,16 +26,14 @@ namespace Gameplay
         static constexpr unsigned  TRUE = 1;
         static constexpr unsigned FALSE = 0;
 
-        return std::format("{:.0f},{:.0f},{},{:.0f},{:.0f},{:.0f},{:.0f},{},{},{},{}",
+        return std::format("{:.0f},{:.0f},{},{:.0f},{:.0f},{:.0f},{},{},{}",
             gameplayState.birdX,
             gameplayState.birdY,
             gameplayState.birdSize,
             gameplayState.birdVy,
             gameplayState.nextPipeX,
-            gameplayState.topPipeY,
-            gameplayState.bottomPipeY,
-            gameplayState.pipeSizeX,
-            gameplayState.pipeSizeY,
+            gameplayState.gapTopVertexY,
+            gameplayState.gapBottomVertexY,
             gameplayState.birdAbleToJump ? TRUE : FALSE,
             gameplayState.framesSinceLastJump,
             gameplayState.birdAlive ? TRUE : FALSE

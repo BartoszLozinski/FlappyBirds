@@ -5,6 +5,8 @@
 
 //to be removed after testing
 #include "Gameplay/CoreGameplay.hpp"
+#include <iostream>
+#include <format>
 
 namespace Gameplay
 {
@@ -98,16 +100,20 @@ namespace Gameplay
         const auto bottomPipeIndex = topPipeIndex == closestPipesIndexes.first ? closestPipesIndexes.second : closestPipesIndexes.first;
         
         state.nextPipeX = pipes[closestPipesIndexes.first].x;
-        state.topPipeY = pipes[topPipeIndex].y + pipes[topPipeIndex].height;
-        state.bottomPipeY = pipes[bottomPipeIndex].y;
+        state.gapTopVertexY = pipes[topPipeIndex].y + pipes[topPipeIndex].height;
+        state.gapBottomVertexY = pipes[bottomPipeIndex].y;
         //testing
         //model needs to be changed to detect pipes vertexes nearest to the gap
         //instead of finidng center of the rectangle (even if its out of the window)
 
-        state.pipesGapY = (Game::Config::WINDOW_HEIGHT - pipes[bottomPipeIndex].y + pipes[topPipeIndex].y + pipes[topPipeIndex].height) / 2;
+        //state.pipesGapY = (Game::Config::WINDOW_HEIGHT - pipes[bottomPipeIndex].y + pipes[topPipeIndex].y + pipes[topPipeIndex].height) / 2;
         state.birdAbleToJump = bird.IsAbleToJump();
         state.framesSinceLastJump = bird.GetFramesSinceLastJump();
         state.birdAlive = bird.IsAlive();
+
+        std::cout << "State passed to observer:\n";
+        std::cout << std::format("BirdY: {}, BirdVy: {}, NextPipeX: {}, GapTopY: {}, GapBottomY: {}, AbleToJump: {}, FramesSinceLastJump: {}, BirdAlive: {}\n",
+            state.birdY, state.birdVy, state.nextPipeX, state.gapTopVertexY, state.gapBottomVertexY, state.birdAbleToJump, state.framesSinceLastJump, state.birdAlive);
 
         return state;
     }

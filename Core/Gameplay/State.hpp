@@ -9,11 +9,8 @@ namespace Gameplay
         unsigned birdSize{};
         float birdVy{};
         float nextPipeX{};
-        float topPipeY{};   //center position
-        float bottomPipeY{}; 
-        unsigned pipeSizeX{};
-        unsigned pipeSizeY{};
-        unsigned pipesGapY{};
+        float gapTopVertexY{};   //center position
+        float gapBottomVertexY{}; 
         bool birdAbleToJump{};
         unsigned framesSinceLastJump{};
         bool birdAlive{};

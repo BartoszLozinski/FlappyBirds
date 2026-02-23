@@ -47,11 +47,10 @@ namespace Gameplay
         {
             const auto& pipesSegment = closestPipes->get().GetPipesSegment();
             state.nextPipeX = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetPosition().x;
-            state.topPipeY = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetPosition().y;
-            state.bottomPipeY = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Bottom)].GetPosition().x;
-            state.pipeSizeX = state.nextPipeX = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetSize().x;
-            state.pipeSizeY = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetSize().x;
-            state.pipesGapY = Game::Environment::GetVerticalDistanceBetweenPipes();
+            state.gapTopVertexY = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetPosition().y
+                               + pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Top)].GetSize().y;
+            state.gapBottomVertexY = pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Bottom)].GetPosition().y
+                                  - pipesSegment[static_cast<std::size_t>(Game::PipesSegmentIndex::Bottom)].GetSize().y;
             state.birdAbleToJump = bird.IsAbleToJump();
             state.framesSinceLastJump = bird.GetFramesSinceLastJump();
             state.birdAlive = bird.IsAlive();

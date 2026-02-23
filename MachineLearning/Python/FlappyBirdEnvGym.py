@@ -49,7 +49,7 @@ class FlappyBirdEnvGym(gym.Env):
             state.bird_y / WINDOW_HEIGHT,
             np.clip(state.bird_vy / 40.0, -1.0, 1.0),
             (state.next_pipe_x - state.bird_x) / WINDOW_WIDTH,
-            ((state.top_pipe_y + state.bottom_pipe_y) * 0.5  - state.bird_y) / WINDOW_HEIGHT,
+            ((state.gap_top_vertex_y + state.gap_bottom_vertex_y) * 0.5  - state.bird_y) / WINDOW_HEIGHT,
             np.clip(state.frames_since_last_jump / 500.0, 0.0, 1.0)
         ], dtype=np.float32)
 
