@@ -46,16 +46,18 @@ namespace Gameplay
             if (frameTimeExpired)
                 frameTimer.Reset();
 
+            observer.SetFrame(CaptureFrame());
+            auto mlController = static_pointer_cast<ReinforcementLearning::MLController>(controller);
+            mlController->UpdateStatus(GetState());
+            
+            RunFrame(mlController->Decide(), frameTimeExpired);
+
             if (frameTimeExpired)
             {
                 UpdateRenderableState();
                 Display();
                 observer.SetFrame(CaptureFrame());
                 observer.ShowFrame();
-                auto mlController = std::make_shared<ReinforcementLearning::MLController>("../TrainedModel/genetic_algorithm_flappy.json");
-                mlController->UpdateStatus(GetState());
-            
-                RunFrame(controller->Decide(), frameTimeExpired);
             }
         }
     }
@@ -154,6 +156,10 @@ namespace Gameplay
     void CVSession::Run()
     {
         window.setTitle("Base AI driven session");
+        UpdateRenderableState();
+        Display();
+        observer.SetFrame(CaptureFrame());
+        observer.ShowFrame();
         GameplayLoop();
     }
 }
