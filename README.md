@@ -45,3 +45,5 @@ Output:
 
 Reward function:
 - Simply +1 point per pipe passed and -1 point for death
+
+![Demo](Assets/GifCV.gif)
