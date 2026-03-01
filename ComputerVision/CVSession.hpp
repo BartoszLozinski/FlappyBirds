@@ -14,6 +14,7 @@ namespace Gameplay
     {
     private:
         sf::RenderTexture texture;
+        bool frameChanged = true;
     protected:
         void GameplayLoop() override;
         cv::Mat CaptureFrame() const;

@@ -1,5 +1,8 @@
 #include "AIDrivenSession.hpp"
 
+#include <iostream>
+#include <format>
+
 namespace Gameplay
 {
     AIDrivenSession::AIDrivenSession()

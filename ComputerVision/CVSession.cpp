@@ -3,6 +3,9 @@
 
 #include <opencv2/imgproc.hpp>
 
+#include <iostream>
+#include <format>
+
 namespace Gameplay
 {
     CVSession::CVSession()
@@ -31,16 +34,25 @@ namespace Gameplay
         bool running = true;
         auto mlController = static_pointer_cast<ReinforcementLearning::MLController>(controller);
 
+        //only for performance measurement
+        Timer singleFrameTimer{ std::numeric_limits<int64_t>::max() };
+        singleFrameTimer.Reset();
+        unsigned framesCounter = 0;
+
         while (running)
         {
             frameTimeExpired = frameTimer.IsExpired();
             if (frameTimeExpired)
                 frameTimer.Reset();
 
-            observer.SetFrame(CaptureFrame());
-            mlController->UpdateStatus(GetState());
-            
-            RunFrame(mlController->Decide(), frameTimeExpired);
+            if (frameChanged)
+            {
+                observer.SetFrame(CaptureFrame());
+                mlController->UpdateStatus(GetState());
+                
+                RunFrame(mlController->Decide(), frameTimeExpired);
+                frameChanged = false;
+            }
 
             if (frameTimeExpired)
             {
@@ -50,6 +62,16 @@ namespace Gameplay
                 texture.display();
                 observer.SetFrame(CaptureFrame());
                 observer.ShowFrame();
+                frameChanged = true;
+
+                framesCounter++;
+                
+                if (framesCounter >= 10)
+                {
+                    std::cout << std::format("Frame time elapsed (averaged for 10 frames): {} ms\n", singleFrameTimer.TimeElapsed() / framesCounter);
+                    singleFrameTimer.Reset();
+                    framesCounter = 0;
+                }
             }
 
             if (!bird.IsAlive())   
