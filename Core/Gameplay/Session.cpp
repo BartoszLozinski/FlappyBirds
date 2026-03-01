@@ -3,32 +3,18 @@
 namespace Gameplay
 {
     Session::Session(std::shared_ptr<IController> controller_)
-        : controller(controller_)
+        : BaseSession( window, controller_)
     {}
 
     void Session::Display()
     {
-        Draw(window);
+        Draw(target);
         window.display();
-    }
-
-    void Session::Draw(sf::RenderTarget& target)
-    {
-        target.clear();
-        renderableEnvironment.Draw(target);
-        renderableBird.Draw(target);
-        pointsText.DisplayText(std::format("Points: {}", bird.GetPoints()));
     }
 
     void Session::DisplayHelpInstructions()
     {
-        auto helpInstruction = Graphics::Text{ window, { Game::Config::WINDOW_WIDTH * 0.1, Game::Config::WINDOW_HEIGHT * 0.25 }, 40 };
-
-        window.clear();
-        renderableEnvironment.Draw(window);
-        renderableBird.Draw(window);
-        pointsText.DisplayText(std::format("Points: {}", bird.GetPoints()));
-        helpInstruction.DisplayText(std::format("Press {} to start/jump\nPress {} to Quit\n", "SPACE", "Q"));
+        DrawHelpInstructions();
         window.display();
     }
 

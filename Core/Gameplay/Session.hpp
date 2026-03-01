@@ -1,40 +1,25 @@
 #pragma once
 
+#include "Gameplay/BaseSession.hpp"
 #include "Graphics/KeyboardController.hpp"
-#include "Gameplay/CoreGameplay.hpp"
 
-#include "Graphics/Circle.hpp"
-#include "Graphics/Environment.hpp"
-#include "Graphics/KeyboardController.hpp"
-#include "Graphics/Text.hpp"
 
 namespace Gameplay
 {
-    class Session : public CoreLogic
+    class Session : public BaseSession
     {
     protected:
-        Timer frameTimer{1000 / 60};
-        bool frameTimeExpired = false;
-
-        bool gameStarted = false;
-        Graphics::Circle renderableBird{ bird };
-        Graphics::Environment renderableEnvironment{ *environment };
         sf::RenderWindow window{ sf::VideoMode{ Game::Config::WINDOW_WIDTH, Game::Config::WINDOW_HEIGHT }, "Flappy Birds" };
-        std::shared_ptr<IController> controller = std::make_shared<Graphics::KeyboardController>();
-        Graphics::Text pointsText{ window  };
 
         void Display();
-        void Draw(sf::RenderTarget& target);
         void DisplayHelpInstructions();
         void UpdateRenderableState();
         void HelpInstructions();
-        virtual void GameplayLoop();
-
-        Session(std::shared_ptr<IController> controller_);
+        void GameplayLoop() override;
 
     public:
-        Session() = default;
-        virtual void Run();
-        virtual ~Session() = default;
+        Session(std::shared_ptr<IController> controller_ = std::make_shared<Graphics::KeyboardController>());
+        void Run() override;
+        ~Session() = default;
     };
 }
