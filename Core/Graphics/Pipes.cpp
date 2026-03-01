@@ -16,11 +16,11 @@ namespace Graphics
         }
     }
 
-    void Pipes::Draw(sf::RenderWindow& window) const
+    void Pipes::Draw(sf::RenderTarget& target) const
     {
         for (auto& pipe : pipesRenderable)
         {
-            pipe.Draw(window);
+            pipe.Draw(target);
         }
     }
 };

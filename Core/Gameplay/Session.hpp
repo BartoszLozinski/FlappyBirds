@@ -24,6 +24,7 @@ namespace Gameplay
         Graphics::Text pointsText{ window  };
 
         void Display();
+        void Draw(sf::RenderTarget& target);
         void DisplayHelpInstructions();
         void UpdateRenderableState();
         void HelpInstructions();

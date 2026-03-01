@@ -18,6 +18,6 @@ namespace Graphics
         virtual ~Renderable() = default;
 
         virtual void UpdatePosition() = 0;
-        virtual void Draw(sf::RenderWindow& window) const = 0;
+        virtual void Draw(sf::RenderTarget& target) const = 0;
     };
 }

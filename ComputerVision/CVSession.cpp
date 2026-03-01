@@ -9,11 +9,7 @@ namespace Gameplay
 
     cv::Mat CVSession::CaptureFrame() const
     {
-        sf::Texture texture;
-        texture.create(Game::Config::WINDOW_WIDTH, Game::Config::WINDOW_HEIGHT);
-        texture.update(window);
-
-        sf::Image image = texture.copyToImage();
+        sf::Image image = offscreen.getTexture().copyToImage();
         const sf::Uint8* pixels = image.getPixelsPtr();
 
         cv::Mat mat( image.getSize().y
@@ -28,21 +24,16 @@ namespace Gameplay
 
     void CVSession::GameplayLoop()
     {
-        while (window.isOpen())
-        {
-            sf::Event event;
-            while (window.pollEvent(event))
-            {
-                if (event.type == sf::Event::Closed)
-                    window.close();
-            }
+        bool running = true;
+        auto mlController = static_pointer_cast<ReinforcementLearning::MLController>(controller);
 
+        while (running)
+        {
             frameTimeExpired = frameTimer.IsExpired();
             if (frameTimeExpired)
                 frameTimer.Reset();
 
             observer.SetFrame(CaptureFrame());
-            auto mlController = static_pointer_cast<ReinforcementLearning::MLController>(controller);
             mlController->UpdateStatus(GetState());
             
             RunFrame(mlController->Decide(), frameTimeExpired);
@@ -50,10 +41,16 @@ namespace Gameplay
             if (frameTimeExpired)
             {
                 UpdateRenderableState();
-                Display();
+                offscreen.clear();
+                Draw(offscreen);
+                offscreen.display();
+                
                 observer.SetFrame(CaptureFrame());
                 observer.ShowFrame();
             }
+
+            if (!bird.IsAlive())   
+                running = false;
         }
     }
 
@@ -135,9 +132,12 @@ namespace Gameplay
 
     void CVSession::Run()
     {
-        window.setTitle("Base AI driven session");
+        //window.setTitle("Base AI driven session");
+        offscreen.create(Game::Config::WINDOW_WIDTH, Game::Config::WINDOW_HEIGHT);
         UpdateRenderableState();
-        Display();
+        offscreen.clear();
+        Draw(offscreen);
+        offscreen.display();
         observer.SetFrame(CaptureFrame());
         observer.ShowFrame();
         GameplayLoop();

@@ -19,8 +19,8 @@ namespace Graphics
         shape->setFillColor(sf::Color::Magenta);
     };
 
-    void Circle::Draw(sf::RenderWindow& window) const
+    void Circle::Draw(sf::RenderTarget& target) const
     {
-        window.draw(*shape);
+        target.draw(*shape);
     }
 }

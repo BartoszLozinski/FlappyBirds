@@ -17,9 +17,9 @@ namespace Graphics
             pipesSegment.UpdatePosition();
     }
 
-    void Environment::Draw(sf::RenderWindow& window) const
+    void Environment::Draw(sf::RenderTarget& target) const
     {
         for (auto& pipes : pipesRenderable)
-            pipes.Draw(window);
+            pipes.Draw(target);
     }
 }

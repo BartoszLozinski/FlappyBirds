@@ -8,11 +8,16 @@ namespace Gameplay
 
     void Session::Display()
     {
-        window.clear();
-        renderableEnvironment.Draw(window);
-        renderableBird.Draw(window);
-        pointsText.DisplayText(std::format("Points: {}", bird.GetPoints()));
+        Draw(window);
         window.display();
+    }
+
+    void Session::Draw(sf::RenderTarget& target)
+    {
+        target.clear();
+        renderableEnvironment.Draw(target);
+        renderableBird.Draw(target);
+        pointsText.DisplayText(std::format("Points: {}", bird.GetPoints()));
     }
 
     void Session::DisplayHelpInstructions()

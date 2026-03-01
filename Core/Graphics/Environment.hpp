@@ -15,7 +15,6 @@ namespace Graphics
     public:
         Environment(const Game::Environment& environment_);
         void UpdatePosition();
-        void Draw(sf::RenderWindow& window) const;
-    
+        void Draw(sf::RenderTarget& window) const;
     };
 }

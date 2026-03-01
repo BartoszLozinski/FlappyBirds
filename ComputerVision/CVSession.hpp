@@ -14,6 +14,7 @@ namespace Gameplay
     protected:
         void GameplayLoop() override;
         cv::Mat CaptureFrame() const;
+        sf::RenderTexture offscreen;
         ComputerVision::Observer observer;
         std::pair<std::size_t, std::size_t> GetClosestPipesIndexes(const float birdX, const std::vector<cv::Rect>& pipes) const;
 

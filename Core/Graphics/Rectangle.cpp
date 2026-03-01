@@ -19,8 +19,8 @@ namespace Graphics
         shape->setFillColor(sf::Color::Green);
     };
 
-    void Rectangle::Draw(sf::RenderWindow& window) const
+    void Rectangle::Draw(sf::RenderTarget& target) const
     {
-        window.draw(*shape);
+        target.draw(*shape);
     }
 }

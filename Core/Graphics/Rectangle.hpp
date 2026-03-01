@@ -15,6 +15,6 @@ namespace Graphics
         ~Rectangle() = default;
         Rectangle(const Game::Entity& entity_);
 
-        void Draw(sf::RenderWindow& window) const override;
+        void Draw(sf::RenderTarget& target) const override;
     };
 }

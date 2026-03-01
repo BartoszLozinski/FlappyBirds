@@ -15,6 +15,6 @@ namespace Graphics
         Pipes(const Game::Pipes& pipesSegment_);
         
         void UpdatePosition();
-        void Draw(sf::RenderWindow& window) const;
+        void Draw(sf::RenderTarget& target) const;
     };
 }
