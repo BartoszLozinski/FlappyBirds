@@ -5,11 +5,15 @@
 
 namespace Gameplay
 {
-    CVSession::CVSession(): AIDrivenSession(){}
+    CVSession::CVSession()
+        : BaseSession(texture , std::make_shared<ReinforcementLearning::MLController>("../TrainedModel/genetic_algorithm_flappy.json"))
+    {
+        texture.create(Game::Config::WINDOW_WIDTH, Game::Config::WINDOW_HEIGHT);
+    }
 
     cv::Mat CVSession::CaptureFrame() const
     {
-        sf::Image image = offscreen.getTexture().copyToImage();
+        sf::Image image = texture.getTexture().copyToImage();
         const sf::Uint8* pixels = image.getPixelsPtr();
 
         cv::Mat mat( image.getSize().y
@@ -41,10 +45,9 @@ namespace Gameplay
             if (frameTimeExpired)
             {
                 UpdateRenderableState();
-                offscreen.clear();
-                Draw(offscreen);
-                offscreen.display();
-                
+                texture.clear();
+                Draw(texture);
+                texture.display();
                 observer.SetFrame(CaptureFrame());
                 observer.ShowFrame();
             }
@@ -132,12 +135,11 @@ namespace Gameplay
 
     void CVSession::Run()
     {
-        //window.setTitle("Base AI driven session");
-        offscreen.create(Game::Config::WINDOW_WIDTH, Game::Config::WINDOW_HEIGHT);
+        texture.create(Game::Config::WINDOW_WIDTH, Game::Config::WINDOW_HEIGHT);
         UpdateRenderableState();
-        offscreen.clear();
-        Draw(offscreen);
-        offscreen.display();
+        texture.clear();
+        Draw(texture);
+        texture.display();
         observer.SetFrame(CaptureFrame());
         observer.ShowFrame();
         GameplayLoop();
