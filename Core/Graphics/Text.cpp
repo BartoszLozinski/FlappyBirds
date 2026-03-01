@@ -6,8 +6,8 @@
 
 namespace Graphics
 {
-    Text::Text(sf::RenderWindow& window_, const Utils::Vector2f& position, const unsigned size)
-        : window(window_)
+    Text::Text(sf::RenderTarget& target_, const Utils::Vector2f& position, const unsigned size)
+        : target(target_)
     {
         std::filesystem::path fontPath = std::filesystem::current_path();
         fontPath /= "../Core/Graphics/Arial.ttf";
@@ -22,7 +22,7 @@ namespace Graphics
     void Text::DisplayText(const std::string& textString)
     {
         text.setString(textString);
-        window.draw(text);
+        target.draw(text);
     }
 
 };

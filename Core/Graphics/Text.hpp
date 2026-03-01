@@ -13,10 +13,10 @@ namespace Graphics
     private:
         sf::Font font{};
         sf::Text text{};
-        sf::RenderWindow& window;
+        sf::RenderTarget& target;
 
     public:
-        Text(sf::RenderWindow& window_ , const Utils::Vector2f& position = {0.0f, 0.0f}, const unsigned size = 24);
+        Text(sf::RenderTarget& target_ , const Utils::Vector2f& position = {0.0f, 0.0f}, const unsigned size = 24);
         Text(const Text&) = delete;
         Text(Text&&) = delete;
         Text& operator=(const Text&) = delete;
