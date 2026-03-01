@@ -36,7 +36,7 @@ namespace ReinforcementLearning
 
     DataTransition Environment::RunStep(ControlOption controlOption)
     {
-        Gameplay::Event event = gameplay.RunFrame(controlOption, true);
+        Gameplay::Event event = gameplay.RunFrame(controlOption);
         Gameplay::State stateAfterAction = gameplay.GetState();
         const bool done = event.birdDied;
         const float reward = ComputeReward(event);

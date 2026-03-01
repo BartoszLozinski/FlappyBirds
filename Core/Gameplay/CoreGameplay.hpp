@@ -60,7 +60,7 @@ namespace Gameplay
         virtual State GetState() const;
         unsigned GetPoints() const;
         void Reset();
-        Event RunFrame(const ControlOption ControlOption, const bool frameTimeExpired);
+        Event RunFrame(const ControlOption controlOption, const bool frameTimeExpired = true);
         virtual ~CoreLogic() = default;
 
     };

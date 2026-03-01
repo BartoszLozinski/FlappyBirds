@@ -50,17 +50,16 @@ namespace Gameplay
                 observer.SetFrame(CaptureFrame());
                 mlController->UpdateStatus(GetState());
                 
-                RunFrame(mlController->Decide(), frameTimeExpired);
                 frameChanged = false;
             }
 
             if (frameTimeExpired)
             {
+                RunFrame(mlController->Decide());
                 UpdateRenderableState();
                 texture.clear();
                 Draw(texture);
                 texture.display();
-                observer.SetFrame(CaptureFrame());
                 observer.ShowFrame();
                 frameChanged = true;
 

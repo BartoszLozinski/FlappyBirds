@@ -1,8 +1,5 @@
 #include "AIDrivenSession.hpp"
 
-#include <iostream>
-#include <format>
-
 namespace Gameplay
 {
     AIDrivenSession::AIDrivenSession()
@@ -27,10 +24,9 @@ namespace Gameplay
             auto mlController = static_pointer_cast<ReinforcementLearning::MLController>(controller);
             mlController->UpdateStatus(GetState());
             
-            RunFrame(controller->Decide(), frameTimeExpired);
-
             if (frameTimeExpired)
             {
+                RunFrame(controller->Decide());
                 UpdateRenderableState();
                 Display();
             }
